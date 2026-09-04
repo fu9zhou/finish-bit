@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "name": "example-echo",
+  "version": "1.0.0",
+  "executable": "echo-runner",
+  "operations": [
+    {
+      "id": "example.echo",
+      "summary": "Echo an input value",
+      "description": "Return the first input unchanged.",
+      "aliases": ["echo text"],
+      "tags": ["example"],
+      "inputs": [
+        { "name": "input", "type": "string", "description": "Value to echo", "required": true }
+      ],
+      "source": "extension"
+    }
+  ]
+}

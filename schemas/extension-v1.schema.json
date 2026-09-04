@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/fu9zhou/finish-bit/schemas/extension-v1.schema.json",
+  "title": "FinishBit extension manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "name", "version", "executable", "operations"],
+  "properties": {
+    "schema": { "const": 1 },
+    "name": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "version": { "type": "string", "minLength": 1 },
+    "executable": { "type": "string", "minLength": 1 },
+    "operations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "operation-v1.schema.json" }
+    }
+  }
+}
