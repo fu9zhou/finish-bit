@@ -1,0 +1,4 @@
+interface:
+  display_name: "Commit Messages"
+  short_description: "Enforce detailed Chinese Git commit messages"
+  default_prompt: "Use $commit-messages to create a compliant Git commit message."
