@@ -1,88 +1,101 @@
 # FinishBit
 
-> Small deterministic bits for finishing AI tasks.
+[![CI](https://github.com/fu9zhou/finish-bit/actions/workflows/ci.yml/badge.svg)](https://github.com/fu9zhou/finish-bit/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/fu9zhou/finish-bit?display_name=tag&sort=semver)](https://github.com/fu9zhou/finish-bit/releases)
+[![Go Reference](https://pkg.go.dev/badge/github.com/fu9zhou/finish-bit.svg)](https://pkg.go.dev/github.com/fu9zhou/finish-bit)
+[![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
 
-[简体中文](docs/README.zh-CN.md) · [Architecture](docs/architecture.md) · [Extension protocol](docs/extension-protocol.md) · [Security](SECURITY.md)
+> Search. Reuse. Finish.
 
-FinishBit is a local, task-oriented capability runtime for AI agents. Its `fnsh` CLI lets an agent discover a small relevant operation, inspect its contract, and run tested functionality instead of generating another one-off script.
+FinishBit is a local capability runtime for AI agents. It turns recurring tasks—such as formatting JSON, hashing files, trimming video, or extracting audio—into discoverable, typed, and deterministic Operations.
+
+Agents call one stable CLI instead of generating a new script or reconstructing a complex tool command for every task.
 
 ```text
-Search → Describe → Execute → Finish
+search → describe → execute → finish
 ```
 
-## Why FinishBit?
+English | [简体中文](docs/README.zh-CN.md) | [Documentation](docs/README.md)
 
-AI can write it. That does not mean it should rewrite it. Stable operations reduce token use, avoid repeated parameter mistakes, and keep common transformations reproducible.
+## Project status
 
-- **Task-oriented:** ask to trim a video or format JSON, not to operate FFmpeg or `jq`.
-- **Progressive discovery:** search first; only the selected operation enters the agent context.
-- **Deterministic core:** lightweight operations are implemented in Go and tested.
-- **Managed providers:** large tools are downloaded on demand at a runtime-owned version and verified with pinned SHA-256 digests.
-- **Language-neutral extensions:** community capabilities communicate over a versioned JSON process protocol.
-- **Transport-independent:** the CLI is an adapter over `pkg/app`; a future web/API adapter reuses the same application service.
+FinishBit is under active development before `v1.0.0`. The core runtime, `fnsh` CLI, managed FFmpeg provider, local extension protocol v1, and Agent Skill are implemented. See the [compatibility policy](docs/compatibility.md) before depending on pre-1.0 contracts in production.
 
-## Status
+## Why FinishBit
 
-FinishBit is pre-release software. Version `v0.1.0` establishes the first operation and extension contracts, but compatible evolution is not guaranteed until `v1.0.0`.
-
-## Install from source
-
-Go 1.24 or newer is required.
-
-```bash
-go install github.com/fu9zhou/finish-bit/cmd/fnsh@latest
-fnsh version
-```
-
-Release archives and installation scripts will be attached to tagged GitHub releases.
+- **Task-oriented contracts:** invoke `video.trim` or `json.format`, not an implementation recipe.
+- **Progressive discovery:** search returns a small, relevant capability set before detailed schemas enter agent context.
+- **Deterministic core:** lightweight Operations use tested Go implementations with structured results and errors.
+- **Managed tools:** large runtimes such as FFmpeg are installed on demand from pinned, checksum-verified artifacts.
+- **Language-neutral extensions:** any executable can provide Operations through the versioned local JSON protocol.
+- **One application core:** CLI today and a future Web/API adapter share `pkg/app`; transport code does not duplicate business logic.
 
 ## Quick start
 
-```bash
-fnsh search "裁剪并压缩视频"
-fnsh describe video.trim --json
+FinishBit currently requires Go 1.24 or later when installing from source:
 
-# FFmpeg is installed into FinishBit's private data directory.
+```bash
+go install github.com/fu9zhou/finish-bit/cmd/fnsh@latest
+```
+
+Discover and run an Operation:
+
+```bash
+fnsh search "trim and compress video"
+fnsh describe video.trim
+fnsh json format data.json --indent 2
+```
+
+Install the managed FFmpeg runtime before using media Operations:
+
+```bash
 fnsh pkg add ffmpeg
-
 fnsh video trim input.mp4 --start 10s --duration 20s -o clip.mp4
-fnsh video compress clip.mp4 --target-mb 20 -o compressed.mp4
 ```
 
-Every discovery and execution command supports `--json` for agents and automation:
+Use `--json` for agents and automation. Successful JSON is written to stdout; structured errors are written to stderr.
 
-```bash
-fnsh json format data.json --indent 2 --json
-fnsh file checksum artifact.zip --json
-```
-
-Run `fnsh capabilities` for the full catalog or see [the operation guide](docs/operations.md).
+For release archives, installer scripts, PATH setup, upgrades, and removal, see the [installation guide](docs/installation.md).
 
 ## Agent Skill
 
-The distributable Codex skill lives at [`skills/finishbit`](skills/finishbit). It teaches agents to retrieve only the capability they need and to recover from a missing managed dependency once.
+The repository ships `skills/finishbit`, which teaches compatible agents to discover an Operation before executing it and to prefer structured output. Copy or link that directory into the skill location supported by your agent host.
 
-## Extension example
+The Skill is an adapter, not a second runtime: every capability still executes through `fnsh` and the same application service.
 
-An extension contains an executable and `finishbit-extension.json`:
+## Extensions
+
+An extension is a directory or ZIP containing a `finishbit-extension.json` manifest and one executable:
 
 ```bash
 fnsh ext add ./my-extension
-fnsh search "my new capability"
+fnsh search "my capability"
 ```
 
-See the [extension protocol](docs/extension-protocol.md) and [example manifest](examples/extensions/echo/finishbit-extension.json).
+Start with the [example extension](examples/extensions/echo/README.md), then consult the [extension protocol](docs/extension-protocol.md) and its [JSON Schema](schemas/extension-v1.schema.json).
 
-## Development
+Extensions execute as local third-party programs with the current user's permissions. Review their source and provenance before installation.
 
-```bash
-go test ./...
-go vet ./...
-go build ./cmd/fnsh
-```
+## Documentation
 
-Contribution and review expectations are documented in [CONTRIBUTING.md](CONTRIBUTING.md). Security issues must follow [SECURITY.md](SECURITY.md), not public issues.
+- [Documentation index](docs/README.md)
+- [Installation and upgrades](docs/installation.md)
+- [CLI reference](docs/cli-reference.md)
+- [Operation catalog and contract](docs/operations.md)
+- [Architecture](docs/architecture.md)
+- [Extension protocol](docs/extension-protocol.md)
+- [Development guide](docs/development.md)
+- [Security policy](SECURITY.md)
+- [Roadmap](docs/roadmap.md)
+
+## Contributing and support
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing a capability or opening a pull request. Use [GitHub Issues](https://github.com/fu9zhou/finish-bit/issues) for reproducible bugs and scoped proposals, and follow [SUPPORT.md](SUPPORT.md) for help and security boundaries.
+
+Project decisions follow [GOVERNANCE.md](GOVERNANCE.md). Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## License
 
-Copyright © 2026 fu9zhou and contributors. Licensed under the [GNU Affero General Public License v3.0](LICENSE).
+FinishBit is licensed under [GNU AGPL v3.0](LICENSE). Commercial use is permitted, but distribution of modified versions and covered network use must satisfy the license's corresponding-source requirements. This is a summary, not legal advice; the license text controls.
+
+Managed third-party tools and installed extensions retain their own licenses.

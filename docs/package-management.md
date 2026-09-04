@@ -20,3 +20,23 @@ The embedded registry pins FFmpeg 6.1.1 artifacts for Windows amd64, Linux amd64
 Data is stored below the operating system's user configuration directory under `finishbit`. Set `FINISHBIT_HOME` to isolate the runtime for CI or testing.
 
 Downloaded FFmpeg binaries retain their own `GPL-3.0-or-later` licensing terms and are not embedded in FinishBit release archives.
+
+## Lifecycle commands
+
+| Command | Effect |
+| --- | --- |
+| `fnsh pkg info ffmpeg` | Show the pinned version, platform, license, and installation state |
+| `fnsh pkg add ffmpeg` | Install the verified artifact when absent |
+| `fnsh pkg repair ffmpeg` | Replace the installed artifact with a newly verified copy |
+| `fnsh pkg remove ffmpeg` | Remove FinishBit's private installation |
+| `fnsh pkg ls` | List installed packages |
+
+FinishBit never mutates a system FFmpeg installation and does not use an unverified executable found on `PATH` as its managed runtime.
+
+## Failure behavior
+
+Network, unsupported-platform, checksum, decompression, and activation failures leave the previous active installation unchanged. A digest mismatch is an integrity failure and must not be bypassed. Use `fnsh pkg repair ffmpeg` for a corrupted or incomplete local installation.
+
+Mirrors are transport alternatives for the same pinned bytes, not independent package sources. Adding or updating a registry artifact requires review of its upstream provenance, fixed digest, license, platform coverage, and download bounds.
+
+See [installation](installation.md) for the user-facing data directory and [security policy](../SECURITY.md) for the managed-runtime trust boundary.

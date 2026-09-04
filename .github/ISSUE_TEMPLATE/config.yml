@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Documentation and support
+    url: https://github.com/fu9zhou/finish-bit/blob/main/SUPPORT.md
+    about: Check the documentation and support boundaries before filing an issue.
   - name: Security vulnerability
     url: https://github.com/fu9zhou/finish-bit/security/advisories/new
     about: Report security issues privately.

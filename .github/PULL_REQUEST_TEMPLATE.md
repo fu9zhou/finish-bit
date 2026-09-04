@@ -4,11 +4,17 @@
 
 ## Validation
 
-- [ ] `go test ./...`
+- [ ] `go test -race ./...`
 - [ ] `go vet ./...`
 - [ ] `go build ./cmd/fnsh`
 - [ ] Operation metadata and relevant docs are updated
 - [ ] Compatibility and security implications are described
+
+List the commands actually run and explain any unchecked item.
+
+## Compatibility and security
+
+<!-- Identify public contract, migration, dependency, data-handling, or trust-boundary effects. Write "None" when not applicable. -->
 
 ## Related issue
 
