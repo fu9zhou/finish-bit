@@ -1,0 +1,24 @@
+name: Capability proposal
+description: Propose an Operation, provider, or runtime improvement
+title: "proposal: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: Agent task
+      description: Describe the user outcome without naming an implementation tool.
+    validations:
+      required: true
+  - type: textarea
+    id: contract
+    attributes:
+      label: Proposed Operation contract
+      description: Suggested ID, inputs, options, outputs, aliases, and failure cases.
+    validations:
+      required: true
+  - type: textarea
+    id: implementation
+    attributes:
+      label: Implementation notes
+      description: Core Go implementation, managed provider, or extension?

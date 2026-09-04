@@ -1,0 +1,19 @@
+# Build outputs
+/bin/
+/dist/
+/fnsh
+/fnsh.exe
+
+# Test and coverage outputs
+/coverage.out
+*.test
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local runtime data
+/.finishbit/
+/.finishbit-test*/
