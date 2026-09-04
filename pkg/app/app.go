@@ -97,7 +97,19 @@ func (a *App) PackageInfo(name string) (packagemanager.Status, error) {
 func (a *App) Packages() []packagemanager.Installed { return a.packages.List() }
 
 func (a *App) InstallExtension(source string) (extension.Manifest, error) {
-	return a.extensions.Install(source)
+	return a.extensions.InstallValidated(source, func(manifest extension.Manifest) error {
+		seen := make(map[string]bool, len(manifest.Operations))
+		for _, definition := range manifest.Operations {
+			if seen[definition.ID] {
+				return &operation.Error{Code: operation.CodeInvalidInput, Message: fmt.Sprintf("operation %q already registered by extension %q", definition.ID, manifest.Name)}
+			}
+			seen[definition.ID] = true
+			if _, exists := a.registry.Get(definition.ID); exists {
+				return &operation.Error{Code: operation.CodeInvalidInput, Message: fmt.Sprintf("operation %q already registered", definition.ID)}
+			}
+		}
+		return nil
+	})
 }
 func (a *App) RemoveExtension(name string) error                     { return a.extensions.Remove(name) }
 func (a *App) ExtensionInfo(name string) (extension.Manifest, error) { return a.extensions.Info(name) }

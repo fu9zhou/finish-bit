@@ -122,10 +122,36 @@ func ValidateDefinition(def Definition) error {
 	if strings.TrimSpace(def.Summary) == "" {
 		return fmt.Errorf("operation %q has no summary", def.ID)
 	}
+	if strings.TrimSpace(def.Source) == "" {
+		return fmt.Errorf("operation %q has no source", def.ID)
+	}
+	metadata := []struct {
+		label  string
+		values []string
+	}{{label: "alias", values: def.Aliases}, {label: "tag", values: def.Tags}}
+	for _, group := range metadata {
+		seenValues := map[string]bool{}
+		for _, value := range group.values {
+			if seenValues[value] {
+				return fmt.Errorf("operation %q has duplicate %s %q", def.ID, group.label, value)
+			}
+			seenValues[value] = true
+		}
+	}
+	for _, requirement := range def.Requirements {
+		if strings.TrimSpace(requirement.Package) == "" {
+			return fmt.Errorf("operation %q has an empty package requirement", def.ID)
+		}
+	}
 	seen := map[string]bool{}
 	for _, parameter := range append(append([]Parameter{}, def.Inputs...), def.Options...) {
 		if parameter.Name == "" || seen[parameter.Name] {
 			return fmt.Errorf("operation %q has an invalid or duplicate parameter %q", def.ID, parameter.Name)
+		}
+		switch parameter.Type {
+		case TypeString, TypeInteger, TypeBoolean, TypeStrings:
+		default:
+			return fmt.Errorf("operation %q parameter %q has unsupported type %q", def.ID, parameter.Name, parameter.Type)
 		}
 		seen[parameter.Name] = true
 	}

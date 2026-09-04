@@ -187,6 +187,12 @@ func parseOperationArguments(definition operation.Definition, arguments []string
 		if err != nil {
 			return operation.Request{}, err
 		}
+		if values, ok := converted.([]string); ok {
+			if existing, present := request.Options[parameter.Name].([]string); present {
+				values = append(existing, values...)
+			}
+			converted = values
+		}
 		request.Options[parameter.Name] = converted
 	}
 	for index, input := range definition.Inputs {
@@ -223,6 +229,8 @@ func convertValue(parameter operation.Parameter, value string) (any, error) {
 			return nil, invalid(fmt.Sprintf("--%s must be a boolean", parameter.Name))
 		}
 		return parsed, nil
+	case operation.TypeStrings:
+		return []string{value}, nil
 	default:
 		return nil, invalid(fmt.Sprintf("unsupported option type %q", parameter.Type))
 	}

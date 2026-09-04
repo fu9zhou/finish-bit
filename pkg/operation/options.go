@@ -2,6 +2,7 @@ package operation
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 )
 
@@ -45,7 +46,14 @@ func IntOption(request Request, name string, fallback int) (int, error) {
 	case int:
 		return typed, nil
 	case float64:
-		return int(typed), nil
+		if math.IsNaN(typed) || math.IsInf(typed, 0) || math.Trunc(typed) != typed {
+			return 0, invalidOption(name, "integer")
+		}
+		parsed, err := strconv.ParseInt(strconv.FormatFloat(typed, 'f', -1, 64), 10, strconv.IntSize)
+		if err != nil {
+			return 0, invalidOption(name, "integer")
+		}
+		return int(parsed), nil
 	case string:
 		parsed, err := strconv.Atoi(typed)
 		if err != nil {

@@ -19,9 +19,18 @@ import (
 
 type Manager struct{ root string }
 
+const maxExtensionBytes int64 = 512 << 20
+
 func New(root string) *Manager { return &Manager{root: root} }
 
 func (m *Manager) Install(source string) (Manifest, error) {
+	return m.InstallValidated(source, nil)
+}
+
+// InstallValidated stages and validates an extension before making it visible.
+// The optional validator can enforce application-wide constraints such as
+// Operation ID uniqueness without leaving an invalid extension installed.
+func (m *Manager) InstallValidated(source string, validate func(Manifest) error) (Manifest, error) {
 	if err := os.MkdirAll(m.root, 0o755); err != nil {
 		return Manifest{}, err
 	}
@@ -48,6 +57,11 @@ func (m *Manager) Install(source string) (Manifest, error) {
 	manifest, err := ReadManifest(manifestPath)
 	if err != nil {
 		return Manifest{}, err
+	}
+	if validate != nil {
+		if err := validate(manifest); err != nil {
+			return Manifest{}, err
+		}
 	}
 	executable, err := resolveExecutable(staging, manifest.Executable)
 	if err != nil {
@@ -212,6 +226,7 @@ func (r *processRunner) Run(ctx context.Context, request operation.Request) (ope
 }
 
 func copyDirectory(source, destination string) error {
+	var total int64
 	return filepath.WalkDir(source, func(path string, entry os.DirEntry, walkErr error) error {
 		if walkErr != nil {
 			return walkErr
@@ -234,6 +249,10 @@ func copyDirectory(source, destination string) error {
 		if info.Mode()&os.ModeSymlink != 0 {
 			return fmt.Errorf("extension archives cannot contain symbolic links")
 		}
+		if info.Size() < 0 || info.Size() > maxExtensionBytes-total {
+			return fmt.Errorf("extension directory exceeds 512 MiB size limit")
+		}
+		total += info.Size()
 		input, err := os.Open(path)
 		if err != nil {
 			return err
@@ -243,11 +262,14 @@ func copyDirectory(source, destination string) error {
 			input.Close()
 			return err
 		}
-		_, copyErr := io.Copy(output, io.LimitReader(input, 512<<20))
+		written, copyErr := io.Copy(output, io.LimitReader(input, info.Size()+1))
 		inputCloseErr := input.Close()
 		closeErr := output.Close()
 		if copyErr != nil {
 			return copyErr
+		}
+		if written != info.Size() {
+			return fmt.Errorf("extension file %q changed while it was being copied", relative)
 		}
 		if inputCloseErr != nil {
 			return inputCloseErr
@@ -264,10 +286,10 @@ func extractZip(path, destination string) error {
 	defer archive.Close()
 	var total int64
 	for _, file := range archive.File {
-		total += int64(file.UncompressedSize64)
-		if total > 512<<20 {
+		if file.UncompressedSize64 > uint64(maxExtensionBytes-total) {
 			return fmt.Errorf("extension archive exceeds 512 MiB extracted size limit")
 		}
+		total += int64(file.UncompressedSize64)
 		target, err := safeJoin(destination, file.Name)
 		if err != nil {
 			return err
@@ -293,11 +315,14 @@ func extractZip(path, destination string) error {
 			input.Close()
 			return err
 		}
-		_, copyErr := io.Copy(output, io.LimitReader(input, 512<<20))
+		written, copyErr := io.Copy(output, io.LimitReader(input, int64(file.UncompressedSize64)+1))
 		input.Close()
 		closeErr := output.Close()
 		if copyErr != nil {
 			return copyErr
+		}
+		if written != int64(file.UncompressedSize64) {
+			return fmt.Errorf("extension archive entry %q has an invalid size", file.Name)
 		}
 		if closeErr != nil {
 			return closeErr

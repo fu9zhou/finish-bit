@@ -16,7 +16,7 @@ fnsh doctor [--json]
 fnsh version [--json]
 ```
 
-`--json` may appear anywhere in the argument list. Operation inputs are positional and options use `--name value` or `--name=value`. Boolean options may be passed as flags. `-o` is an alias for `--output`.
+`--json` may appear anywhere in the argument list. Operation inputs are positional and options use `--name value` or `--name=value`. Boolean options may be passed as flags. Options with the `strings` type may be repeated to collect multiple values. `-o` is an alias for `--output`.
 
 Paths containing spaces must be quoted according to the current shell.
 

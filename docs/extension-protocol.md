@@ -34,7 +34,7 @@ Install a directory or ZIP whose manifest is at its root:
 fnsh ext add ./example-echo
 ```
 
-Archives are limited to 512 MiB extracted size. Absolute paths, path traversal, and symbolic links are rejected. Installation does not execute the extension, but invoking one of its Operations does.
+Directory and ZIP installations are limited to 512 MiB total size. Absolute paths, path traversal, and symbolic links are rejected. Installation does not execute the extension, but invoking one of its Operations does.
 
 The manifest `name` identifies the installed extension and `version` describes its release. Operation IDs must follow the same lowercase `<domain>.<action>` rule as core Operations and must not collide with another registered ID. The executable path is relative to the extension root; Windows may resolve the corresponding `.exe` file.
 

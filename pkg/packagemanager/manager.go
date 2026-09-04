@@ -85,6 +85,10 @@ func PlatformKey() string {
 }
 
 func (m *Manager) Install(ctx context.Context, name string) (Installed, error) {
+	return m.install(ctx, name, false)
+}
+
+func (m *Manager) install(ctx context.Context, name string, force bool) (Installed, error) {
 	pkg, ok := m.registry.Find(name)
 	if !ok {
 		return Installed{}, &operation.Error{Code: operation.CodeInvalidInput, Message: fmt.Sprintf("unknown package %q", name)}
@@ -97,7 +101,7 @@ func (m *Manager) Install(ctx context.Context, name string) (Installed, error) {
 	if err := validateArtifact(artifact); err != nil {
 		return Installed{}, err
 	}
-	if installed, err := m.Info(name); err == nil && installed.Version == pkg.Version && installed.Platform == platform {
+	if installed, err := m.Info(name); !force && err == nil && installed.Version == pkg.Version && installed.Platform == platform {
 		return installed, nil
 	}
 	if err := os.MkdirAll(filepath.Join(m.root, "packages", name), 0o755); err != nil {
@@ -151,13 +155,30 @@ func (m *Manager) Install(ctx context.Context, name string) (Installed, error) {
 		return Installed{}, fmt.Errorf("write package metadata: %w", err)
 	}
 	final := filepath.Join(m.root, "packages", name, pkg.Version)
-	if err := os.RemoveAll(final); err != nil {
-		return Installed{}, fmt.Errorf("replace old package: %w", err)
-	}
-	if err := os.Rename(staging, final); err != nil {
+	if err := replaceDirectory(staging, final); err != nil {
 		return Installed{}, fmt.Errorf("activate package: %w", err)
 	}
 	return installed, nil
+}
+
+func replaceDirectory(staging, final string) error {
+	if _, err := os.Stat(final); os.IsNotExist(err) {
+		return os.Rename(staging, final)
+	} else if err != nil {
+		return err
+	}
+	backup := staging + ".previous"
+	if err := os.Rename(final, backup); err != nil {
+		return fmt.Errorf("preserve current package: %w", err)
+	}
+	if err := os.Rename(staging, final); err != nil {
+		if restoreErr := os.Rename(backup, final); restoreErr != nil {
+			return fmt.Errorf("replace package: %w; restore current package: %v", err, restoreErr)
+		}
+		return fmt.Errorf("replace package: %w", err)
+	}
+	_ = os.RemoveAll(backup)
+	return nil
 }
 
 func validateArtifact(artifact Artifact) error {
@@ -341,8 +362,5 @@ func (m *Manager) Remove(name string) error {
 }
 
 func (m *Manager) Repair(ctx context.Context, name string) (Installed, error) {
-	if err := m.Remove(name); err != nil {
-		return Installed{}, err
-	}
-	return m.Install(ctx, name)
+	return m.install(ctx, name, true)
 }
