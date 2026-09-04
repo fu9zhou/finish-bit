@@ -1,0 +1,4 @@
+interface:
+  display_name: "FinishBit"
+  short_description: "Reuse deterministic task capabilities through fnsh"
+  default_prompt: "Use $finishbit to discover and run a deterministic capability for this task."
