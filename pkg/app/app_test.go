@@ -84,6 +84,49 @@ func TestApplicationCoreWorkflow(t *testing.T) {
 	}
 }
 
+func TestApplicationExecuteValidatesOperationContract(t *testing.T) {
+	application, err := New(Config{Root: t.TempDir()})
+	if err != nil {
+		t.Fatal(err)
+	}
+	called := false
+	definition := operation.Definition{
+		ID:      "test.contract",
+		Summary: "Validate a request",
+		Source:  "test",
+		Inputs:  []operation.Parameter{{Name: "input", Type: operation.TypeString, Required: true}},
+		Options: []operation.Parameter{{Name: "count", Type: operation.TypeInteger, Required: true}},
+	}
+	if err := application.registry.Register(operation.Capability{Definition: definition, Runner: operation.Func(func(_ context.Context, _ operation.Request) (operation.Result, error) {
+		called = true
+		return operation.Result{}, nil
+	})}); err != nil {
+		t.Fatal(err)
+	}
+	tests := []struct {
+		name    string
+		request operation.Request
+	}{
+		{name: "missing input", request: operation.Request{Options: map[string]any{"count": 1}}},
+		{name: "excess input", request: operation.Request{Inputs: []string{"value", "extra"}, Options: map[string]any{"count": 1}}},
+		{name: "unknown option", request: operation.Request{Inputs: []string{"value"}, Options: map[string]any{"count": 1, "unknown": true}}},
+		{name: "missing required option", request: operation.Request{Inputs: []string{"value"}}},
+		{name: "wrong option type", request: operation.Request{Inputs: []string{"value"}, Options: map[string]any{"count": true}}},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			called = false
+			_, err := application.Execute(context.Background(), definition.ID, test.request)
+			if err == nil || operation.AsError(err).Code != operation.CodeInvalidInput {
+				t.Fatalf("Execute() error = %v, want invalid_input", err)
+			}
+			if called {
+				t.Fatal("runner was called before request validation")
+			}
+		})
+	}
+}
+
 func operationRequest(input string) operation.Request {
 	return operation.Request{Inputs: []string{input}, Options: map[string]any{}}
 }

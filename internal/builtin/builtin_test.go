@@ -226,3 +226,21 @@ func TestCoreOperationsRejectInvalidInputs(t *testing.T) {
 		})
 	}
 }
+
+func TestReadInputRejectsOversizedFile(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "oversized.txt")
+	file, err := os.Create(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := file.Truncate((64 << 20) + 1); err != nil {
+		file.Close()
+		t.Fatal(err)
+	}
+	if err := file.Close(); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := readInput(path); err == nil {
+		t.Fatal("oversized input file was accepted")
+	}
+}

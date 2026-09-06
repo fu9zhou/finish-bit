@@ -10,6 +10,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/fu9zhou/finish-bit/pkg/operation"
 )
@@ -19,6 +20,46 @@ type Resolver interface {
 }
 
 type Provider struct{ resolver Resolver }
+
+const maxDiagnosticBytes = 1 << 20
+
+const truncationMarker = "\n[output truncated]"
+
+type limitedOutput struct {
+	mu        sync.Mutex
+	builder   strings.Builder
+	remaining int
+	truncated bool
+}
+
+func newLimitedOutput(limit int) *limitedOutput {
+	return &limitedOutput{remaining: limit - len(truncationMarker)}
+}
+
+func (w *limitedOutput) Write(data []byte) (int, error) {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	original := len(data)
+	if len(data) > w.remaining {
+		data = data[:w.remaining]
+		w.truncated = true
+	}
+	if len(data) > 0 {
+		_, _ = w.builder.Write(data)
+		w.remaining -= len(data)
+	}
+	return original, nil
+}
+
+func (w *limitedOutput) String() string {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	output := w.builder.String()
+	if w.truncated {
+		output += truncationMarker
+	}
+	return output
+}
 
 func Register(registry *operation.Registry, resolver Resolver) error {
 	provider := &Provider{resolver: resolver}
@@ -54,9 +95,12 @@ func (p *Provider) command(ctx context.Context, args ...string) error {
 		return err
 	}
 	command := exec.CommandContext(ctx, binary, args...)
-	output, err := command.CombinedOutput()
+	output := newLimitedOutput(maxDiagnosticBytes)
+	command.Stdout = output
+	command.Stderr = output
+	err = command.Run()
 	if err != nil {
-		return &operation.Error{Code: operation.CodeExecutionFailed, Message: "FFmpeg operation failed", Details: map[string]any{"output": strings.TrimSpace(string(output))}, Err: err}
+		return &operation.Error{Code: operation.CodeExecutionFailed, Message: "FFmpeg operation failed", Details: map[string]any{"output": strings.TrimSpace(output.String())}, Err: err}
 	}
 	return nil
 }
@@ -94,10 +138,13 @@ func (p *Provider) duration(ctx context.Context, input string) (float64, error) 
 		return 0, err
 	}
 	command := exec.CommandContext(ctx, binary, "-hide_banner", "-i", input)
-	output, _ := command.CombinedOutput()
-	match := durationPattern.FindStringSubmatch(string(output))
+	output := newLimitedOutput(maxDiagnosticBytes)
+	command.Stdout = output
+	command.Stderr = output
+	_ = command.Run()
+	match := durationPattern.FindStringSubmatch(output.String())
 	if len(match) != 4 {
-		return 0, &operation.Error{Code: operation.CodeExecutionFailed, Message: "could not determine video duration", Details: map[string]any{"output": strings.TrimSpace(string(output))}}
+		return 0, &operation.Error{Code: operation.CodeExecutionFailed, Message: "could not determine video duration", Details: map[string]any{"output": strings.TrimSpace(output.String())}}
 	}
 	hours, _ := strconv.ParseFloat(match[1], 64)
 	minutes, _ := strconv.ParseFloat(match[2], 64)

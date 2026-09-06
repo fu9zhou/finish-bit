@@ -6,6 +6,8 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-09-04
+
 ### Added
 
 - Initial task-oriented Operation runtime and `fnsh` CLI.
@@ -13,4 +15,12 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 - Managed FFmpeg provider and local extension protocol.
 - Codex Skill for agent-driven discovery and execution.
 
-[Unreleased]: https://github.com/fu9zhou/finish-bit/commits/main
+### Fixed
+
+- Enforced Operation request contracts consistently at the application boundary.
+- Bounded core input reads, FFmpeg diagnostics, package downloads, and decompression.
+- Rejected invalid extension response envelopes and inconsistent manifest sources.
+- Added macOS-compatible installer checksum verification and hardened release validation.
+
+[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/fu9zhou/finish-bit/releases/tag/v0.1.0

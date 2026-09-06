@@ -31,7 +31,14 @@ curl -fsSL "${base}/${archive}" -o "${temporary}/${archive}"
 curl -fsSL "${base}/checksums.txt" -o "${temporary}/checksums.txt"
 expected="$(awk -v name="$archive" '$2 == name {print $1}' "${temporary}/checksums.txt")"
 [ -n "$expected" ] || { echo "archive is missing from checksums.txt" >&2; exit 1; }
-actual="$(sha256sum "${temporary}/${archive}" | awk '{print $1}')"
+if command -v sha256sum >/dev/null 2>&1; then
+  actual="$(sha256sum "${temporary}/${archive}" | awk '{print $1}')"
+elif command -v shasum >/dev/null 2>&1; then
+  actual="$(shasum -a 256 "${temporary}/${archive}" | awk '{print $1}')"
+else
+  echo "sha256sum or shasum is required to verify the archive" >&2
+  exit 1
+fi
 [ "$expected" = "$actual" ] || { echo "archive checksum verification failed" >&2; exit 1; }
 
 tar -xzf "${temporary}/${archive}" -C "$temporary"

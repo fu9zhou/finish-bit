@@ -6,6 +6,8 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
+	"strings"
 	"testing"
 
 	"github.com/fu9zhou/finish-bit/pkg/operation"
@@ -14,6 +16,35 @@ import (
 type testResolver struct {
 	path string
 	err  error
+}
+
+func TestCommandBoundsDiagnosticOutput(t *testing.T) {
+	directory := t.TempDir()
+	programPath := filepath.Join(directory, "main.go")
+	program := `package main
+import ("os"; "strings")
+func main() { _, _ = os.Stderr.WriteString(strings.Repeat("x", (1<<20)+1024)); os.Exit(1) }
+`
+	if err := os.WriteFile(programPath, []byte(program), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	executable := filepath.Join(directory, "noisy")
+	if runtime.GOOS == "windows" {
+		executable += ".exe"
+	}
+	if output, err := exec.Command("go", "build", "-o", executable, programPath).CombinedOutput(); err != nil {
+		t.Fatalf("build noisy process: %v: %s", err, output)
+	}
+	provider := &Provider{resolver: testResolver{path: executable}}
+	err := provider.command(context.Background())
+	if err == nil {
+		t.Fatal("noisy process succeeded")
+	}
+	typed := operation.AsError(err)
+	output, _ := typed.Details["output"].(string)
+	if len(output) > 1<<20 || !strings.Contains(output, "truncated") {
+		t.Fatalf("diagnostic output was not bounded: length=%d", len(output))
+	}
 }
 
 func (r testResolver) Executable(packageName, logicalName string) (string, error) {

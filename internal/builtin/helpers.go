@@ -9,23 +9,43 @@ import (
 	"github.com/fu9zhou/finish-bit/pkg/operation"
 )
 
+const maxInputBytes int64 = 64 << 20
+
 func readInput(value string) ([]byte, error) {
 	if value == "-" {
-		data, err := io.ReadAll(os.Stdin)
-		if err != nil {
-			return nil, fmt.Errorf("read stdin: %w", err)
-		}
-		return data, nil
+		return readBounded(os.Stdin, "stdin")
 	}
 	info, err := os.Stat(value)
 	if err == nil && !info.IsDir() {
-		data, readErr := os.ReadFile(value)
-		if readErr != nil {
-			return nil, fmt.Errorf("read %q: %w", value, readErr)
+		if info.Size() > maxInputBytes {
+			return nil, inputTooLarge(value)
 		}
-		return data, nil
+		file, openErr := os.Open(value)
+		if openErr != nil {
+			return nil, fmt.Errorf("open %q: %w", value, openErr)
+		}
+		defer file.Close()
+		return readBounded(file, value)
+	}
+	if int64(len(value)) > maxInputBytes {
+		return nil, inputTooLarge("literal input")
 	}
 	return []byte(value), nil
+}
+
+func readBounded(reader io.Reader, source string) ([]byte, error) {
+	data, err := io.ReadAll(io.LimitReader(reader, maxInputBytes+1))
+	if err != nil {
+		return nil, fmt.Errorf("read %s: %w", source, err)
+	}
+	if int64(len(data)) > maxInputBytes {
+		return nil, inputTooLarge(source)
+	}
+	return data, nil
+}
+
+func inputTooLarge(source string) error {
+	return &operation.Error{Code: operation.CodeInvalidInput, Message: fmt.Sprintf("%s exceeds the 64 MiB input limit", source)}
 }
 
 func finishText(id, text, output string) (operation.Result, error) {

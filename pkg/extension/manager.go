@@ -141,8 +141,8 @@ type protocolRequest struct {
 	Request   operation.Request `json:"request"`
 }
 type protocolResponse struct {
-	Result operation.Result `json:"result"`
-	Error  *operation.Error `json:"error,omitempty"`
+	Result *operation.Result `json:"result,omitempty"`
+	Error  *operation.Error  `json:"error,omitempty"`
 }
 type processRunner struct{ executable, operationID string }
 
@@ -210,6 +210,9 @@ func (r *processRunner) Run(ctx context.Context, request operation.Request) (ope
 			decodeErr = fmt.Errorf("extension returned trailing output")
 		}
 	}
+	if decodeErr == nil && (response.Result == nil) == (response.Error == nil) {
+		decodeErr = fmt.Errorf("extension response must contain exactly one of result or error")
+	}
 	waitErr := command.Wait()
 	if decodeErr != nil {
 		return operation.Result{}, &operation.Error{Code: operation.CodeExecutionFailed, Message: "extension returned an invalid response", Details: map[string]any{"stderr": stderr.String()}, Err: decodeErr}
@@ -222,7 +225,7 @@ func (r *processRunner) Run(ctx context.Context, request operation.Request) (ope
 		return operation.Result{}, response.Error
 	}
 	response.Result.Operation = r.operationID
-	return response.Result, nil
+	return *response.Result, nil
 }
 
 func copyDirectory(source, destination string) error {

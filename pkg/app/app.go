@@ -72,6 +72,11 @@ func (a *App) Execute(ctx context.Context, id string, request operation.Request)
 	if !ok {
 		return operation.Result{}, &operation.Error{Code: operation.CodeNotFound, Message: fmt.Sprintf("operation %q was not found", id), Suggestion: fmt.Sprintf("fnsh search %q", id)}
 	}
+	if err := operation.ValidateRequest(capability.Definition, request); err != nil {
+		typed := operation.AsError(err)
+		typed.Operation = id
+		return operation.Result{}, typed
+	}
 	result, err := capability.Runner.Run(ctx, request)
 	if err != nil {
 		typed := operation.AsError(err)

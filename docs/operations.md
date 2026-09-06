@@ -11,6 +11,8 @@ An Operation is a stable task contract: identifier, searchable metadata, ordered
 - `requirements` identify managed packages needed at execution time.
 - `source` identifies the core, a managed provider, or an installed extension.
 
+Core text-like Operations accept at most 64 MiB from a literal value, file, or stdin. Inputs above that limit fail with `invalid_input` instead of being partially processed. Managed providers separately bound subprocess diagnostics returned in errors.
+
 Use `fnsh describe <id> --json` instead of hard-coding display text. Consumers should treat IDs, parameter names/types, result fields, and error codes according to the [compatibility policy](compatibility.md).
 
 ## Core catalog in v0.1

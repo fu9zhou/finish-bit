@@ -158,6 +158,69 @@ func ValidateDefinition(def Definition) error {
 	return nil
 }
 
+// ValidateRequest applies the transport-independent input and option contract
+// declared by an Operation definition.
+func ValidateRequest(def Definition, request Request) error {
+	for index, input := range def.Inputs {
+		if input.Required && index >= len(request.Inputs) {
+			return &Error{Code: CodeInvalidInput, Message: fmt.Sprintf("missing required input %q", input.Name)}
+		}
+	}
+	if len(request.Inputs) > len(def.Inputs) {
+		return &Error{Code: CodeInvalidInput, Message: fmt.Sprintf("operation %s accepts %d input(s), got %d", def.ID, len(def.Inputs), len(request.Inputs))}
+	}
+	options := make(map[string]Parameter, len(def.Options))
+	for _, option := range def.Options {
+		options[option.Name] = option
+		value, present := request.Options[option.Name]
+		if option.Required && !present {
+			return &Error{Code: CodeInvalidInput, Message: fmt.Sprintf("missing required option %q", option.Name)}
+		}
+		if present {
+			if err := validateOptionType(option, value); err != nil {
+				return err
+			}
+		}
+	}
+	for name := range request.Options {
+		if _, ok := options[name]; !ok {
+			return &Error{Code: CodeInvalidInput, Message: fmt.Sprintf("operation %s has no option %q", def.ID, name)}
+		}
+	}
+	return nil
+}
+
+func validateOptionType(parameter Parameter, value any) error {
+	request := Request{Options: map[string]any{parameter.Name: value}}
+	switch parameter.Type {
+	case TypeString:
+		_, err := StringOption(request, parameter.Name, "")
+		return err
+	case TypeInteger:
+		_, err := IntOption(request, parameter.Name, 0)
+		return err
+	case TypeBoolean:
+		_, err := BoolOption(request, parameter.Name, false)
+		return err
+	case TypeStrings:
+		switch values := value.(type) {
+		case []string:
+			return nil
+		case []any:
+			for _, item := range values {
+				if _, ok := item.(string); !ok {
+					return invalidOption(parameter.Name, "string array")
+				}
+			}
+			return nil
+		default:
+			return invalidOption(parameter.Name, "string array")
+		}
+	default:
+		return invalidOption(parameter.Name, string(parameter.Type))
+	}
+}
+
 type ErrorCode string
 
 const (

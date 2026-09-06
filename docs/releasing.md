@@ -19,8 +19,9 @@ Tags use `vMAJOR.MINOR.PATCH`. A semantic prerelease suffix marks preview releas
 3. Move relevant entries from `Unreleased` into a versioned, dated section in `CHANGELOG.md` and restore an empty `Unreleased` section.
 4. Confirm compatibility breaks, migrations, security notes, and managed-runtime changes are explicit.
 5. Run `go test -race ./...`, `go vet ./...`, and `go build ./cmd/fnsh`.
-6. Validate `.goreleaser.yml` with the pinned major version used by CI.
-7. Review third-party artifact URLs, digests, and licenses if the package registry changed.
+6. Run `go run golang.org/x/vuln/cmd/govulncheck@v1.7.0 ./...` with the supported Go patch version used by CI.
+7. Validate `.goreleaser.yml` with the exact GoReleaser version used by CI.
+8. Review third-party artifact URLs, digests, and licenses if the package registry changed.
 
 The changelog commit must land before the release tag.
 

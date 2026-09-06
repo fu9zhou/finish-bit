@@ -85,6 +85,8 @@ func main() {
   case "protocol-error": json.NewEncoder(os.Stdout).Encode(map[string]any{"error": map[string]any{"code":"invalid_input", "message":"rejected"}}); return
   case "trailing": fmt.Fprint(os.Stdout, "{}{}"); return
   case "exit": os.Exit(3)
+	case "empty": json.NewEncoder(os.Stdout).Encode(map[string]any{}); return
+	case "both": json.NewEncoder(os.Stdout).Encode(map[string]any{"result": map[string]any{}, "error": map[string]any{"code":"invalid_input", "message":"rejected"}}); return
   }
   json.NewEncoder(os.Stdout).Encode(map[string]any{"result": map[string]any{"data": map[string]any{"text": request.Request.Inputs[0]}}})
 }`
@@ -121,7 +123,7 @@ func main() {
 	if err != nil || result.Operation != "protocol.echo" || result.Data["text"] != "hello" {
 		t.Fatalf("extension result = %#v, %v", result, err)
 	}
-	for _, input := range []string{"protocol-error", "trailing", "exit"} {
+	for _, input := range []string{"protocol-error", "trailing", "exit", "empty", "both"} {
 		if _, err := capability.Runner.Run(context.Background(), operation.Request{Inputs: []string{input}, Options: map[string]any{}}); err == nil {
 			t.Fatalf("extension input %q did not return an error", input)
 		}
@@ -140,6 +142,25 @@ func TestManifestRejectsEscapingExecutable(t *testing.T) {
 	}
 	if _, err := ReadManifest(filepath.Join(root, "finishbit-extension.json")); err == nil {
 		t.Fatal("escaping executable was accepted")
+	}
+}
+
+func TestManifestRequiresHostAssignedExtensionSource(t *testing.T) {
+	root := t.TempDir()
+	if err := os.WriteFile(filepath.Join(root, "runner"), []byte("runner"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	for _, operationJSON := range []string{
+		`{"id":"bad.run","summary":"Bad"}`,
+		`{"id":"bad.run","summary":"Bad","source":"core"}`,
+	} {
+		manifest := `{"schema":1,"name":"bad","version":"1","executable":"runner","operations":[` + operationJSON + `]}`
+		if err := os.WriteFile(filepath.Join(root, "finishbit-extension.json"), []byte(manifest), 0o644); err != nil {
+			t.Fatal(err)
+		}
+		if _, err := ReadManifest(filepath.Join(root, "finishbit-extension.json")); err == nil {
+			t.Fatalf("invalid operation source was accepted: %s", operationJSON)
+		}
 	}
 }
 

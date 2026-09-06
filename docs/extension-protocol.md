@@ -38,6 +38,8 @@ Directory and ZIP installations are limited to 512 MiB total size. Absolute path
 
 The manifest `name` identifies the installed extension and `version` describes its release. Operation IDs must follow the same lowercase `<domain>.<action>` rule as core Operations and must not collide with another registered ID. The executable path is relative to the extension root; Windows may resolve the corresponding `.exe` file.
 
+Every manifest Operation sets `source` to the literal value `extension`. The host validates that marker and exposes the installed source as `extension:<manifest-name>` at runtime.
+
 ## Process exchange
 
 For each invocation FinishBit starts the declared executable, sends one JSON object on stdin, closes stdin, and reads one JSON object from stdout.
@@ -67,6 +69,8 @@ The child process inherits the current user's operating-system permissions and e
 ## Errors
 
 Extensions should return stable, specific error codes and actionable messages. The host treats malformed JSON, oversized output, abnormal process termination, and an invalid response envelope as execution failures. Sensitive values must not be placed in error messages or stderr diagnostics.
+
+A response envelope must contain exactly one non-null `result` or `error` member.
 
 ## Compatibility
 

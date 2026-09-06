@@ -67,8 +67,12 @@ func (m Manifest) Validate(root string) error {
 		return fmt.Errorf("extension %q has no operations", m.Name)
 	}
 	for index := range m.Operations {
-		m.Operations[index].Source = "extension:" + m.Name
-		if err := operation.ValidateDefinition(m.Operations[index]); err != nil {
+		if m.Operations[index].Source != "extension" {
+			return fmt.Errorf("extension %q operation %q source must be %q", m.Name, m.Operations[index].ID, "extension")
+		}
+		definition := m.Operations[index]
+		definition.Source = "extension:" + m.Name
+		if err := operation.ValidateDefinition(definition); err != nil {
 			return err
 		}
 	}

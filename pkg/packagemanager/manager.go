@@ -27,6 +27,8 @@ type Manager struct {
 	client   *http.Client
 }
 
+const maxPackageBytes int64 = 1 << 30
+
 type Installed struct {
 	Name        string            `json:"name"`
 	Version     string            `json:"version"`
@@ -238,8 +240,8 @@ func (m *Manager) downloadOnce(ctx context.Context, source, destination string) 
 		return fmt.Errorf("create download: %w", err)
 	}
 	defer file.Close()
-	if _, err := io.Copy(file, io.LimitReader(response.Body, 1<<30)); err != nil {
-		return fmt.Errorf("save package: %w", err)
+	if err := copyBounded(file, response.Body, maxPackageBytes, "package download"); err != nil {
+		return err
 	}
 	return file.Close()
 }
@@ -277,10 +279,21 @@ func gunzip(source, destination string) error {
 		return err
 	}
 	defer output.Close()
-	if _, err := io.Copy(output, io.LimitReader(reader, 1<<30)); err != nil {
-		return fmt.Errorf("extract gzip package: %w", err)
+	if err := copyBounded(output, reader, maxPackageBytes, "decompressed package"); err != nil {
+		return err
 	}
 	return output.Close()
+}
+
+func copyBounded(destination io.Writer, source io.Reader, limit int64, description string) error {
+	written, err := io.Copy(destination, io.LimitReader(source, limit+1))
+	if err != nil {
+		return fmt.Errorf("copy %s: %w", description, err)
+	}
+	if written > limit {
+		return fmt.Errorf("%s exceeds the %d-byte size limit", description, limit)
+	}
+	return nil
 }
 
 func copyFile(source, destination string) error {

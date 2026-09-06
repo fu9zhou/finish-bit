@@ -176,3 +176,10 @@ func TestBuiltinRegistryIsValid(t *testing.T) {
 		t.Fatalf("ffmpeg package = %#v, %v", pkg, ok)
 	}
 }
+
+func TestCopyBoundedRejectsOverflow(t *testing.T) {
+	var output bytes.Buffer
+	if err := copyBounded(&output, strings.NewReader("12345"), 4, "test data"); err == nil {
+		t.Fatal("oversized data was silently truncated")
+	}
+}

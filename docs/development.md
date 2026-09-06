@@ -4,7 +4,7 @@ This guide covers changes to the FinishBit runtime, built-in Operations, provide
 
 ## Prerequisites
 
-- Go 1.24 or later
+- Go 1.25.13 or later; CI currently builds with Go 1.26.8
 - Git
 - A supported Windows, Linux, or macOS development environment
 - FFmpeg only when manually exercising media Operations; the test suite does not require a global FFmpeg installation

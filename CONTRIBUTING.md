@@ -20,7 +20,7 @@ Maintainer agreement on a proposal is not a promise that it will be merged; impl
 
 ## Development setup
 
-FinishBit requires Go 1.24 or later:
+FinishBit requires Go 1.25.13 or later. CI and release archives currently use Go 1.26.8:
 
 ```bash
 git clone https://github.com/fu9zhou/finish-bit.git

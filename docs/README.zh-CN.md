@@ -27,7 +27,7 @@ FinishBit 正处于 `v1.0.0` 前的积极开发阶段。核心运行时、`fnsh`
 
 ## 快速开始
 
-从源码安装需要 Go 1.24 或更高版本：
+从源码安装需要 Go 1.25.13 或更高版本；官方归档使用 Go 1.26.8 构建：
 
 ```bash
 go install github.com/fu9zhou/finish-bit/cmd/fnsh@latest

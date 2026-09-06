@@ -10,7 +10,7 @@ FinishBit builds with `CGO_ENABLED=0` for these release targets:
 | Linux | Yes | Yes |
 | macOS | Yes | Yes |
 
-Go 1.24 or later is required only when building or installing from source. Managed Operations may have additional runtime requirements; `fnsh describe <operation>` lists them.
+Go 1.25.13 or later is required only when building or installing from source. Official archives are built with Go 1.26.8. Managed Operations may have additional runtime requirements; `fnsh describe <operation>` lists them.
 
 ## Install from source
 

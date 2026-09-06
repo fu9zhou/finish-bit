@@ -32,7 +32,7 @@ FinishBit is under active development before `v1.0.0`. The core runtime, `fnsh` 
 
 ## Quick start
 
-FinishBit currently requires Go 1.24 or later when installing from source:
+FinishBit currently requires Go 1.25.13 or later when installing from source. Official archives are built with Go 1.26.8:
 
 ```bash
 go install github.com/fu9zhou/finish-bit/cmd/fnsh@latest
