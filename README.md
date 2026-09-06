@@ -7,17 +7,31 @@
 
 English | [简体中文](docs/README.zh-CN.md) | [Documentation](docs/README.md)
 
-![FinishBit — Search. Reuse. Finish.](docs/assets/finishbit-hero.png)
+![FinishBit — Finish more. Rewrite less.](docs/assets/finishbit-hero-en.png)
 
-> Search. Reuse. Finish.
+> **Finish more. Rewrite less.**
 
-FinishBit gives AI agents one local CLI to discover and reliably run JSON and text transforms, file inspection and checksums, encoding and time utilities, and video or audio processing.
+**Small deterministic building blocks for AI tasks.**
 
-Each capability is a typed Operation. An agent searches by intent, inspects the contract, executes it locally, and receives a structured result instead of generating a disposable script for every task.
+FinishBit gives AI agents reusable capabilities for JSON and text transforms, file inspection and checksums, encoding and time utilities, and video or audio processing. Its local CLI, **`fnsh`**, lets an agent discover a capability, inspect its contract, and execute it with structured results.
+
+**`fnsh` — Search. Reuse. Finish.**
 
 ```text
 search → describe → execute → finish
 ```
+
+## The idea
+
+> **AI can write it. That doesn’t mean it should rewrite it.**
+
+Common tasks should not require a freshly generated script every time. FinishBit starts with a simple principle: **finish the task with an existing deterministic capability.** The agent chooses the right capability and supplies the inputs; an existing implementation handles execution. When no capability fits, new tools can be added as reusable Operations.
+
+**Reuse a bit. Finish the task.** A “bit” is a small, focused capability that completes one step of a task. In FinishBit’s contracts and documentation, that capability is called an **Operation**: it has a discoverable identifier, typed inputs and options, and structured results and errors.
+
+For example, `video.trim` is the Operation the agent selects; `ffmpeg` is its provider. The Operation describes the task, while the provider supplies its implementation. A larger task can use several Operations.
+
+Deterministic building blocks are the design goal: defined execution behavior replaces newly generated task logic. Each Operation’s contract defines its behavior; a UUID generator still produces fresh values, and file inspection reflects the current file.
 
 ## Core capabilities
 
