@@ -5,17 +5,31 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/fu9zhou/finish-bit.svg)](https://pkg.go.dev/github.com/fu9zhou/finish-bit)
 [![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
 
+English | [简体中文](docs/README.zh-CN.md) | [Documentation](docs/README.md)
+
+![FinishBit — Search. Reuse. Finish.](docs/assets/finishbit-hero.png)
+
 > Search. Reuse. Finish.
 
-FinishBit is a local capability runtime for AI agents. It turns recurring tasks—such as formatting JSON, hashing files, trimming video, or extracting audio—into discoverable, typed, and deterministic Operations.
+FinishBit gives AI agents one local CLI to discover and reliably run JSON and text transforms, file inspection and checksums, encoding and time utilities, and video or audio processing.
 
-Agents call one stable CLI instead of generating a new script or reconstructing a complex tool command for every task.
+Each capability is a typed Operation. An agent searches by intent, inspects the contract, executes it locally, and receives a structured result instead of generating a disposable script for every task.
 
 ```text
 search → describe → execute → finish
 ```
 
-English | [简体中文](docs/README.zh-CN.md) | [Documentation](docs/README.md)
+## Core capabilities
+
+| Area | Included capabilities |
+| --- | --- |
+| Discovery | Search by natural-language intent, inspect typed contracts, list the full catalog as JSON |
+| JSON and text | Format, minify, validate, and query JSON; count, replace, sort, and deduplicate text |
+| Files and utilities | Inspect file metadata, calculate checksums and hashes, encode Base64/URLs, convert time, generate UUIDs |
+| Media | Trim and compress video or extract audio through a managed, checksum-verified FFmpeg runtime |
+| Extensibility | Install language-neutral local extensions that publish new Operations through protocol v1 |
+
+Core Operations run inside a single Go binary with no resident service. Large external runtimes are installed only when an Operation needs them, and `--json` provides stable machine-readable output for agents and automation.
 
 ## Project status
 

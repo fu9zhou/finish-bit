@@ -1,16 +1,35 @@
 # FinishBit
 
+[![CI](https://github.com/fu9zhou/finish-bit/actions/workflows/ci.yml/badge.svg)](https://github.com/fu9zhou/finish-bit/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/fu9zhou/finish-bit?display_name=tag&sort=semver)](https://github.com/fu9zhou/finish-bit/releases)
+[![Go Reference](https://pkg.go.dev/badge/github.com/fu9zhou/finish-bit.svg)](https://pkg.go.dev/github.com/fu9zhou/finish-bit)
+[![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](../LICENSE)
+
+[English](../README.md) | 简体中文 | [完整文档](README.md)
+
+![FinishBit — 搜索、复用、完成](assets/finishbit-hero.png)
+
 > Search. Reuse. Finish. 搜索、复用、完成。
 
-FinishBit 是面向 AI Agent 的本地能力运行时。它把格式化 JSON、计算文件哈希、裁剪视频、提取音频等重复任务封装为可搜索、强类型、结果确定的 Operation。
+FinishBit 为 AI Agent 提供一个统一的本地 CLI，用来发现并可靠执行 JSON 与文本转换、文件检查与校验、编码与时间工具，以及视频和音频处理。
 
-Agent 只需调用一个稳定的 CLI，无须为每次任务重新生成脚本或拼装复杂工具命令。
+每项能力都是一个强类型 Operation。Agent 按意图搜索、读取契约、在本地执行并获得结构化结果，无须为每次任务临时生成脚本。
 
 ```text
 搜索 → 描述 → 执行 → 完成
 ```
 
-[English](../README.md) | 简体中文 | [完整文档](README.md)
+## 核心功能
+
+| 领域 | 已提供的能力 |
+| --- | --- |
+| 能力发现 | 按自然语言意图搜索、查看强类型契约、以 JSON 列出完整能力目录 |
+| JSON 与文本 | 格式化、压缩、校验和查询 JSON；统计、替换、排序和去重文本 |
+| 文件与常用工具 | 查看文件信息、计算校验和与哈希、Base64/URL 编解码、时间转换、生成 UUID |
+| 音视频处理 | 通过受托管且经过校验的 FFmpeg 裁剪或压缩视频、提取音频 |
+| 扩展能力 | 安装语言无关的本地扩展，通过协议 v1 发布新的 Operation |
+
+核心 Operation 运行在单个 Go 二进制中，无须常驻服务；大型外部运行时只在需要时安装。`--json` 为 Agent 和自动化提供稳定的机器可读结果。
 
 ## 项目状态
 
