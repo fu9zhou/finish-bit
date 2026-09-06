@@ -15,7 +15,7 @@ Core text-like Operations accept at most 64 MiB from a literal value, file, or s
 
 Use `fnsh describe <id> --json` instead of hard-coding display text. Consumers should treat IDs, parameter names/types, result fields, and error codes according to the [compatibility policy](compatibility.md).
 
-## Core catalog in v0.1
+## Core catalog in v0.1.3
 
 | Domain | Operations |
 | --- | --- |
@@ -29,6 +29,8 @@ Use `fnsh describe <id> --json` instead of hard-coding display text. Consumers s
 | URL | `url.encode`, `url.decode` |
 | Video | `video.trim`, `video.compress` |
 | Audio | `audio.extract` |
+| Image | `image.info`, `image.resize`, `image.convert` |
+| Tables | `csv.info`, `csv.to-json`, `json.to-csv` |
 
 The machine-readable catalog from the built binary is authoritative:
 
@@ -58,3 +60,5 @@ All three types share discovery and execution contracts. Adding a provider must 
 Operation names describe user outcomes rather than implementation tools. Summaries should be concise, aliases should include common task language, and tags should improve filtering without repeating every word. Search ranking is intentionally not a stable API; the set of registered definitions is.
 
 See the [development guide](development.md) before adding or changing an Operation.
+
+See [images and tabular data](images-and-tables.md) for v0.1.3 formats, examples, resource limits and output behavior.

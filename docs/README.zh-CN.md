@@ -40,10 +40,13 @@ FinishBit 为 AI Agent 提供可复用的能力，覆盖 JSON 与文本转换、
 | 能力发现 | 按自然语言意图搜索、查看强类型契约、以 JSON 列出完整能力目录 |
 | JSON 与文本 | 格式化、压缩、校验和查询 JSON；统计、替换、排序和去重文本 |
 | 文件与常用工具 | 查看文件信息、计算校验和与哈希、Base64/URL 编解码、时间转换、生成 UUID |
+| 图片与表格 | PNG/JPEG 信息查询、等比例缩放和转换；CSV 信息查询与 CSV/JSON 互转 |
 | 音视频处理 | 通过受托管且经过校验的 FFmpeg 裁剪或压缩视频、提取音频 |
 | 扩展能力 | 安装语言无关的本地扩展，通过协议 v1 发布新的 Operation |
 
 核心 Operation 运行在单个 Go 二进制中，无须常驻服务；大型外部运行时只在需要时安装。`--json` 为 Agent 和自动化提供稳定的机器可读结果。
+
+结构化调用可使用 `fnsh run --request request.json --json`，详见[CLI 文档](cli-reference.md)。新增图片与表格能力的格式、限制和示例见[使用说明](images-and-tables.md)。
 
 ## 项目状态
 

@@ -6,6 +6,20 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-09-06
+
+### Added
+
+- Core `image.info`, `image.resize`, and `image.convert` Operations for PNG/JPEG, with aspect-ratio-preserving resize, opt-in upscaling, JPEG quality and white transparency compositing.
+- Core `csv.info`, `csv.to-json`, and `json.to-csv` Operations with UTF-8 CSV validation, lossless string cells, stable or explicit column order, custom delimiters and scalar JSON values.
+- Input, decoded-image, cell-count and serialized-output bounds; existing-destination protection and opt-in overwrite for the new Operations.
+- Pixel, transparency, CSV round-trip, malformed-data, expansion-limit and structured-request integration tests.
+
+### Notes
+
+- Image transforms operate on encoded pixels without applying EXIF orientation and do not copy image metadata. PNG and JPEG are the supported formats for this version.
+- Table conversion supports CSV/TSV and JSON object arrays; it does not read Excel workbooks or infer cell types.
+
 ## [0.1.2] - 2026-09-06
 
 ### Added
@@ -44,8 +58,9 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 - Rejected invalid extension response envelopes and inconsistent manifest sources.
 - Added macOS-compatible installer checksum verification and hardened release validation.
 
-[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.3...HEAD
 [0.1.0]: https://github.com/fu9zhou/finish-bit/releases/tag/v0.1.0
 
 [0.1.1]: https://github.com/fu9zhou/finish-bit/compare/v0.1.0...v0.1.1
 [0.1.2]: https://github.com/fu9zhou/finish-bit/compare/v0.1.1...v0.1.2
+[0.1.3]: https://github.com/fu9zhou/finish-bit/compare/v0.1.2...v0.1.3

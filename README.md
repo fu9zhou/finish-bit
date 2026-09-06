@@ -40,6 +40,7 @@ Deterministic building blocks are the design goal: defined execution behavior re
 | Discovery | Search by natural-language intent, inspect typed contracts, list the full catalog as JSON |
 | JSON and text | Format, minify, validate, and query JSON; count, replace, sort, and deduplicate text |
 | Files and utilities | Inspect file metadata, calculate checksums and hashes, encode Base64/URLs, convert time, generate UUIDs |
+| Images and tables | Inspect, resize and convert PNG/JPEG images; inspect CSV and convert CSV/JSON |
 | Media | Trim and compress video or extract audio through a managed, checksum-verified FFmpeg runtime |
 | Extensibility | Install language-neutral local extensions that publish new Operations through protocol v1 |
 

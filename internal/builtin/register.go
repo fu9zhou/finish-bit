@@ -17,6 +17,8 @@ func Register(registry *operation.Registry) error {
 		registerUUID,
 		registerFile,
 		registerURL,
+		registerImage,
+		registerCSV,
 	}
 	for _, registrar := range registrars {
 		if err := registrar(registry); err != nil {

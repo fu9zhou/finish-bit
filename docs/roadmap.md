@@ -10,9 +10,16 @@ The roadmap is capability-driven rather than a promise of dates.
 - Local directory/ZIP extension installation and process protocol v1.
 - Agent Skill and structured CLI output.
 
+## Delivered in v0.1.1–v0.1.3
+
+- CLI input/output and extension recovery fixes.
+- Structured JSON requests through the shared application service.
+- Core PNG/JPEG inspection, resizing and conversion.
+- CSV inspection and CSV/JSON conversion with explicit column selection.
+
 ## Candidate next work
 
-- Image resize/convert providers with runtime selection.
+- Additional image formats and metadata/orientation handling beyond the core PNG/JPEG Operations.
 - PDF merge/split and document conversion Operations.
 - Signed remote extension registry and publisher identity.
 - Hybrid lexical/vector search when catalog size justifies it.
