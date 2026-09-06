@@ -3,6 +3,7 @@ package cli
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -25,7 +26,7 @@ func New(application *app.App, stdout, stderr io.Writer, version string) *CLI {
 }
 
 func (c *CLI) Run(ctx context.Context, arguments []string) int {
-	jsonOutput, arguments := takeFlag(arguments, "--json")
+	jsonOutput, arguments := c.takeJSONFlag(arguments)
 	if len(arguments) == 0 || arguments[0] == "help" || arguments[0] == "--help" || arguments[0] == "-h" {
 		c.help()
 		return 0
@@ -131,6 +132,9 @@ func printParameters(output io.Writer, parameters []operation.Parameter) {
 			required = " (required)"
 		}
 		fmt.Fprintf(output, "  %-16s %-8s %s%s\n", parameter.Name, parameter.Type, parameter.Description, required)
+		if parameter.Default != nil {
+			fmt.Fprintf(output, "    default: %v\n", parameter.Default)
+		}
 	}
 }
 
@@ -141,6 +145,9 @@ func (c *CLI) execute(ctx context.Context, arguments []string, jsonOutput bool) 
 	definition, err := c.app.Describe(arguments[0])
 	if err != nil {
 		return err
+	}
+	if len(arguments) == 2 && (arguments[1] == "--help" || arguments[1] == "-h") {
+		return c.describe(arguments[:1], jsonOutput)
 	}
 	request, err := parseOperationArguments(definition, arguments[1:])
 	if err != nil {
@@ -161,6 +168,10 @@ func parseOperationArguments(definition operation.Definition, arguments []string
 	request := operation.Request{Options: map[string]any{}}
 	for index := 0; index < len(arguments); index++ {
 		argument := arguments[index]
+		if argument == "--" {
+			request.Inputs = append(request.Inputs, arguments[index+1:]...)
+			break
+		}
 		if argument == "-o" {
 			argument = "--output"
 		}
@@ -362,6 +373,17 @@ func (c *CLI) doctor(jsonOutput bool) error {
 }
 
 func printResult(output io.Writer, result operation.Result) {
+	if result.Operation == "base64.decode" {
+		if encoded, ok := result.Data["base64"].(string); ok {
+			data, _ := base64.StdEncoding.DecodeString(encoded)
+			_, _ = output.Write(data)
+			return
+		}
+		if text, ok := result.Data["text"].(string); ok {
+			fmt.Fprint(output, text)
+			return
+		}
+	}
 	if text, ok := result.Data["text"].(string); ok {
 		fmt.Fprint(output, text)
 		if !strings.HasSuffix(text, "\n") {
@@ -412,11 +434,30 @@ func invalid(message string) error {
 	return &operation.Error{Code: operation.CodeInvalidInput, Message: message}
 }
 
-func takeFlag(arguments []string, flag string) (bool, []string) {
+func (c *CLI) takeJSONFlag(arguments []string) (bool, []string) {
+	// Values of named options and everything after -- are literal data.
+	values := map[string]bool{"--limit": true, "-o": true}
+	for _, def := range c.app.Capabilities() {
+		for _, option := range def.Options {
+			if option.Type != operation.TypeBoolean {
+				values["--"+option.Name] = true
+			}
+		}
+	}
 	found := false
 	rest := make([]string, 0, len(arguments))
-	for _, argument := range arguments {
-		if argument == flag {
+	for index := 0; index < len(arguments); index++ {
+		argument := arguments[index]
+		if argument == "--" {
+			rest = append(rest, arguments[index:]...)
+			break
+		}
+		if values[argument] && index+1 < len(arguments) {
+			rest = append(rest, argument, arguments[index+1])
+			index++
+			continue
+		}
+		if argument == "--json" {
 			found = true
 		} else {
 			rest = append(rest, argument)

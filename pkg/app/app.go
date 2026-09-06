@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"sync"
 
 	"github.com/fu9zhou/finish-bit/internal/builtin"
 	ffmpegprovider "github.com/fu9zhou/finish-bit/internal/ffmpeg"
@@ -18,9 +19,11 @@ import (
 )
 
 type App struct {
-	registry   *operation.Registry
-	packages   *packagemanager.Manager
-	extensions *extension.Manager
+	mu              sync.RWMutex
+	extensionIssues map[string]error
+	registry        *operation.Registry
+	packages        *packagemanager.Manager
+	extensions      *extension.Manager
 }
 
 type Config struct{ Root string }
@@ -47,28 +50,46 @@ func New(config Config) (*App, error) {
 	if err := ffmpegprovider.Register(registry, packages); err != nil {
 		return nil, err
 	}
-	if err := extensions.Register(registry); err != nil {
-		return nil, err
+	issues := extensions.RegisterAvailable(registry)
+	return &App{registry: registry, packages: packages, extensions: extensions, extensionIssues: issues}, nil
+}
+
+func (a *App) snapshot() *operation.Registry {
+	a.mu.RLock()
+	defer a.mu.RUnlock()
+	return a.registry
+}
+
+// refresh is called with mu held after an installation mutation.
+func (a *App) refresh() error {
+	registry := operation.NewRegistry()
+	if err := builtin.Register(registry); err != nil {
+		return err
 	}
-	return &App{registry: registry, packages: packages, extensions: extensions}, nil
+	if err := ffmpegprovider.Register(registry, a.packages); err != nil {
+		return err
+	}
+	a.extensionIssues = a.extensions.RegisterAvailable(registry)
+	a.registry = registry
+	return nil
 }
 
 func (a *App) Search(query string, limit int) []searchpkg.Match {
-	return searchpkg.New(a.registry.Definitions()).Search(query, limit)
+	return searchpkg.New(a.snapshot().Definitions()).Search(query, limit)
 }
 
 func (a *App) Describe(id string) (operation.Definition, error) {
-	capability, ok := a.registry.Get(id)
+	capability, ok := a.snapshot().Get(id)
 	if !ok {
 		return operation.Definition{}, &operation.Error{Code: operation.CodeNotFound, Message: fmt.Sprintf("operation %q was not found", id), Suggestion: fmt.Sprintf("fnsh search %q", id)}
 	}
 	return capability.Definition, nil
 }
 
-func (a *App) Capabilities() []operation.Definition { return a.registry.Definitions() }
+func (a *App) Capabilities() []operation.Definition { return a.snapshot().Definitions() }
 
 func (a *App) Execute(ctx context.Context, id string, request operation.Request) (operation.Result, error) {
-	capability, ok := a.registry.Get(id)
+	capability, ok := a.snapshot().Get(id)
 	if !ok {
 		return operation.Result{}, &operation.Error{Code: operation.CodeNotFound, Message: fmt.Sprintf("operation %q was not found", id), Suggestion: fmt.Sprintf("fnsh search %q", id)}
 	}
@@ -102,7 +123,9 @@ func (a *App) PackageInfo(name string) (packagemanager.Status, error) {
 func (a *App) Packages() []packagemanager.Installed { return a.packages.List() }
 
 func (a *App) InstallExtension(source string) (extension.Manifest, error) {
-	return a.extensions.InstallValidated(source, func(manifest extension.Manifest) error {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	manifest, err := a.extensions.InstallValidated(source, func(manifest extension.Manifest) error {
 		seen := make(map[string]bool, len(manifest.Operations))
 		for _, definition := range manifest.Operations {
 			if seen[definition.ID] {
@@ -115,8 +138,19 @@ func (a *App) InstallExtension(source string) (extension.Manifest, error) {
 		}
 		return nil
 	})
+	if err != nil {
+		return extension.Manifest{}, err
+	}
+	return manifest, a.refresh()
 }
-func (a *App) RemoveExtension(name string) error                     { return a.extensions.Remove(name) }
+func (a *App) RemoveExtension(name string) error {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	if err := a.extensions.Remove(name); err != nil {
+		return err
+	}
+	return a.refresh()
+}
 func (a *App) ExtensionInfo(name string) (extension.Manifest, error) { return a.extensions.Info(name) }
 func (a *App) Extensions() []extension.Manifest                      { return a.extensions.List() }
 
@@ -127,7 +161,15 @@ type Check struct {
 }
 
 func (a *App) Doctor() []Check {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	if err := a.refresh(); err != nil {
+		return []Check{{Name: "runtime", OK: false, Message: err.Error()}}
+	}
 	checks := []Check{{Name: "runtime", OK: true, Message: "operation registry loaded"}}
+	for name, err := range a.extensionIssues {
+		checks = append(checks, Check{Name: "extension:" + name, OK: false, Message: err.Error()})
+	}
 	root := a.packages.Root()
 	err := os.MkdirAll(root, 0o755)
 	checks = append(checks, Check{Name: "data-directory", OK: err == nil, Message: root})

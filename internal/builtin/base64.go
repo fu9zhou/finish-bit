@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/base64"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/fu9zhou/finish-bit/pkg/operation"
 )
@@ -73,6 +74,9 @@ func runBase64Decode(_ context.Context, request operation.Request) (operation.Re
 	output, err := outputOption(request)
 	if err != nil {
 		return operation.Result{}, err
+	}
+	if output == "" && !utf8.Valid(decoded) {
+		return operation.Result{Operation: "base64.decode", Data: map[string]any{"base64": base64.StdEncoding.EncodeToString(decoded), "encoding": "base64"}}, nil
 	}
 	return finishText("base64.decode", string(decoded), output)
 }

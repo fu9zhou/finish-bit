@@ -4,7 +4,7 @@ FinishBit uses [Semantic Versioning](https://semver.org/) for releases and treat
 
 ## Before v1.0.0
 
-During `0.x`, a minor release may contain necessary breaking changes. Patch releases should remain backward compatible. Every known breaking change must be called out in the changelog with a migration path when one exists.
+During `0.x`, a minor release may contain necessary breaking changes. Patch releases should remain backward compatible. The planned v0.1.x series also delivers additive capabilities: v0.1.2 introduces structured requests and v0.1.3 introduces image and tabular-data Operations. Every known breaking change must be called out in the changelog with a migration path when one exists.
 
 Users who require reproducible automation should pin a complete version rather than following `latest`.
 

@@ -6,8 +6,8 @@ This document is for FinishBit maintainers. Releases are built by GitHub Actions
 
 Choose the version according to the [compatibility policy](compatibility.md):
 
-- patch for backward-compatible fixes;
-- minor for new capability or a documented pre-1.0 breaking change;
+- patch for backward-compatible fixes and additive capabilities during the planned v0.1.x series;
+- minor for a documented pre-1.0 breaking change or a larger feature milestone;
 - major for stable-contract breaking changes after `v1.0.0`.
 
 Tags use `vMAJOR.MINOR.PATCH`. A semantic prerelease suffix marks preview releases.

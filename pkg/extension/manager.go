@@ -94,20 +94,68 @@ func (m *Manager) Remove(name string) error {
 }
 
 func (m *Manager) List() []Manifest {
+	manifests, _ := m.Scan()
+	return manifests
+}
+
+// Scan retains diagnostics for damaged installations instead of hiding them.
+func (m *Manager) Scan() ([]Manifest, map[string]error) {
+	issues := map[string]error{}
 	entries, err := os.ReadDir(m.root)
 	if err != nil {
-		return nil
+		if !os.IsNotExist(err) {
+			issues["directory"] = err
+		}
+		return []Manifest{}, issues
 	}
 	manifests := []Manifest{}
 	for _, entry := range entries {
 		if entry.IsDir() && !strings.HasPrefix(entry.Name(), ".") {
 			if manifest, err := ReadManifest(filepath.Join(m.root, entry.Name(), "finishbit-extension.json")); err == nil {
-				manifests = append(manifests, manifest)
+				if manifest.Name != entry.Name() {
+					issues[entry.Name()] = fmt.Errorf("manifest name %q does not match installation directory", manifest.Name)
+				} else {
+					manifests = append(manifests, manifest)
+				}
+			} else {
+				issues[entry.Name()] = err
 			}
 		}
 	}
 	sort.Slice(manifests, func(i, j int) bool { return manifests[i].Name < manifests[j].Name })
-	return manifests
+	return manifests, issues
+}
+
+// RegisterAvailable isolates invalid extensions so diagnostics and removal work.
+func (m *Manager) RegisterAvailable(registry *operation.Registry) map[string]error {
+	manifests, issues := m.Scan()
+	for _, manifest := range manifests {
+		seen := map[string]bool{}
+		for _, def := range manifest.Operations {
+			_, exists := registry.Get(def.ID)
+			if exists || seen[def.ID] {
+				issues[manifest.Name] = fmt.Errorf("operation %q already registered", def.ID)
+				break
+			}
+			seen[def.ID] = true
+		}
+		if issues[manifest.Name] != nil {
+			continue
+		}
+		executable, err := resolveExecutable(filepath.Join(m.root, manifest.Name), manifest.Executable)
+		if err != nil {
+			issues[manifest.Name] = err
+			continue
+		}
+		for _, def := range manifest.Operations {
+			def.Source = "extension:" + manifest.Name
+			if err := registry.Register(operation.Capability{Definition: def, Runner: &processRunner{executable: executable, operationID: def.ID}}); err != nil {
+				issues[manifest.Name] = err
+				break
+			}
+		}
+	}
+	return issues
 }
 
 func (m *Manager) Info(name string) (Manifest, error) {
@@ -184,10 +232,12 @@ func (r *processRunner) Run(ctx context.Context, request operation.Request) (ope
 	closeErr := stdin.Close()
 	if encodeErr != nil {
 		_ = command.Process.Kill()
+		_ = command.Wait()
 		return operation.Result{}, fmt.Errorf("send extension request: %w", encodeErr)
 	}
 	if closeErr != nil {
 		_ = command.Process.Kill()
+		_ = command.Wait()
 		return operation.Result{}, fmt.Errorf("close extension request: %w", closeErr)
 	}
 	responseBytes, readErr := io.ReadAll(io.LimitReader(stdout, (16<<20)+1))

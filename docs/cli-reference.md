@@ -100,3 +100,18 @@ Consumers should branch on `error.code`, not parse English messages.
 | `3` | Required managed package is missing |
 
 The structured error code provides more detail than the process exit code. Current codes are `invalid_input`, `operation_not_found`, `dependency_missing`, `execution_failed`, `integrity_failure`, and `unsupported_platform`.
+
+## Literal inputs and binary output (v0.1.1)
+
+Use `--` before positional inputs containing flag-like text. All remaining arguments are literal inputs; place options before this delimiter:
+
+```bash
+fnsh text replace -- abc abc --json
+fnsh --json base64 encode -- --hello
+fnsh json format --help
+```
+
+Named option values are consumed as data, including a value equal to `--json`.
+Base64 decoding writes exact bytes in human mode without adding a newline. For non-UTF-8 binary data, JSON mode returns `data.base64` (standard Base64) and `data.encoding: "base64"`; it does not return lossy text. Use `-o decoded.bin` for binary files. UTF-8 data continues to use `data.text` in JSON mode.
+
+Damaged or conflicting extensions are excluded from discovery and reported as failed doctor checks. Core Operations and `ext remove <name>` remain available. A newly installed or removed extension is reflected immediately in the application registry.
