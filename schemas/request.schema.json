@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FinishBit structured Operation request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["operation"],
+  "properties": {
+    "operation": {"type": "string", "pattern": "^[a-z0-9-]+(\\.[a-z0-9-]+)+$"},
+    "inputs": {"type": "array", "items": {"type": "string"}},
+    "options": {"type": "object", "description": "Names and types are validated against the selected Operation contract."}
+  }
+}

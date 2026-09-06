@@ -1,9 +1,12 @@
 package operation
 
 import (
+	"encoding/json"
 	"fmt"
 	"math"
+	"math/big"
 	"strconv"
+	"strings"
 )
 
 func StringOption(request Request, name, fallback string) (string, error) {
@@ -43,6 +46,26 @@ func IntOption(request Request, name string, fallback int) (int, error) {
 		return fallback, nil
 	}
 	switch typed := value.(type) {
+	case json.Number:
+		text := string(typed)
+		if len(text) > 1024 {
+			return 0, invalidOption(name, "integer")
+		}
+		if index := strings.IndexAny(text, "eE"); index >= 0 {
+			exponent, err := strconv.Atoi(text[index+1:])
+			if err != nil || exponent < -1024 || exponent > 1024 {
+				return 0, invalidOption(name, "integer")
+			}
+		}
+		rational, ok := new(big.Rat).SetString(text)
+		if !ok || !rational.IsInt() || !rational.Num().IsInt64() {
+			return 0, invalidOption(name, "integer")
+		}
+		parsed := rational.Num().Int64()
+		if int64(int(parsed)) != parsed {
+			return 0, invalidOption(name, "integer")
+		}
+		return int(parsed), nil
 	case int:
 		return typed, nil
 	case float64:

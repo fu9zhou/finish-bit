@@ -6,6 +6,14 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-09-06
+
+### Added
+
+- Structured invocation through `fnsh run --request <file|->`, with the same Operation validation and output contract as positional execution.
+- Public `operation.Call`, bounded UTF-8 JSON decoding, `app.ExecuteCall`, and a request JSON Schema for future adapters.
+- Strict envelope validation, lossless integer option decoding, and regression tests for file/stdin input and malformed requests.
+
 ## [0.1.1] - 2026-09-06
 
 ### Fixed
@@ -36,7 +44,8 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 - Rejected invalid extension response envelopes and inconsistent manifest sources.
 - Added macOS-compatible installer checksum verification and hardened release validation.
 
-[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.2...HEAD
 [0.1.0]: https://github.com/fu9zhou/finish-bit/releases/tag/v0.1.0
 
 [0.1.1]: https://github.com/fu9zhou/finish-bit/compare/v0.1.0...v0.1.1
+[0.1.2]: https://github.com/fu9zhou/finish-bit/compare/v0.1.1...v0.1.2

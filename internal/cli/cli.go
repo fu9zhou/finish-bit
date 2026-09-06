@@ -52,6 +52,9 @@ func (c *CLI) dispatch(ctx context.Context, arguments []string, jsonOutput bool)
 			}
 		})
 	case "run":
+		if len(arguments) > 1 && (arguments[1] == "--request" || strings.HasPrefix(arguments[1], "--request=")) {
+			return c.executeRequest(ctx, arguments[1:], jsonOutput)
+		}
 		return c.execute(ctx, arguments[1:], jsonOutput)
 	case "pkg":
 		return c.packages(ctx, arguments[1:], jsonOutput)
@@ -436,11 +439,29 @@ func invalid(message string) error {
 
 func (c *CLI) takeJSONFlag(arguments []string) (bool, []string) {
 	// Values of named options and everything after -- are literal data.
-	values := map[string]bool{"--limit": true, "-o": true}
-	for _, def := range c.app.Capabilities() {
-		for _, option := range def.Options {
-			if option.Type != operation.TypeBoolean {
-				values["--"+option.Name] = true
+	values := map[string]bool{"--limit": true, "-o": true, "--request": true}
+	prefix := []string{}
+	for _, argument := range arguments {
+		if argument == "--" {
+			break
+		}
+		if argument != "--json" {
+			prefix = append(prefix, argument)
+		}
+		if len(prefix) == 2 {
+			break
+		}
+	}
+	if len(prefix) == 2 {
+		id := prefix[0] + "." + prefix[1]
+		if prefix[0] == "run" {
+			id = prefix[1]
+		}
+		if def, err := c.app.Describe(id); err == nil {
+			for _, option := range def.Options {
+				if option.Type != operation.TypeBoolean {
+					values["--"+option.Name] = true
+				}
 			}
 		}
 	}
@@ -474,6 +495,7 @@ Usage:
   fnsh describe <operation> [--json]
   fnsh <domain> <action> [inputs...] [options...] [--json]
   fnsh run <operation> [inputs...] [options...] [--json]
+  fnsh run --request <file|-> [--json]
   fnsh capabilities [--json]
   fnsh pkg <add|remove|ls|info|repair> [name] [--json]
   fnsh ext <add|remove|ls|info> [name-or-path] [--json]

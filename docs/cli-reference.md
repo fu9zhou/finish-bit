@@ -115,3 +115,28 @@ Named option values are consumed as data, including a value equal to `--json`.
 Base64 decoding writes exact bytes in human mode without adding a newline. For non-UTF-8 binary data, JSON mode returns `data.base64` (standard Base64) and `data.encoding: "base64"`; it does not return lossy text. Use `-o decoded.bin` for binary files. UTF-8 data continues to use `data.text` in JSON mode.
 
 Damaged or conflicting extensions are excluded from discovery and reported as failed doctor checks. Core Operations and `ext remove <name>` remain available. A newly installed or removed extension is reflected immediately in the application registry.
+
+## Structured requests (v0.1.2)
+
+Submit one Operation invocation as a UTF-8 JSON file:
+
+```json
+{
+  "operation": "text.replace",
+  "inputs": ["hello\nworld", "hello", "--json"],
+  "options": {"count": 1}
+}
+```
+
+```bash
+fnsh run --request request.json --json
+cat request.json | fnsh run --request - --json
+```
+
+PowerShell: `Get-Content -Raw request.json | fnsh run --request - --json`.
+
+The request must be one object, at most 1 MiB, with a non-empty `operation`. `inputs` and `options` may be omitted; when present they must be a string array and object respectively, not null. Unknown envelope fields, trailing JSON values, unsupported options and invalid option types are rejected. Integers retain precision during decoding. See [request schema](../schemas/request.schema.json) and `fnsh describe <operation> --json` for the selected Operation's contract.
+
+Do not combine `--request` with positional Operation arguments or additional Operation options. Paths in a request resolve relative to the current working directory, not the request file's directory. Existing Operations retain their documented literal/file input behavior. When the request itself uses stdin, its first input cannot also be `-`; use inline data or a file. Output format is independently selected with `--json`.
+
+Go adapters can use `operation.DecodeCall(reader)` and `app.ExecuteCall(ctx, call)` to share the same request and execution contracts.

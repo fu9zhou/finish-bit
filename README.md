@@ -81,7 +81,7 @@ fnsh pkg add ffmpeg
 fnsh video trim input.mp4 --start 10s --duration 20s -o clip.mp4
 ```
 
-Use `--json` for agents and automation. Successful JSON is written to stdout; structured errors are written to stderr.
+Use `fnsh run --request request.json --json` to submit a structured Operation request (see [example](examples/requests/replace.json)). Use `--json` for agents and automation. Successful JSON is written to stdout; structured errors are written to stderr.
 
 For release archives, installer scripts, PATH setup, upgrades, and removal, see the [installation guide](docs/installation.md).
 

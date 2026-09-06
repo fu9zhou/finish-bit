@@ -1,0 +1,5 @@
+{
+  "operation": "text.replace",
+  "inputs": ["hello\nworld", "hello", "--json"],
+  "options": {"count": 1}
+}
