@@ -1,6 +1,6 @@
 # FinishBit website
 
-Dependency-free static website with English and Simplified Chinese homepages, twelve documentation topics, and a full generated capability catalog with individual input/option pages. Content follows the repository documentation. The terminal is an illustrative workflow; the website does not execute CLI commands.
+Dependency-free static website with English and Simplified Chinese overview pages, a dedicated searchable capability catalog, hierarchical Operation detail routes, twelve documentation topics, and explicit not-found handling. Content follows the repository documentation. The terminal is an illustrative workflow; the website does not execute CLI commands.
 
 ## Local preview
 
@@ -23,7 +23,7 @@ The workflow `.github/workflows/pages.yml` publishes only the website assets. It
 
 The workflow is prepared locally; this change does not enable Pages or publish the website by itself. If Pages is not configured before the first push, enable it and rerun the workflow.
 
-Relative asset paths work under `/finish-bit/` and custom-domain roots. Hash routes (for example `#/docs/start`) allow direct links and refreshes without server rewrite rules. `.nojekyll` also allows the assets to be hosted without Jekyll processing. No SPA 404 workaround is needed for supported hash URLs.
+Relative asset paths work under `/finish-bit/` and custom-domain roots. Hash routes (`#/`, `#/operations`, `#/operations/:id`, and `#/docs/:topic`) allow direct links and refreshes without server rewrite rules. Legacy `#/operation/:id` links remain compatible. `.nojekyll` also allows the assets to be hosted without Jekyll processing. No SPA 404 workaround is needed for supported hash URLs.
 
 Reference: [GitHub's custom Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
@@ -37,9 +37,10 @@ The UI/UX Pro Max minimal / Swiss documentation direction is adapted with warm n
 
 - `index.html`: static shell and metadata.
 - `styles.css`: layout, responsive rules and semantic color tokens.
-- `app.js`: translated content, routes, documentation search, catalog filtering and clipboard feedback.
+- `routes.js`: pure route parsing shared with the route regression test.
+- `app.js`: translated content, page rendering, documentation/catalog search, filtering and clipboard feedback.
 - `catalog.js`: generated application contracts, including inputs, options and dependency requirements.
 
 Keep CLI examples and requirements synchronized with the repository documentation. Regenerate the source catalog with `go build ./cmd/fnsh` then `node scripts/website-catalog.mjs`. Run `node scripts/website-catalog.mjs --check` to detect drift; CI enforces this check. Generation uses an isolated runtime home so local extensions never enter the website. `fnsh capabilities --json` remains authoritative for a user's installed version.
 
-The website marks Operations introduced in v0.1.4 and explains managed package platform support. The v0.1.4 catalog has 170 Operations; future additions must clearly identify their release availability. Category filters have shareable URLs, such as `#/operations?category=pdf`. PDF, image, table, document and archive guides include installation commands and tested platform boundaries.
+The website marks Operations introduced in v0.1.4 and text-output behavior updated in v0.1.5. The catalog has 170 Operations; future additions must clearly identify their release availability. Category filters and search terms have shareable URLs, such as `#/operations?category=pdf&q=text`. PDF, image, table, document and archive guides include installation commands and tested platform boundaries.

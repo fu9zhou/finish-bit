@@ -31,7 +31,9 @@ jobs:
         shell: bash
         run: |
           node --check website/app.js
+          node --check website/routes.js
           node --check website/catalog.js
+          node scripts/test-website-routes.mjs
           node scripts/website-catalog.mjs --check
 
   batch-a-acceptance:
