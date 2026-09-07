@@ -142,6 +142,11 @@ func TestRealPandoc(t *testing.T) {
 	if len(sections.Outputs) != 2 || !strings.Contains(read(sections.Outputs[1]), "Final paragraph") {
 		t.Fatal("split lost sections")
 	}
+	longInput := write("long.md", "# Abstract\n\nGut microbiota may influence antidepressant treatment outcomes, yet whether targeted modulation can enhance efficacy remains unclear.\n")
+	longSections := call("document.split", []string{longInput}, map[string]any{"to": "plain", "output": filepath.Join(root, "long-sections")})
+	if text := read(longSections.Outputs[0]); strings.Contains(text, "targeted modulation can\nenhance efficacy") {
+		t.Fatalf("split introduced a visual line break: %q", text)
+	}
 	bib := write("references.bib", "@book{doe, title={Testing Books}, author={Doe, Jane}, year={2024}, publisher={Example}}")
 	for _, to := range []string{"bibtex", "biblatex", "csljson"} {
 		out := filepath.Join(root, "references."+to)

@@ -3350,6 +3350,18 @@ const finishbitCatalog = [
         "default": "gfm"
       },
       {
+        "name": "wrap",
+        "type": "string",
+        "description": "auto, none or preserve",
+        "default": "none"
+      },
+      {
+        "name": "columns",
+        "type": "integer",
+        "description": "Text wrapping width",
+        "default": 80
+      },
+      {
         "name": "output",
         "type": "string",
         "description": "New directory for numbered sections",
@@ -5493,6 +5505,12 @@ const finishbitCatalog = [
         "name": "layout",
         "type": "boolean",
         "description": "Preserve physical text layout",
+        "default": false
+      },
+      {
+        "name": "unwrap",
+        "type": "boolean",
+        "description": "Join visual line breaks within detected paragraphs",
         "default": false
       },
       {

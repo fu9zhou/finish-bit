@@ -33,6 +33,7 @@ fnsh pdf split report.pdf --span 2 -o split-pages
 fnsh pdf stamp report.pdf --text APPROVED --opacity 60 -o stamped.pdf
 fnsh pdf stamp report.pdf --mode image --asset seal.png -o sealed.pdf
 fnsh pdf extract-text report.pdf --first 1 --last 5 -o text.txt
+fnsh pdf extract-text article.pdf --unwrap -o article.txt
 fnsh pdf render report.pdf --first 1 --last 3 --dpi 120 -o preview
 fnsh pdf form-export form.pdf -o form.json
 fnsh pdf form-fill form.pdf form.json -o filled.pdf
@@ -47,7 +48,7 @@ fnsh pdf form-multifill form.pdf records.json -o filled-forms
 - pdfcpu runs offline with user configuration disabled. The Provider sets force only on its private staging output. No link-checking network validation is enabled. Structural optimization removes redundant resources; it is not a target-size compressor or scan downsampler.
 - `pdf.encrypt` uses AES-256 with nonempty owner/user passwords and explicit permissions. `pdf.decrypt` needs the supplied password. For editing encrypted documents, decrypt into a separate file first. Editing signed PDFs can invalidate signatures; this group does not implement signing or a trust-management workflow.
 - Form JSON follows the pinned pdfcpu schema and can be obtained with `pdf.form-export`. Multifill accepts that schema with multiple `forms` entries, or the upstream field-ID CSV format. This is AcroForm processing, not arbitrary visual document editing or XFA compatibility. Bookmark import replaces the existing bookmark tree.
-- PDF text extraction reads existing text. `pdf.text-boxes` returns page dimensions and word rectangles in PDF points measured from the top left. Reading order depends on the document. A scan without text can legitimately yield no words.
+- PDF text extraction reads existing text. `--unwrap` joins visual line breaks inside detected paragraphs while retaining headings, lists, blank-line paragraph boundaries and page breaks; it is heuristic and cannot perfectly reconstruct tables or distinguish every discretionary hyphen. `--layout` preserves physical layout and cannot be combined with `--unwrap`. `pdf.text-boxes` returns page dimensions and word rectangles in PDF points measured from the top left. Reading order depends on the document. A scan without text can legitimately yield no words.
 - Rendering and directory exports require an explicit range of at most 200 pages. Rendering accepts 36–300 DPI. Image extraction returns embedded image assets, potentially including masks and auxiliary files; it does not recover tables or logical figures. HTML conversion produces a bundle of local files and does not promise source-document layout equivalence.
 - Inspection data includes pdfcpu JSON where available. Font, attachment and keyword listings are explicitly returned as human-readable `report` fields from the pinned engine; they are not parsed as stable table schemas. Text results and other process stdout are limited to 16 MiB.
 - Windows output paths with non-ASCII characters are handled using a process working directory and a relative export prefix for affected Poppler utilities. Attachment names are preserved through isolated one-file directories to avoid interpreting user basenames as glob patterns.

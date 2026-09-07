@@ -34,7 +34,7 @@ fnsh document merge first.md --files second.md --to epub --title Book -o book.ep
 fnsh document text report.docx -o report.txt
 fnsh document inspect report.docx --json
 fnsh document media report.docx -o embedded
-fnsh document split report.md --level 1 --to gfm -o chapters
+fnsh document split report.md --level 1 --to gfm --wrap none -o chapters
 fnsh document reference --to docx -o reference.docx
 fnsh document convert report.md --to docx --reference reference.docx -o styled.docx
 fnsh document template --to html -o template.html
@@ -49,7 +49,7 @@ fnsh document convert article.md --to html --bibliography references.bib -o arti
 - Citation rendering accepts explicit local bibliography and independent CSL files. Remove `bibliography`, `csl` and `citation-abbreviations` metadata from source documents before enabling it; dependent CSL styles are rejected. This prevents citeproc from fetching implicit resources outside the reader/writer sandbox.
 - External image files/URLs are not loaded implicitly. Use data URI images or existing embedded Office/EPUB media. Missing resources fail the operation instead of silently losing images. Generated HTML is **not** sanitized; sanitize untrusted HTML before serving it.
 - File results are staged. Existing files require `--overwrite`; errors and cancellation preserve the previous destination. Output directories must be new. Media names are numbered, with their source names returned as data.
-- Splitting returns at most 200 sections. It splits top-level headings at or above the selected level and includes any preamble as the first section. Output is Markdown, HTML, plain text, RST or LaTeX; embedded media are extracted separately with `document.media`.
+- Splitting returns at most 200 sections. It splits top-level headings at or above the selected level and includes any preamble as the first section. Output is Markdown, HTML, plain text, RST or LaTeX; `--wrap none` is the default so splitting does not introduce visual line breaks. Embedded media are extracted separately with `document.media`.
 - Structural inspection returns Pandoc metadata/AST counts, not page counts or visual layout. Empty media extraction reports an error because no files were produced.
 
 ## Reproduce acceptance

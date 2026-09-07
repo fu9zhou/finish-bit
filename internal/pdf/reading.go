@@ -6,8 +6,11 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 	"strconv"
 	"strings"
+	"unicode"
+	"unicode/utf8"
 
 	"github.com/fu9zhou/finish-bit/internal/toolrun"
 	"github.com/fu9zhou/finish-bit/pkg/operation"
@@ -15,8 +18,12 @@ import (
 
 func readingCatalog() []spec {
 	rangeOptions := []operation.Parameter{number("first", "First page, one-based", 1), number("last", "Last page, one-based (0 means all for text)", 0)}
+	textOptions := append(append([]operation.Parameter{}, rangeOptions...),
+		toolrun.Option("layout", operation.TypeBoolean, "Preserve physical text layout", false),
+		toolrun.Option("unwrap", operation.TypeBoolean, "Join visual line breaks within detected paragraphs", false),
+	)
 	return []spec{
-		{"pdf.extract-text", "Extract existing text from PDF pages", "提取 PDF 文字", append(append([]operation.Parameter{}, rangeOptions...), toolrun.Option("layout", operation.TypeBoolean, "Preserve physical text layout", false)), 1, "text"},
+		{"pdf.extract-text", "Extract existing text from PDF pages", "提取 PDF 文字", textOptions, 1, "text"},
 		{"pdf.text-boxes", "Extract words and their page coordinates", "PDF 文字坐标", rangeOptions, 1, "inspect"},
 		{"pdf.render", "Render selected PDF pages to PNG or JPEG", "PDF 转图片", []operation.Parameter{number("first", "First page", 1), number("last", "Last page", 1), number("dpi", "Rendering resolution, 36 to 300", 120), opt("format", "png or jpeg", "png")}, 1, "directory"},
 		{"pdf.extract-images", "Extract images embedded in selected PDF pages", "提取 PDF 图片", []operation.Parameter{number("first", "First page", 1), number("last", "Last page", 1)}, 1, "directory"},
@@ -97,8 +104,13 @@ func (p *Provider) read(ctx context.Context, item spec, r operation.Request) (op
 		args := append([]string{"-enc", "UTF-8"}, flags...)
 		if item.id == "pdf.text-boxes" {
 			args = append(args, "-bbox")
-		} else if v.Bool("layout", false) {
-			args = append(args, "-layout")
+		} else {
+			layout := v.Bool("layout", false)
+			unwrap := v.Bool("unwrap", false)
+			v.Check(!(layout && unwrap), "layout and unwrap cannot be used together")
+			if layout {
+				args = append(args, "-layout")
+			}
 		}
 		if v.Err != nil {
 			return result, v.Err
@@ -119,6 +131,9 @@ func (p *Provider) read(ctx context.Context, item spec, r operation.Request) (op
 			}
 			result.Data = map[string]any{"pages": document.Pages, "unit": "PDF points", "origin": "top-left"}
 			return result, nil
+		}
+		if v.Bool("unwrap", false) {
+			raw = []byte(unwrapExtractedText(string(raw)))
 		}
 		result.Data = map[string]any{"text": string(raw)}
 		if output != "" {
@@ -172,4 +187,194 @@ func (p *Provider) read(ctx context.Context, item spec, r operation.Request) (op
 		result.Outputs = outputs
 		return result, err
 	}
+}
+
+func unwrapExtractedText(text string) string {
+	text = strings.ReplaceAll(text, "\r\n", "\n")
+	text = strings.ReplaceAll(text, "\r", "\n")
+	trailingNewline := strings.HasSuffix(text, "\n")
+	pages := strings.Split(text, "\f")
+	for i, page := range pages {
+		lines := strings.Split(page, "\n")
+		out := make([]string, 0, len(lines))
+		block := make([]string, 0, 8)
+		flush := func() {
+			if len(block) == 0 {
+				return
+			}
+			out = append(out, unwrapTextBlock(block)...)
+			block = block[:0]
+		}
+		for _, line := range lines {
+			line = strings.TrimSpace(line)
+			if line == "" {
+				flush()
+				if len(out) > 0 && out[len(out)-1] != "" {
+					out = append(out, "")
+				}
+				continue
+			}
+			block = append(block, line)
+		}
+		flush()
+		out = joinContinuationBlocks(out)
+		for len(out) > 0 && out[len(out)-1] == "" {
+			out = out[:len(out)-1]
+		}
+		pages[i] = strings.Join(out, "\n")
+	}
+	result := strings.Join(pages, "\n\f\n")
+	if trailingNewline && !strings.HasSuffix(result, "\n") {
+		result += "\n"
+	}
+	return result
+}
+
+func joinContinuationBlocks(lines []string) []string {
+	for i := 1; i+1 < len(lines); {
+		if lines[i] != "" || !startsWithLowercase(lines[i+1]) || isPDFListLine(lines[i+1]) {
+			i++
+			continue
+		}
+		previous, next := lines[i-1], lines[i+1]
+		if previous == "" || isPDFListLine(previous) || !canContinuePDFSentence(previous) {
+			i++
+			continue
+		}
+		separator := " "
+		if strings.HasSuffix(previous, "-") {
+			separator = ""
+		}
+		lines[i-1] = previous + separator + next
+		lines = append(lines[:i], lines[i+2:]...)
+	}
+	return lines
+}
+
+func canContinuePDFSentence(line string) bool {
+	line = strings.TrimSpace(line)
+	if line == "" {
+		return false
+	}
+	for _, ending := range []string{".", "!", "?", ":", ";", "。", "！", "？", "：", "；"} {
+		if strings.HasSuffix(line, ending) {
+			return false
+		}
+	}
+	return true
+}
+
+func startsWithLowercase(line string) bool {
+	for _, r := range strings.TrimSpace(line) {
+		if unicode.IsLetter(r) {
+			return unicode.IsLower(r)
+		}
+		if unicode.IsDigit(r) {
+			return false
+		}
+	}
+	return false
+}
+
+func unwrapTextBlock(lines []string) []string {
+	if len(lines) < 2 {
+		return append([]string(nil), lines...)
+	}
+	lengths := make([]int, 0, len(lines))
+	for _, line := range lines {
+		if !isPDFListLine(line) && !isPDFHeading(line) {
+			lengths = append(lengths, len([]rune(line)))
+		}
+	}
+	sort.Ints(lengths)
+	typicalLength := 0
+	if len(lengths) > 0 {
+		typicalLength = lengths[len(lengths)/2]
+	}
+	out := []string{lines[0]}
+	for i := 1; i < len(lines); i++ {
+		current := lines[i]
+		previous := out[len(out)-1]
+		physicalPrevious := lines[i-1]
+		paragraphEnd := typicalLength >= 40 && len([]rune(physicalPrevious))*4 < typicalLength*3 && endsPDFSentence(physicalPrevious)
+		if isPDFListLine(previous) || isPDFListLine(current) || isPDFHeading(previous) || isPDFHeading(current) || paragraphEnd {
+			out = append(out, current)
+			continue
+		}
+		if strings.HasSuffix(previous, "-") {
+			out[len(out)-1] = previous + current
+		} else {
+			out[len(out)-1] = previous + " " + current
+		}
+	}
+	return out
+}
+
+func isPDFListLine(line string) bool {
+	line = strings.TrimSpace(line)
+	if line == "" {
+		return false
+	}
+	for _, prefix := range []string{"• ", "- ", "* ", "· "} {
+		if strings.HasPrefix(line, prefix) {
+			return true
+		}
+	}
+	first := strings.IndexByte(line, '.')
+	if first < 1 || first > 3 || first+1 >= len(line) || line[first+1] != ' ' {
+		return false
+	}
+	for _, r := range line[:first] {
+		if !unicode.IsDigit(r) {
+			return false
+		}
+	}
+	return true
+}
+
+func endsPDFSentence(line string) bool {
+	line = strings.TrimRightFunc(strings.TrimSpace(line), func(r rune) bool {
+		return strings.ContainsRune("\"')]}”’", r)
+	})
+	for _, ending := range []string{".", "!", "?", "。", "！", "？"} {
+		if strings.HasSuffix(line, ending) {
+			return true
+		}
+	}
+	return false
+}
+
+func isPDFHeading(line string) bool {
+	letters, upper := 0, 0
+	for _, r := range line {
+		if unicode.IsLetter(r) {
+			letters++
+			if unicode.IsUpper(r) {
+				upper++
+			}
+		}
+	}
+	if letters > 0 && letters == upper {
+		return true
+	}
+	if len([]rune(line)) > 80 || len(strings.Fields(line)) > 10 {
+		return false
+	}
+	if strings.ContainsAny(line, ".!?;:。！？；：") {
+		return false
+	}
+	contentWords, titleWords := 0, 0
+	stopWords := map[string]bool{"a": true, "an": true, "and": true, "for": true, "in": true, "of": true, "on": true, "or": true, "the": true, "to": true, "with": true}
+	for _, field := range strings.Fields(line) {
+		word := strings.TrimFunc(field, func(r rune) bool { return !unicode.IsLetter(r) })
+		if word == "" || stopWords[strings.ToLower(word)] {
+			continue
+		}
+		contentWords++
+		first, _ := utf8.DecodeRuneInString(word)
+		if unicode.IsUpper(first) {
+			titleWords++
+		}
+	}
+	return contentWords > 0 && contentWords == titleWords
 }

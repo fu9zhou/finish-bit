@@ -62,7 +62,7 @@ func catalog() []spec {
 		{"document.text", "Extract readable plain text from a document", "提取文档文本", true, true, []operation.Parameter{str("wrap", "auto, none or preserve", "none"), num("columns", "Text wrapping width", 80)}},
 		{"document.inspect", "Inspect document metadata, headings, links and structure counts", "查看文档结构", true, false, nil},
 		{"document.media", "Extract embedded office or EPUB media into numbered files", "提取文档内嵌资源", true, false, []operation.Parameter{toolrun.Param("output", "New directory for embedded resources", true)}},
-		{"document.split", "Split top-level document blocks at headings into text documents", "按标题拆分文档", true, false, []operation.Parameter{num("level", "Split at headings at or above this level", 1), str("to", "gfm, markdown, html, plain, rst or latex", "gfm"), toolrun.Param("output", "New directory for numbered sections", true)}},
+		{"document.split", "Split top-level document blocks at headings into text documents", "按标题拆分文档", true, false, []operation.Parameter{num("level", "Split at headings at or above this level", 1), str("to", "gfm, markdown, html, plain, rst or latex", "gfm"), str("wrap", "auto, none or preserve", "none"), num("columns", "Text wrapping width", 80), toolrun.Param("output", "New directory for numbered sections", true)}},
 		{"document.template", "Export a built-in document template", "导出文档模板", false, true, []operation.Parameter{str("to", "html, latex, revealjs, beamer, rst, man, typst or rtf", "html")}},
 		{"document.reference", "Export a default office reference document for styling", "导出文档样式参考", false, true, []operation.Parameter{str("to", "docx, odt or pptx", "docx")}},
 		{"document.bibliography", "Convert bibliography records between citation formats", "转换参考文献格式", true, true, []operation.Parameter{str("to", "bibtex, biblatex or csljson", "csljson")}},
@@ -266,6 +266,8 @@ func run(ctx context.Context, resolver toolrun.Resolver, s spec, r operation.Req
 		}
 		level := v.Int("level", 1, 1, 6)
 		to := v.Enum("to", "gfm", "gfm", "markdown", "html", "plain", "rst", "latex")
+		wrap := v.Enum("wrap", "none", "none", "auto", "preserve")
+		columns := v.Int("columns", 80, 20, 240)
 		out := v.String("output", "")
 		if v.Err != nil {
 			return result, v.Err
@@ -307,7 +309,7 @@ func run(ctx context.Context, resolver toolrun.Resolver, s spec, r operation.Req
 				if err = os.WriteFile(input, b, 0600); err != nil {
 					return err
 				}
-				_, err = invoke(ctx, resolver, dir, "--from=json", "--to="+to, "--output="+filepath.Join(target, fmt.Sprintf("section-%03d.%s", i+1, extension(to))), input)
+				_, err = invoke(ctx, resolver, dir, "--from=json", "--to="+to, "--wrap="+wrap, "--columns="+strconv.Itoa(columns), "--output="+filepath.Join(target, fmt.Sprintf("section-%03d.%s", i+1, extension(to))), input)
 				if err != nil {
 					return err
 				}
