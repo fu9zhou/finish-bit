@@ -6,7 +6,19 @@ FinishBit owns the versions of external tools used by its providers. Users insta
 fnsh pkg add ffmpeg
 ```
 
-The embedded registry pins FFmpeg 6.1.1 artifacts for Windows amd64, Linux amd64/arm64, and macOS amd64/arm64. Assets come from the trusted `eugeneware/ffmpeg-static` GitHub release, with an npmmirror transport fallback for restricted networks. Every source must match the same fixed SHA-256 digest before extraction.
+The embedded registry pins the following runtime groups. Every artifact must match its fixed SHA-256 digest before extraction.
+
+| Package | Version | Registered platforms |
+| --- | --- | --- |
+| FFmpeg, ffprobe | 6.1.1 | Windows x64, Linux x64/arm64, macOS x64/arm64 |
+| pdfcpu | 0.15.0 | Windows x64, Linux x64/arm64, macOS x64/arm64 |
+| Poppler | 26.07.0-0 | Windows x64 |
+| 7-Zip Extra | 26.03 | Windows x64 |
+| Pandoc | 3.11 | Windows x64 |
+| qsv | 22.0.1 | Windows x64 (MSVC build) |
+| ImageMagick | 7.1.2-31 | Windows x64/arm64 |
+
+Media assets come from `eugeneware/ffmpeg-static`, with an npmmirror transport fallback. pdfcpu and ImageMagick use upstream GitHub releases; Poppler uses the `oschwartz10612/poppler-windows` distribution. Platform registration is distinct from native acceptance testing; the complete new-provider suite has been run on Windows x64.
 
 ## Installation guarantees
 
@@ -16,6 +28,12 @@ The embedded registry pins FFmpeg 6.1.1 artifacts for Windows amd64, Linux amd64
 4. Decompressed output is bounded to 1 GiB.
 5. Package metadata and executables activate only after all checks pass.
 6. A failed installation removes its staging directory.
+
+The installer supports raw executables, gzip, ZIP, tar.gz, tar.xz and 7z. Multi-file archives retain their runtime layout under `payload`; executable mappings reference exact relative paths. Extraction rejects traversal, links, special files, Windows reserved paths, duplicate file entries, more than 50000 entries and expanded sizes above 1 GiB. A bounded Windows retry handles temporary activation locks after executable extraction.
+
+Verified downloads are cached at `FINISHBIT_HOME/cache/<sha256>` and revalidated before reuse. Repair always obtains fresh bytes from a registered source. Removing a package leaves the download cache available for reinstallation.
+
+An archive artifact may declare an exact `resources` list. In this mode only its mapped executables and listed resources are extracted, and every listed file must exist. The full downloaded archive still passes its pinned SHA-256 check. qsv uses this to retain its standalone MSVC executable and license/notices while omitting alternate Python/MCP builds and debugging symbols; selected output remains within the 1 GiB extraction bound. Other packages retain their full runtime layouts by default.
 
 Data is stored below the operating system's user configuration directory under `finishbit`. Set `FINISHBIT_HOME` to isolate the runtime for CI or testing.
 

@@ -10,8 +10,13 @@ import (
 	"sort"
 	"sync"
 
+	archiveprovider "github.com/fu9zhou/finish-bit/internal/archive"
 	"github.com/fu9zhou/finish-bit/internal/builtin"
+	"github.com/fu9zhou/finish-bit/internal/document"
 	ffmpegprovider "github.com/fu9zhou/finish-bit/internal/ffmpeg"
+	pdfprovider "github.com/fu9zhou/finish-bit/internal/pdf"
+	"github.com/fu9zhou/finish-bit/internal/raster"
+	"github.com/fu9zhou/finish-bit/internal/tabular"
 	"github.com/fu9zhou/finish-bit/pkg/extension"
 	"github.com/fu9zhou/finish-bit/pkg/operation"
 	"github.com/fu9zhou/finish-bit/pkg/packagemanager"
@@ -44,10 +49,25 @@ func New(config Config) (*App, error) {
 	packages := packagemanager.New(root, packageRegistry)
 	extensions := extension.New(filepath.Join(root, "extensions"))
 	registry := operation.NewRegistry()
-	if err := builtin.Register(registry); err != nil {
+	if err := builtin.Register(registry, packages); err != nil {
 		return nil, err
 	}
 	if err := ffmpegprovider.Register(registry, packages); err != nil {
+		return nil, err
+	}
+	if err := pdfprovider.Register(registry, packages); err != nil {
+		return nil, err
+	}
+	if err := raster.Register(registry, packages); err != nil {
+		return nil, err
+	}
+	if err := tabular.Register(registry, packages); err != nil {
+		return nil, err
+	}
+	if err := document.Register(registry, packages); err != nil {
+		return nil, err
+	}
+	if err := archiveprovider.Register(registry, packages); err != nil {
 		return nil, err
 	}
 	issues := extensions.RegisterAvailable(registry)
@@ -63,10 +83,25 @@ func (a *App) snapshot() *operation.Registry {
 // refresh is called with mu held after an installation mutation.
 func (a *App) refresh() error {
 	registry := operation.NewRegistry()
-	if err := builtin.Register(registry); err != nil {
+	if err := builtin.Register(registry, a.packages); err != nil {
 		return err
 	}
 	if err := ffmpegprovider.Register(registry, a.packages); err != nil {
+		return err
+	}
+	if err := pdfprovider.Register(registry, a.packages); err != nil {
+		return err
+	}
+	if err := raster.Register(registry, a.packages); err != nil {
+		return err
+	}
+	if err := tabular.Register(registry, a.packages); err != nil {
+		return err
+	}
+	if err := document.Register(registry, a.packages); err != nil {
+		return err
+	}
+	if err := archiveprovider.Register(registry, a.packages); err != nil {
 		return err
 	}
 	a.extensionIssues = a.extensions.RegisterAvailable(registry)
@@ -183,7 +218,15 @@ func (a *App) Doctor() []Check {
 				checks = append(checks, Check{Name: "package:" + requirement.Package, OK: true, Message: "not installed (optional until an operation requires it)"})
 				continue
 			}
-			_, dependencyErr := a.packages.Executable(requirement.Package, requirement.Package)
+			status, dependencyErr := a.packages.Status(requirement.Package)
+			if dependencyErr == nil && status.Installed != nil {
+				for logical := range status.Installed.Executables {
+					if _, err := a.packages.Executable(requirement.Package, logical); err != nil {
+						dependencyErr = err
+						break
+					}
+				}
+			}
 			checks = append(checks, Check{Name: "package:" + requirement.Package, OK: dependencyErr == nil, Message: statusMessage(dependencyErr)})
 		}
 	}

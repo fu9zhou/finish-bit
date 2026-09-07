@@ -22,7 +22,7 @@ Web/API later ─► pkg/app ─► Operation Registry ─┬─ Go core runners
 - `pkg/packagemanager` owns runtime versions, downloads, verification, and private installation paths.
 - `pkg/extension` owns the manifest and process protocol.
 - `internal/cli` parses terminal syntax and renders human or JSON output. It contains no capability implementation.
-- `internal/builtin` and `internal/ffmpeg` implement providers behind `operation.Runner`.
+- `internal/builtin`, `internal/ffmpeg`, `internal/pdf` and `internal/raster` implement providers behind `operation.Runner`. `internal/toolrun` shares bounded process execution and staged output publication.
 
 ## Adding a web adapter
 
@@ -71,3 +71,7 @@ See the [security policy](../SECURITY.md) for report scope and the [compatibilit
 - [Operations](operations.md)
 - [Extension protocol](extension-protocol.md)
 - [Package management](package-management.md)
+
+The document provider in `internal/document` registers managed Pandoc workflows through the same application registry; see [document contracts](documents.md).
+
+The archive provider in `internal/archive` wraps managed 7-Zip. Shared `toolrun.RunToFile` bounds streamed output, and `DirectoryTree` stages nested results before publishing a new destination.

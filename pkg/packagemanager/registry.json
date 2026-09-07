@@ -10,38 +10,295 @@
       "artifacts": {
         "win32-x64": {
           "url": "https://github.com/eugeneware/ffmpeg-static/releases/download/b6.1.1/ffmpeg-win32-x64.gz",
-          "mirrors": ["https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffmpeg-win32-x64.gz", "https://registry.npmmirror.com/-/binary/ffmpeg-static/b6.1.1/ffmpeg-win32-x64.gz"],
+          "mirrors": [
+            "https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffmpeg-win32-x64.gz",
+            "https://registry.npmmirror.com/-/binary/ffmpeg-static/b6.1.1/ffmpeg-win32-x64.gz"
+          ],
           "sha256": "8883a3dffbd0a16cf4ef95206ea05283f78908dbfb118f73c83f4951dcc06d77",
           "format": "gzip",
-          "executables": { "ffmpeg": "ffmpeg" }
+          "executables": {
+            "ffmpeg": "ffmpeg"
+          }
         },
         "linux-x64": {
           "url": "https://github.com/eugeneware/ffmpeg-static/releases/download/b6.1.1/ffmpeg-linux-x64.gz",
-          "mirrors": ["https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffmpeg-linux-x64.gz", "https://registry.npmmirror.com/-/binary/ffmpeg-static/b6.1.1/ffmpeg-linux-x64.gz"],
+          "mirrors": [
+            "https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffmpeg-linux-x64.gz",
+            "https://registry.npmmirror.com/-/binary/ffmpeg-static/b6.1.1/ffmpeg-linux-x64.gz"
+          ],
           "sha256": "bfe8a8fc511530457b528c48d77b5737527b504a3797a9bc4866aeca69c2dffa",
           "format": "gzip",
-          "executables": { "ffmpeg": "ffmpeg" }
+          "executables": {
+            "ffmpeg": "ffmpeg"
+          }
         },
         "linux-arm64": {
           "url": "https://github.com/eugeneware/ffmpeg-static/releases/download/b6.1.1/ffmpeg-linux-arm64.gz",
-          "mirrors": ["https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffmpeg-linux-arm64.gz", "https://registry.npmmirror.com/-/binary/ffmpeg-static/b6.1.1/ffmpeg-linux-arm64.gz"],
+          "mirrors": [
+            "https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffmpeg-linux-arm64.gz",
+            "https://registry.npmmirror.com/-/binary/ffmpeg-static/b6.1.1/ffmpeg-linux-arm64.gz"
+          ],
           "sha256": "754a678672298bc68156adff58aa7385a592c2b30b1d0ae8750c45c915c4bac0",
           "format": "gzip",
-          "executables": { "ffmpeg": "ffmpeg" }
+          "executables": {
+            "ffmpeg": "ffmpeg"
+          }
         },
         "darwin-x64": {
           "url": "https://github.com/eugeneware/ffmpeg-static/releases/download/b6.1.1/ffmpeg-darwin-x64.gz",
-          "mirrors": ["https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffmpeg-darwin-x64.gz", "https://registry.npmmirror.com/-/binary/ffmpeg-static/b6.1.1/ffmpeg-darwin-x64.gz"],
+          "mirrors": [
+            "https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffmpeg-darwin-x64.gz",
+            "https://registry.npmmirror.com/-/binary/ffmpeg-static/b6.1.1/ffmpeg-darwin-x64.gz"
+          ],
           "sha256": "929b375c1182d956c51f7ac25e0b2b0411fb01f6f407aa15c9758efeb4242106",
           "format": "gzip",
-          "executables": { "ffmpeg": "ffmpeg" }
+          "executables": {
+            "ffmpeg": "ffmpeg"
+          }
         },
         "darwin-arm64": {
           "url": "https://github.com/eugeneware/ffmpeg-static/releases/download/b6.1.1/ffmpeg-darwin-arm64.gz",
-          "mirrors": ["https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffmpeg-darwin-arm64.gz", "https://registry.npmmirror.com/-/binary/ffmpeg-static/b6.1.1/ffmpeg-darwin-arm64.gz"],
+          "mirrors": [
+            "https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffmpeg-darwin-arm64.gz",
+            "https://registry.npmmirror.com/-/binary/ffmpeg-static/b6.1.1/ffmpeg-darwin-arm64.gz"
+          ],
           "sha256": "8923876afa8db5585022d7860ec7e589af192f441c56793971276d450ed3bbfa",
           "format": "gzip",
-          "executables": { "ffmpeg": "ffmpeg" }
+          "executables": {
+            "ffmpeg": "ffmpeg"
+          }
+        }
+      }
+    },
+    {
+      "artifacts": {
+        "darwin-arm64": {
+          "sha256": "d986a8ec7b030899fe66a8a288ed809a3543338705a3ce178cfb85869c5d80be",
+          "url": "https://github.com/eugeneware/ffmpeg-static/releases/download/b6.1.1/ffprobe-darwin-arm64.gz",
+          "mirrors": [
+            "https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffprobe-darwin-arm64.gz"
+          ],
+          "format": "gzip",
+          "executables": {
+            "ffprobe": "ffprobe"
+          }
+        },
+        "darwin-x64": {
+          "sha256": "d4da574d6e2e197bd259b47d69cf262df9e312af24ad960444f6d806d3d4c186",
+          "url": "https://github.com/eugeneware/ffmpeg-static/releases/download/b6.1.1/ffprobe-darwin-x64.gz",
+          "mirrors": [
+            "https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffprobe-darwin-x64.gz"
+          ],
+          "format": "gzip",
+          "executables": {
+            "ffprobe": "ffprobe"
+          }
+        },
+        "linux-arm64": {
+          "sha256": "2ab6aba60ee84412dff9188720703376cb4e7aaf7e0b5e43aa8249f2acae5bf8",
+          "url": "https://github.com/eugeneware/ffmpeg-static/releases/download/b6.1.1/ffprobe-linux-arm64.gz",
+          "mirrors": [
+            "https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffprobe-linux-arm64.gz"
+          ],
+          "format": "gzip",
+          "executables": {
+            "ffprobe": "ffprobe"
+          }
+        },
+        "linux-x64": {
+          "sha256": "25d9b6ccb05e3d9de9e04e31e2506d8dd7f9f0418981965ac6df12e8d3afd067",
+          "url": "https://github.com/eugeneware/ffmpeg-static/releases/download/b6.1.1/ffprobe-linux-x64.gz",
+          "mirrors": [
+            "https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffprobe-linux-x64.gz"
+          ],
+          "format": "gzip",
+          "executables": {
+            "ffprobe": "ffprobe"
+          }
+        },
+        "win32-x64": {
+          "sha256": "f309e6223ad89d2fe54bccd420a7709b66fd27540674e92309578ed491a43c8d",
+          "url": "https://github.com/eugeneware/ffmpeg-static/releases/download/b6.1.1/ffprobe-win32-x64.gz",
+          "mirrors": [
+            "https://cdn.npmmirror.com/binaries/ffmpeg-static/b6.1.1/ffprobe-win32-x64.gz"
+          ],
+          "format": "gzip",
+          "executables": {
+            "ffprobe": "ffprobe"
+          }
+        }
+      },
+      "version": "6.1.1",
+      "license": "GPL-3.0-or-later",
+      "source": "https://github.com/eugeneware/ffmpeg-static/releases/tag/b6.1.1",
+      "name": "ffprobe",
+      "description": "Structured media inspection and silence analysis"
+    },
+    {
+      "name": "pdfcpu",
+      "version": "0.15.0",
+      "description": "PDF page editing, optimization, attachments and forms",
+      "license": "Apache-2.0",
+      "source": "https://github.com/pdfcpu/pdfcpu/releases/tag/v0.15.0",
+      "artifacts": {
+        "win32-x64": {
+          "url": "https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Windows_x86_64.zip",
+          "executables": {
+            "pdfcpu": "pdfcpu_0.15.0_Windows_x86_64/pdfcpu.exe"
+          },
+          "sha256": "9809a70ee60ba78252628cc9738b284fbebf22bc2616ae903fb89b807e75a8a6",
+          "format": "zip"
+        },
+        "linux-x64": {
+          "url": "https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Linux_x86_64.tar.xz",
+          "executables": {
+            "pdfcpu": "pdfcpu_0.15.0_Linux_x86_64/pdfcpu"
+          },
+          "sha256": "652830db95e81868dbe38fbb3f506365511c99a1831b5e8955deac38f3f645f8",
+          "format": "tar.xz"
+        },
+        "linux-arm64": {
+          "url": "https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Linux_arm64.tar.xz",
+          "executables": {
+            "pdfcpu": "pdfcpu_0.15.0_Linux_arm64/pdfcpu"
+          },
+          "sha256": "41e452eb52ea735378b84d112aef47b27d7148ec02bdb4ac2de4eb7b6a8147cd",
+          "format": "tar.xz"
+        },
+        "darwin-x64": {
+          "url": "https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Darwin_x86_64.tar.xz",
+          "executables": {
+            "pdfcpu": "pdfcpu_0.15.0_Darwin_x86_64/pdfcpu"
+          },
+          "sha256": "93fb1e782c8cad41b46f236812ff1570c6f026429564d5ede1295db427a3495c",
+          "format": "tar.xz"
+        },
+        "darwin-arm64": {
+          "url": "https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Darwin_arm64.tar.xz",
+          "executables": {
+            "pdfcpu": "pdfcpu_0.15.0_Darwin_arm64/pdfcpu"
+          },
+          "sha256": "2f49a15594dd46289d62219a1a2c7b26f0128ec0c658e655a2e62125db0c49ad",
+          "format": "tar.xz"
+        }
+      }
+    },
+    {
+      "version": "26.07.0-0",
+      "artifacts": {
+        "win32-x64": {
+          "format": "zip",
+          "executables": {
+            "pdfinfo": "poppler-26.07.0/Library/bin/pdfinfo.exe",
+            "pdftotext": "poppler-26.07.0/Library/bin/pdftotext.exe",
+            "pdftoppm": "poppler-26.07.0/Library/bin/pdftoppm.exe",
+            "pdftocairo": "poppler-26.07.0/Library/bin/pdftocairo.exe",
+            "pdfimages": "poppler-26.07.0/Library/bin/pdfimages.exe",
+            "pdffonts": "poppler-26.07.0/Library/bin/pdffonts.exe",
+            "pdftohtml": "poppler-26.07.0/Library/bin/pdftohtml.exe",
+            "pdftops": "poppler-26.07.0/Library/bin/pdftops.exe",
+            "pdfdetach": "poppler-26.07.0/Library/bin/pdfdetach.exe"
+          },
+          "sha256": "a711b0563b06edc488583d28198b6734c5a494afbbd1b9d87d3d2866062fb7e2",
+          "url": "https://github.com/oschwartz10612/poppler-windows/releases/download/v26.07.0-0/Release-26.07.0-0.zip"
+        }
+      },
+      "source": "https://github.com/oschwartz10612/poppler-windows/releases/tag/v26.07.0-0",
+      "license": "GPL-2.0-or-later and bundled component licenses",
+      "description": "PDF text extraction, rendering, fonts and image extraction",
+      "name": "poppler"
+    },
+    {
+      "version": "7.1.2-31",
+      "source": "https://github.com/ImageMagick/ImageMagick/releases/tag/7.1.2-31",
+      "artifacts": {
+        "win32-x64": {
+          "executables": {
+            "magick": "magick.exe",
+            "identify": "identify.exe",
+            "montage": "montage.exe",
+            "compare": "compare.exe",
+            "composite": "composite.exe",
+            "mogrify": "mogrify.exe",
+            "stream": "stream.exe"
+          },
+          "format": "7z",
+          "url": "https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-31/ImageMagick-7.1.2-31-portable-Q16-x64.7z",
+          "sha256": "33d8b47bb404a6b30c672195795e64a8ce0c807f9bba084e359ff086d6c5d50d"
+        },
+        "win32-arm64": {
+          "executables": {
+            "magick": "magick.exe",
+            "identify": "identify.exe",
+            "montage": "montage.exe",
+            "compare": "compare.exe",
+            "composite": "composite.exe",
+            "mogrify": "mogrify.exe",
+            "stream": "stream.exe"
+          },
+          "format": "7z",
+          "url": "https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-31/ImageMagick-7.1.2-31-portable-Q16-arm64.7z",
+          "sha256": "15809a3406fc22efe59338a5554bc3f56ca46bdb45e7157900d96e9416ec1fcd"
+        }
+      },
+      "name": "imagemagick",
+      "description": "Raster image editing, composition, conversion and animations",
+      "license": "ImageMagick and bundled component licenses"
+    },
+    {
+      "name": "qsv",
+      "version": "22.0.1",
+      "description": "Local CSV cleaning, joining and analysis engine",
+      "license": "MIT OR Unlicense",
+      "source": "https://github.com/dathere/qsv/releases/tag/22.0.1",
+      "artifacts": {
+        "win32-x64": {
+          "url": "https://github.com/dathere/qsv/releases/download/22.0.1/qsv-22.0.1-x86_64-pc-windows-msvc.zip",
+          "sha256": "9d95f7ae939b96124215ba9e34e18f067c5743f5961ce4caad32c164153290d7",
+          "format": "zip",
+          "executables": {
+            "qsv": "qsv.exe"
+          },
+          "resources": [
+            "COPYING",
+            "LICENSE-MIT",
+            "README",
+            "THIRD_PARTY_NOTICES.md"
+          ]
+        }
+      }
+    },
+    {
+      "name": "pandoc",
+      "version": "3.11",
+      "description": "Sandboxed structured document and bibliography conversion",
+      "license": "GPL-2.0-or-later",
+      "source": "https://github.com/jgm/pandoc/releases/tag/3.11",
+      "artifacts": {
+        "win32-x64": {
+          "url": "https://github.com/jgm/pandoc/releases/download/3.11/pandoc-3.11-windows-x86_64.zip",
+          "sha256": "2ab72baf2399450e148ddf7a2a8689806c42e1bba71862b57e220fd9b8456d3d",
+          "format": "zip",
+          "executables": {
+            "pandoc": "pandoc-3.11/pandoc.exe"
+          }
+        }
+      }
+    },
+    {
+      "name": "7zip",
+      "version": "26.03",
+      "description": "Standalone archive compression and extraction engine",
+      "license": "LGPL-2.1-or-later and bundled component licenses",
+      "source": "https://github.com/ip7z/7zip/releases/tag/26.03",
+      "artifacts": {
+        "win32-x64": {
+          "url": "https://github.com/ip7z/7zip/releases/download/26.03/7z2603-extra.7z",
+          "sha256": "191894e6acb3647ffb69ce630479ff318523b2e2b9890aa7f05c1127c2e59b8f",
+          "format": "7z",
+          "executables": {
+            "7zip": "x64/7za.exe"
+          }
         }
       }
     }

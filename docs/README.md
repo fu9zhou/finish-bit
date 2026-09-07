@@ -1,5 +1,11 @@
 # FinishBit documentation
 
+- [Batch B acceptance: tables, documents and archives](batch-b-acceptance.md)
+
+- [Table cleaning, joins, statistics and validation](tables.md)
+
+- [Batch A acceptance and reproducible real-runtime gate](batch-a-acceptance.md)
+
 This directory is the documentation entry point for FinishBit. Each topic has one canonical page so that command behavior, compatibility promises, and maintainer procedures do not drift between documents.
 
 ## Use FinishBit
@@ -9,6 +15,11 @@ This directory is the documentation entry point for FinishBit. Each topic has on
 | Install, upgrade, or remove `fnsh` | [Installation](installation.md) |
 | Find commands, JSON behavior, and exit codes | [CLI reference](cli-reference.md) |
 | Browse built-in capabilities and Operation rules | [Operations](operations.md) |
+| Compress, extract, inspect and update archives | [Archive workflows](archives.md) |
+| Convert, merge and inspect documents | [Document workflows](documents.md) |
+| Transform video, audio and subtitles | [Media operations](media.md) |
+| Edit, read and render PDF files | [PDF operations](pdf.md) |
+| Edit, compose and convert raster images | [Image enhancements](image-enhancements.md) |
 | Install and understand managed runtimes | [Package management](package-management.md) |
 | Read the Chinese project introduction | [简体中文](README.zh-CN.md) |
 
@@ -29,6 +40,7 @@ Machine-readable contracts live in [`schemas/`](../schemas/). The catalog return
 | --- | --- |
 | Prepare and publish a release | [Release process](releasing.md) |
 | See planned direction without date commitments | [Roadmap](roadmap.md) |
+| Compare open-source toolbox capabilities | [工具箱调研](research/open-source-toolboxes.md) |
 | Propose changes or submit code | [Contributing](../CONTRIBUTING.md) |
 | Understand decision rights | [Governance](../GOVERNANCE.md) |
 | Request help | [Support](../SUPPORT.md) |

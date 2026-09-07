@@ -27,6 +27,64 @@ jobs:
         run: go vet ./...
       - name: Build
         run: go build ./cmd/fnsh
+      - name: Check website catalog and JavaScript
+        shell: bash
+        run: |
+          node --check website/app.js
+          node --check website/catalog.js
+          node scripts/website-catalog.mjs --check
+
+  batch-a-acceptance:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: '1.26.8'
+          cache: true
+      - name: Test managed media, PDF and image capabilities
+        shell: pwsh
+        run: ./scripts/test-batch-a.ps1
+
+  table-acceptance:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: '1.26.8'
+          cache: true
+      - name: Test managed table capabilities and CLI
+        shell: pwsh
+        run: ./scripts/test-tables.ps1
+
+  document-acceptance:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: '1.26.8'
+          cache: true
+      - name: Test managed document capabilities and CLI
+        shell: pwsh
+        run: ./scripts/test-documents.ps1
+
+  archive-acceptance:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: '1.26.8'
+          cache: true
+      - name: Test managed archive capabilities and CLI
+        shell: pwsh
+        run: ./scripts/test-archives.ps1
 
   cross-build:
     runs-on: ubuntu-latest

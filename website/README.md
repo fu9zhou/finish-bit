@@ -1,6 +1,6 @@
 # FinishBit website
 
-Dependency-free static website with English and Simplified Chinese homepages and seven documentation topics. Content follows the repository documentation. The terminal is an illustrative workflow; the website does not execute CLI commands.
+Dependency-free static website with English and Simplified Chinese homepages, twelve documentation topics, and a full generated capability catalog with individual input/option pages. Content follows the repository documentation. The terminal is an illustrative workflow; the website does not execute CLI commands.
 
 ## Local preview
 
@@ -38,5 +38,8 @@ The UI/UX Pro Max minimal / Swiss documentation direction is adapted with warm n
 - `index.html`: static shell and metadata.
 - `styles.css`: layout, responsive rules and semantic color tokens.
 - `app.js`: translated content, routes, documentation search, catalog filtering and clipboard feedback.
+- `catalog.js`: generated application contracts, including inputs, options and dependency requirements.
 
-Keep CLI examples and requirements synchronized with the repository documentation. The homepage shows a selected capability set; `fnsh capabilities --json` is the authoritative local catalog.
+Keep CLI examples and requirements synchronized with the repository documentation. Regenerate the source catalog with `go build ./cmd/fnsh` then `node scripts/website-catalog.mjs`. Run `node scripts/website-catalog.mjs --check` to detect drift; CI enforces this check. Generation uses an isolated runtime home so local extensions never enter the website. `fnsh capabilities --json` remains authoritative for a user's installed version.
+
+The website marks unreleased Operations and explains managed package platform support. Its source catalog currently has 170 Operations; it must not imply that release downloads already include every source capability. Category filters have shareable URLs, such as `#/operations?category=pdf`. PDF, image, table, document and archive guides include installation commands and tested platform boundaries.

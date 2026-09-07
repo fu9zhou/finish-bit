@@ -6,8 +6,10 @@ This guide covers changes to the FinishBit runtime, built-in Operations, provide
 
 - Go 1.25.13 or later; CI currently builds with Go 1.26.8
 - Git
+- Node.js when regenerating or checking the static website catalog (`node scripts/website-catalog.mjs --check` after building `fnsh`)
 - A supported Windows, Linux, or macOS development environment
-- FFmpeg only when manually exercising media Operations; the test suite does not require a global FFmpeg installation
+- Document and archive acceptance: `./scripts/test-documents.ps1` and `./scripts/test-archives.ps1` install their managed runtimes, run actual file workflows, and verify repository/Web contracts.
+- Global FFmpeg is optional for older media tests. The [batch A acceptance script](batch-a-acceptance.md) installs pinned managed runtimes and enables the real media/PDF/image suites on Windows x64.
 
 Clone the repository and run the baseline checks:
 
@@ -19,7 +21,7 @@ go vet ./...
 go build ./cmd/fnsh
 ```
 
-The module intentionally has no third-party Go dependencies. Discuss additions that change this property before opening a large pull request.
+The module uses pure-Go archive readers for the pinned ZIP/tar.xz/7z runtime distributions. Mature dependencies may be introduced when they enable a coherent capability group; record their purpose and keep heavyweight engines optional. Archive handling currently uses `github.com/bodgit/sevenzip` and `github.com/ulikunitz/xz`, with versions locked in `go.mod` and `go.sum`.
 
 ## Repository map
 
@@ -32,6 +34,8 @@ The module intentionally has no third-party Go dependencies. Discuss additions t
 | `pkg/search` | Bounded capability discovery |
 | `internal/builtin` | Deterministic Go Operations |
 | `internal/ffmpeg` | Media provider implemented through managed FFmpeg |
+| `internal/pdf`, `internal/raster`, `internal/tabular` | Managed PDF, image and table capability groups |
+| `internal/toolrun` | Shared bounded subprocess execution and staged artifact publication |
 | `pkg/packagemanager` | Pinned runtime acquisition and lifecycle |
 | `pkg/extension` | Extension installation and process protocol |
 | `schemas` | Machine-readable public contracts |
@@ -75,3 +79,7 @@ Documentation-only changes should at minimum pass `git diff --check` and local-l
 Commits use Conventional Commits with an English type and module, a Chinese action summary, and a detailed Chinese bullet-list body. The repository copy of the full convention is `.agents/skills/commit-messages/SKILL.md`.
 
 Keep pull requests focused on one purpose, explain compatibility and security effects, and record the exact validation performed. The complete workflow is in [CONTRIBUTING.md](../CONTRIBUTING.md).
+
+The document provider in `internal/document` registers managed Pandoc workflows through the same application registry; see [document contracts](documents.md).
+
+The archive provider in `internal/archive` wraps managed 7-Zip. Shared `toolrun.RunToFile` bounds streamed output, and `DirectoryTree` stages nested results before publishing a new destination.

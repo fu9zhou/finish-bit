@@ -72,7 +72,7 @@ func Register(registry *operation.Registry, resolver Resolver) error {
 			return err
 		}
 	}
-	return nil
+	return provider.registerExtended(registry)
 }
 
 func requiredOutput(request operation.Request) (string, error) {

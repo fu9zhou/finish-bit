@@ -13,7 +13,7 @@ English | [简体中文](docs/README.zh-CN.md) | [Documentation](docs/README.md)
 
 **Small deterministic building blocks for AI tasks.**
 
-FinishBit gives AI agents reusable capabilities for JSON and text transforms, file inspection and checksums, encoding and time utilities, and video or audio processing. Its local CLI, **`fnsh`**, lets an agent discover a capability, inspect its contract, and execute it with structured results.
+FinishBit gives AI agents reusable capabilities for JSON and text transforms, file inspection and checksums, encoding and time utilities, and image, PDF, video or audio processing. Its local CLI, **`fnsh`**, lets an agent discover a capability, inspect its contract, and execute it with structured results.
 
 **`fnsh` — Search. Reuse. Finish.**
 
@@ -40,15 +40,24 @@ Deterministic building blocks are the design goal: defined execution behavior re
 | Discovery | Search by natural-language intent, inspect typed contracts, list the full catalog as JSON |
 | JSON and text | Format, minify, validate, and query JSON; count, replace, sort, and deduplicate text |
 | Files and utilities | Inspect file metadata, calculate checksums and hashes, encode Base64/URLs, convert time, generate UUIDs |
-| Images and tables | Inspect, resize and convert PNG/JPEG images; inspect CSV and convert CSV/JSON |
-| Media | Trim and compress video or extract audio through a managed, checksum-verified FFmpeg runtime |
+| Images | Core PNG/JPEG tools; optional ImageMagick formats, editing, composition, transparency, GIFs and icons |
+| Archives | 10 [7-Zip workflows](docs/archives.md): 8 write formats, encryption, selection, mutation, repacking and volumes |
+| Documents | 10 [Pandoc workflows](docs/documents.md): conversion, merge, extraction, split, templates and bibliography |
+| Tables | Core CSV/JSON tools from 0.1.3, plus 27 qsv cleaning, joining, statistics and validation Operations |
+| PDF | Pages, forms, attachments, bookmarks, text extraction and rendering through pdfcpu and Poppler |
+| Media | 36 Operations for conversion, editing, subtitles, previews and audio processing through managed FFmpeg/ffprobe |
+| Expanded toolbox (unreleased) | 144 new media, PDF, image, table, document and archive Operations, bringing the catalog to 170; see the [catalog](docs/operations.md) and [acceptance record and gates](docs/batch-b-acceptance.md) |
 | Extensibility | Install language-neutral local extensions that publish new Operations through protocol v1 |
 
 Core Operations run inside a single Go binary with no resident service. Large external runtimes are installed only when an Operation needs them, and `--json` provides stable machine-readable output for agents and automation.
 
+Expanded capabilities require the current source build and may not yet be available in release downloads. Full real-runtime acceptance currently covers Windows x64; Poppler, qsv, Pandoc and 7-Zip are registered only for Windows x64, ImageMagick for Windows x64/arm64. Inspect dependencies with `fnsh describe <id> --json` and install them on demand with `fnsh pkg add <package>`.
+
+The [table guide](docs/tables.md) includes all 27 new contracts and the repeatable acceptance script. The website catalog is generated from the application registry and checked for drift in CI.
+
 ## Project status
 
-FinishBit is under active development before `v1.0.0`. The core runtime, `fnsh` CLI, managed FFmpeg provider, local extension protocol v1, and Agent Skill are implemented. See the [compatibility policy](docs/compatibility.md) before depending on pre-1.0 contracts in production.
+FinishBit is developing in the `v0.1.x` series. The next planned release after `v0.1.3` is `v0.1.4`; additive capability batches continue patch increments. The core runtime, `fnsh` CLI, managed media/PDF/image/table/document/archive providers, local extension protocol v1, and Agent Skill are implemented. See the [compatibility policy](docs/compatibility.md) before depending on pre-1.0 contracts in production.
 
 ## Why FinishBit
 

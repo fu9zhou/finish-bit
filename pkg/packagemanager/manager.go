@@ -115,19 +115,71 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 	}
 	defer os.RemoveAll(staging)
 	archivePath := filepath.Join(staging, "download")
-	if err := m.download(ctx, artifact, archivePath); err != nil {
-		return Installed{}, err
+	cachePath := filepath.Join(m.root, "cache", strings.ToLower(artifact.SHA256))
+	var downloadErr error
+	if !force && verifyFile(cachePath, artifact.SHA256) == nil {
+		downloadErr = copyFile(cachePath, archivePath)
+	} else {
+		downloadErr = m.download(ctx, artifact, archivePath)
+	}
+	if downloadErr != nil {
+		return Installed{}, downloadErr
 	}
 	if err := verifyFile(archivePath, artifact.SHA256); err != nil {
 		return Installed{}, err
 	}
+	// Cache only verified bytes. Cache failures must not prevent activation.
+	if err := os.MkdirAll(filepath.Dir(cachePath), 0755); err == nil {
+		if cache, err := os.CreateTemp(filepath.Dir(cachePath), ".download-"); err == nil {
+			name := cache.Name()
+			_ = cache.Close()
+			_ = os.Remove(name)
+			if copyFile(archivePath, name) == nil {
+				_ = os.Rename(name, cachePath)
+			}
+			_ = os.Remove(name)
+		}
+	}
 	executables := map[string]string{}
-	for logical := range artifact.Executables {
+	isArchive := artifact.Format == "zip" || artifact.Format == "tar.gz" || artifact.Format == "tar.xz" || artifact.Format == "7z"
+	if isArchive {
+		var files []string
+		if artifact.Resources != nil {
+			files = append(files, artifact.Resources...)
+			for _, entry := range artifact.Executables {
+				files = append(files, entry)
+			}
+		}
+		if err := extractArchive(ctx, archivePath, filepath.Join(staging, "payload"), artifact.Format, files); err != nil {
+			return Installed{}, err
+		}
+	}
+	for logical, entry := range artifact.Executables {
 		destinationName := logical
 		if runtime.GOOS == "windows" && filepath.Ext(destinationName) == "" {
 			destinationName += ".exe"
 		}
 		destination := filepath.Join(staging, destinationName)
+		if isArchive {
+			var err error
+			destination, err = archiveTarget(filepath.Join(staging, "payload"), entry)
+			if err != nil {
+				return Installed{}, err
+			}
+			info, err := os.Stat(destination)
+			if err != nil || !info.Mode().IsRegular() {
+				return Installed{}, fmt.Errorf("archive does not contain executable %q", entry)
+			}
+			if err := os.Chmod(destination, 0755); err != nil {
+				return Installed{}, err
+			}
+			destinationName, err = filepath.Rel(staging, destination)
+			if err != nil {
+				return Installed{}, err
+			}
+			executables[logical] = filepath.ToSlash(destinationName)
+			continue
+		}
 		switch artifact.Format {
 		case "gzip":
 			if len(artifact.Executables) != 1 {
@@ -148,6 +200,9 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 		}
 		executables[logical] = destinationName
 	}
+	if err := os.Remove(archivePath); err != nil {
+		return Installed{}, err
+	}
 	installed := Installed{Name: name, Version: pkg.Version, License: pkg.License, Source: pkg.Source, Platform: platform, Installed: time.Now().UTC(), Executables: executables}
 	metadata, err := json.MarshalIndent(installed, "", "  ")
 	if err != nil {
@@ -165,22 +220,34 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 
 func replaceDirectory(staging, final string) error {
 	if _, err := os.Stat(final); os.IsNotExist(err) {
-		return os.Rename(staging, final)
+		return renameDirectory(staging, final)
 	} else if err != nil {
 		return err
 	}
 	backup := staging + ".previous"
-	if err := os.Rename(final, backup); err != nil {
+	if err := renameDirectory(final, backup); err != nil {
 		return fmt.Errorf("preserve current package: %w", err)
 	}
-	if err := os.Rename(staging, final); err != nil {
-		if restoreErr := os.Rename(backup, final); restoreErr != nil {
+	if err := renameDirectory(staging, final); err != nil {
+		if restoreErr := renameDirectory(backup, final); restoreErr != nil {
 			return fmt.Errorf("replace package: %w; restore current package: %v", err, restoreErr)
 		}
 		return fmt.Errorf("replace package: %w", err)
 	}
 	_ = os.RemoveAll(backup)
 	return nil
+}
+
+func renameDirectory(from, to string) error {
+	var err error
+	for attempt := 0; attempt < 12; attempt++ {
+		err = os.Rename(from, to)
+		if err == nil || runtime.GOOS != "windows" || !os.IsPermission(err) {
+			return err
+		}
+		time.Sleep(time.Duration(min(attempt+1, 5)) * 100 * time.Millisecond)
+	}
+	return err
 }
 
 func validateArtifact(artifact Artifact) error {
@@ -193,8 +260,36 @@ func validateArtifact(artifact Artifact) error {
 	if len(artifact.SHA256) != 64 {
 		return fmt.Errorf("package artifact has an invalid SHA-256")
 	}
+	if _, err := hex.DecodeString(artifact.SHA256); err != nil {
+		return fmt.Errorf("package artifact has an invalid SHA-256")
+	}
+	switch artifact.Format {
+	case "raw", "gzip":
+		if artifact.Resources != nil {
+			return fmt.Errorf("resources require an archive artifact")
+		}
+		if len(artifact.Executables) != 1 {
+			return fmt.Errorf("single-file artifacts require one executable")
+		}
+	case "zip", "tar.gz", "tar.xz", "7z":
+	default:
+		return fmt.Errorf("unsupported artifact format %q", artifact.Format)
+	}
+	for logical, entry := range artifact.Executables {
+		if logical == "" || strings.Trim(logical, "abcdefghijklmnopqrstuvwxyz0123456789-.") != "" || logical == "." || logical == ".." {
+			return fmt.Errorf("invalid logical executable name")
+		}
+		if _, err := archiveTarget("payload", entry); err != nil {
+			return err
+		}
+	}
 	if len(artifact.Executables) == 0 {
 		return fmt.Errorf("package artifact has no executables")
+	}
+	for _, entry := range artifact.Resources {
+		if _, err := archiveTarget("payload", entry); err != nil {
+			return err
+		}
 	}
 	return nil
 }

@@ -32,6 +32,7 @@ type Artifact struct {
 	SHA256      string            `json:"sha256"`
 	Format      string            `json:"format"`
 	Executables map[string]string `json:"executables"`
+	Resources   []string          `json:"resources,omitempty"`
 }
 
 func BuiltinRegistry() (Registry, error) {

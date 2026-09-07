@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"github.com/fu9zhou/finish-bit/internal/raster"
+	"github.com/fu9zhou/finish-bit/internal/toolrun"
 	"github.com/fu9zhou/finish-bit/pkg/operation"
 	"image"
 	"image/color"
@@ -20,13 +22,31 @@ import (
 const maxImagePixels = 25_000_000
 const maxImageDimension = 32768
 
-func registerImage(registry *operation.Registry) error {
+func registerImage(registry *operation.Registry, resolver toolrun.Resolver) error {
 	input := []operation.Parameter{param("input", "PNG or JPEG file path", true)}
 	output := []operation.Parameter{param("output", "Destination PNG or JPEG file", true), option("format", operation.TypeString, "png or jpeg; default inferred from output extension", ""), option("quality", operation.TypeInteger, "JPEG quality from 1 to 100", 90), option("overwrite", operation.TypeBoolean, "Replace an existing destination", false)}
+	engine := option("engine", operation.TypeString, "core (PNG/JPEG) or imagemagick (requires fnsh pkg add imagemagick; more raster formats)", "core")
+	output = append(output, engine)
+	runner := func(id string, core operation.Func) operation.Func {
+		return func(ctx context.Context, r operation.Request) (operation.Result, error) {
+			selected, err := operation.StringOption(r, "engine", "core")
+			if err != nil {
+				return operation.Result{}, err
+			}
+			switch selected {
+			case "core":
+				return core(ctx, r)
+			case "imagemagick":
+				return raster.Run(ctx, resolver, id, r)
+			default:
+				return operation.Result{}, imageError("engine must be core or imagemagick")
+			}
+		}
+	}
 	return registerAll(registry,
-		operation.Capability{Definition: operation.Definition{ID: "image.info", Summary: "Inspect PNG or JPEG dimensions and format", Description: "Read encoded pixel dimensions without applying EXIF orientation.", Aliases: []string{"图片信息", "image size"}, Tags: []string{"image", "metadata"}, Inputs: input, Source: "core"}, Runner: operation.Func(runImageInfo)},
-		operation.Capability{Definition: operation.Definition{ID: "image.convert", Summary: "Convert between PNG and JPEG", Description: "Encode image pixels as PNG or JPEG; JPEG uses a white background for transparency. Metadata is not copied and EXIF orientation is not applied.", Aliases: []string{"图片格式转换", "convert image"}, Tags: []string{"image", "convert"}, Inputs: input, Options: output, Source: "core"}, Runner: operation.Func(runImageConvert)},
-		operation.Capability{Definition: operation.Definition{ID: "image.resize", Summary: "Resize an image while preserving aspect ratio", Description: "Fit within width and/or height using bilinear sampling. Metadata is not copied and EXIF orientation is not applied.", Aliases: []string{"缩小图片", "图片缩放", "resize image"}, Tags: []string{"image", "resize"}, Inputs: input, Options: append([]operation.Parameter{option("width", operation.TypeInteger, "Maximum output width; 0 means unconstrained", 0), option("height", operation.TypeInteger, "Maximum output height; 0 means unconstrained", 0), option("upscale", operation.TypeBoolean, "Allow enlarging smaller images", false)}, output...), Source: "core"}, Runner: operation.Func(runImageResize)},
+		operation.Capability{Definition: operation.Definition{ID: "image.info", Summary: "Inspect image dimensions and format", Description: "Core reads PNG/JPEG; --engine imagemagick inspects additional raster formats and frame counts.", Aliases: []string{"图片信息", "image size"}, Tags: []string{"image", "metadata"}, Inputs: input, Options: []operation.Parameter{engine}, Source: "core"}, Runner: runner("image.info", runImageInfo)},
+		operation.Capability{Definition: operation.Definition{ID: "image.convert", Summary: "Convert image formats", Description: "Core supports PNG/JPEG, strips metadata and does not apply EXIF orientation. --engine imagemagick enables more raster formats and applies orientation.", Aliases: []string{"图片格式转换", "convert image"}, Tags: []string{"image", "convert"}, Inputs: input, Options: output, Source: "core"}, Runner: runner("image.convert", runImageConvert)},
+		operation.Capability{Definition: operation.Definition{ID: "image.resize", Summary: "Resize an image while preserving aspect ratio", Description: "Fit within width and/or height. Core uses PNG/JPEG bilinear sampling without EXIF orientation; --engine imagemagick enables more raster formats and applies orientation.", Aliases: []string{"缩小图片", "图片缩放", "resize image"}, Tags: []string{"image", "resize"}, Inputs: input, Options: append([]operation.Parameter{option("width", operation.TypeInteger, "Maximum output width; 0 means unconstrained", 0), option("height", operation.TypeInteger, "Maximum output height; 0 means unconstrained", 0), option("upscale", operation.TypeBoolean, "Allow enlarging smaller images", false)}, output...), Source: "core"}, Runner: runner("image.resize", runImageResize)},
 	)
 }
 

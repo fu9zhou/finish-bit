@@ -6,6 +6,28 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 
 ## [Unreleased]
 
+Target release: **v0.1.4**. These changes remain unpublished; capability expansion does not change the v0.1.x release sequence.
+
+### Added
+
+- Archive group: 10 managed 7-Zip Operations for creation, inspection, validation, selected extraction, update/removal/rename, repacking and volumes; 8 writable formats and ZIP/7z encryption bring the source catalog to 170 Operations.
+
+- Document group: 10 managed Pandoc Operations spanning 25 output formats, merge, text/structure/media extraction, heading splits, templates, Office references and bibliography conversion; the catalog reached 160 Operations after this group.
+
+- Table cleaning group: 27 managed qsv Operations for selection, filtering, sorting, deduplication, joins, differences, statistics, reshaping, schema validation and JSONL conversion; the catalog reached 150 Operations after this group.
+- Generated bilingual website catalog with per-operation contracts, PDF/image/table guides and a CI check against the actual application registry; README capability descriptions match the expanded groups.
+- First capability batch: 33 media Operations, 42 PDF Operations, and 22 image Operations, expanding the original 26 Operations to 123 before the table group.
+- Managed ffprobe, pdfcpu, Poppler and ImageMagick runtimes with pinned release artifacts and integrity checks; ZIP/tar.gz/tar.xz/7z installation preserves multi-file runtime layouts and license files.
+- Optional `--engine imagemagick` for the original image info/convert/resize APIs, preserving their default core behavior.
+- Shared bounded process output, staged provider artifacts, and verified download caching. New file-writing operations require explicit overwrite; multi-file outputs require a new directory.
+- Opt-in real-runtime acceptance suites covering every new Operation, with content/dimension/duration checks, Unicode paths, cancellation and failed-output preservation.
+
+### Notes
+
+- Full new-provider acceptance currently runs on Windows x64. Poppler installation is registered for Windows x64 only; ImageMagick for Windows x64/arm64. See each capability guide for exact runtime and format boundaries.
+- OCR, Excel, document conversion and later dependency batches remain planned, not implemented in this batch.
+- qsv currently supports Windows x64. Excelize was evaluated but not introduced: the latest stable version has an upstream parsing-panic advisory without a patched release as of 2026-09-07.
+
 ## [0.1.3] - 2026-09-06
 
 ### Added
