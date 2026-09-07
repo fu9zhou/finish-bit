@@ -4,7 +4,7 @@ FinishBit uses [Semantic Versioning](https://semver.org/) for releases and treat
 
 ## Before v1.0.0
 
-The current release sequence is `v0.1.3` → `v0.1.4` → `v0.1.5`, continuing patch increments for backward-compatible fixes and additive capabilities. Adding dependency groups or many Operations does not change this sequence. Moving to another series requires an explicit project-owner decision; a requested `v0.2.x` series can continue as `v0.2.1`, `v0.2.2`. No automatic jump to a minor or major series is authorized by feature size.
+The current release sequence is `v0.1.4` → `v0.1.5` → `v0.1.6`, continuing patch increments for backward-compatible fixes and additive capabilities. Adding dependency groups or many Operations does not change this sequence. Moving to another series requires an explicit project-owner decision; a requested `v0.2.x` series can continue as `v0.2.1`, `v0.2.2`. No automatic jump to a minor or major series is authorized by feature size.
 
 Every known breaking change must be called out in the changelog with a migration path when one exists. Resolve its scope with the owner instead of silently changing the release series.
 

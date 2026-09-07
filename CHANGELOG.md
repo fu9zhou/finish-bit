@@ -6,6 +6,23 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 
 ## [Unreleased]
 
+## [0.1.5] - 2026-09-07
+
+### Added
+
+- Optional `pdf.extract-text --unwrap` post-processing for paragraph-aware plain text, including end-of-line dehyphenation and conservative cross-column continuation.
+- Dedicated searchable Operation catalog at `#/operations`, hierarchical detail routes at `#/operations/:id`, breadcrumbs, category summaries, and an explicit not-found page on the project website.
+
+### Changed
+
+- `document.split` now asks Pandoc for unwrapped output by default (`--wrap none`); callers can select `auto` or `preserve` through the new `wrap` option and tune wrapping through `columns`.
+- The website homepage now presents the product workflow and capability categories instead of rendering all 170 Operations inline. Catalog filters and search terms remain shareable in the URL, while legacy `#/operation/:id` links continue to work.
+
+### Fixed
+
+- Plain-text extraction can now remove PDF visual line wrapping without collapsing headings, lists, or completed paragraph boundaries.
+- Heading-based TXT splits no longer acquire Pandoc's default hard wrapping, avoiding false paragraph breaks in downstream processing.
+
 ## [0.1.4] - 2026-09-07
 
 ### Added
@@ -80,7 +97,7 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 - Rejected invalid extension response envelopes and inconsistent manifest sources.
 - Added macOS-compatible installer checksum verification and hardened release validation.
 
-[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.4...HEAD
+[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.5...HEAD
 [0.1.0]: https://github.com/fu9zhou/finish-bit/releases/tag/v0.1.0
 
 [0.1.1]: https://github.com/fu9zhou/finish-bit/compare/v0.1.0...v0.1.1
@@ -88,3 +105,4 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 [0.1.3]: https://github.com/fu9zhou/finish-bit/compare/v0.1.2...v0.1.3
 
 [0.1.4]: https://github.com/fu9zhou/finish-bit/compare/v0.1.3...v0.1.4
+[0.1.5]: https://github.com/fu9zhou/finish-bit/compare/v0.1.4...v0.1.5

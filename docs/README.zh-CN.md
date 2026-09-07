@@ -47,6 +47,7 @@ FinishBit 为 AI Agent 提供可复用的能力，覆盖 JSON 与文本转换、
 | 压缩包 | 10 项 [7-Zip 能力](archives.md)：8 种写入格式、加密、选择提取、修改、转换及分卷 |
 | 文档 | 10 项 [Pandoc 文档能力](documents.md)：转换、合并、提取、拆分、模板与参考文献 |
 | 工具箱扩充（v0.1.4） | 新增音视频、PDF、图片、表格、文档及压缩包共 144 项，目录达到 170 项；见[完整目录](operations.md)及[真实引擎验收](batch-b-acceptance.md) |
+| 可读论文文本（v0.1.5） | `pdf.extract-text --unwrap` 将 PDF 视觉行还原为逻辑段落；`document.split` 默认不再插入硬折行 |
 | 扩展能力 | 安装语言无关的本地扩展，通过协议 v1 发布新的 Operation |
 
 核心 Operation 运行在单个 Go 二进制中，无须常驻服务；大型外部运行时只在需要时安装。`--json` 为 Agent 和自动化提供稳定的机器可读结果。
@@ -59,7 +60,7 @@ FinishBit 为 AI Agent 提供可复用的能力，覆盖 JSON 与文本转换、
 
 ## 项目状态
 
-FinishBit 当前沿 `v0.1.x` 系列迭代，当前版本为 `v0.1.4`，随后按 `v0.1.5` 等逐次递增。新增功能或依赖组不自动改变版本系列。核心运行时、`fnsh` CLI、托管音视频/PDF/图片/表格/文档/压缩包 Provider、本地扩展协议 v1 和 Agent Skill 已经可用。生产环境依赖首个稳定版本前的接口前，请阅读[兼容性政策](compatibility.md)。
+FinishBit 当前沿 `v0.1.x` 系列迭代，当前版本为 `v0.1.5`，随后按 `v0.1.6` 等逐次递增。新增功能或依赖组不自动改变版本系列。核心运行时、`fnsh` CLI、托管音视频/PDF/图片/表格/文档/压缩包 Provider、本地扩展协议 v1 和 Agent Skill 已经可用。生产环境依赖首个稳定版本前的接口前，请阅读[兼容性政策](compatibility.md)。
 
 ## 为什么选择 FinishBit
 
