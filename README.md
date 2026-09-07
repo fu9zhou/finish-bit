@@ -46,18 +46,18 @@ Deterministic building blocks are the design goal: defined execution behavior re
 | Tables | Core CSV/JSON tools from 0.1.3, plus 27 qsv cleaning, joining, statistics and validation Operations |
 | PDF | Pages, forms, attachments, bookmarks, text extraction and rendering through pdfcpu and Poppler |
 | Media | 36 Operations for conversion, editing, subtitles, previews and audio processing through managed FFmpeg/ffprobe |
-| Expanded toolbox (unreleased) | 144 new media, PDF, image, table, document and archive Operations, bringing the catalog to 170; see the [catalog](docs/operations.md) and [acceptance record and gates](docs/batch-b-acceptance.md) |
+| Expanded toolbox (v0.1.4) | 144 new media, PDF, image, table, document and archive Operations, bringing the catalog to 170; see the [catalog](docs/operations.md) and [acceptance record and gates](docs/batch-b-acceptance.md) |
 | Extensibility | Install language-neutral local extensions that publish new Operations through protocol v1 |
 
 Core Operations run inside a single Go binary with no resident service. Large external runtimes are installed only when an Operation needs them, and `--json` provides stable machine-readable output for agents and automation.
 
-Expanded capabilities require the current source build and may not yet be available in release downloads. Full real-runtime acceptance currently covers Windows x64; Poppler, qsv, Pandoc and 7-Zip are registered only for Windows x64, ImageMagick for Windows x64/arm64. Inspect dependencies with `fnsh describe <id> --json` and install them on demand with `fnsh pkg add <package>`.
+Expanded capabilities are available in v0.1.4. Full real-runtime acceptance currently covers Windows x64; Poppler, qsv, Pandoc and 7-Zip are registered only for Windows x64, ImageMagick for Windows x64/arm64. Inspect dependencies with `fnsh describe <id> --json` and install them on demand with `fnsh pkg add <package>`.
 
 The [table guide](docs/tables.md) includes all 27 new contracts and the repeatable acceptance script. The website catalog is generated from the application registry and checked for drift in CI.
 
 ## Project status
 
-FinishBit is developing in the `v0.1.x` series. The next planned release after `v0.1.3` is `v0.1.4`; additive capability batches continue patch increments. The core runtime, `fnsh` CLI, managed media/PDF/image/table/document/archive providers, local extension protocol v1, and Agent Skill are implemented. See the [compatibility policy](docs/compatibility.md) before depending on pre-1.0 contracts in production.
+FinishBit is developing in the `v0.1.x` series. The current release is `v0.1.4`, followed by `v0.1.5`; additive capability batches continue patch increments. The core runtime, `fnsh` CLI, managed media/PDF/image/table/document/archive providers, local extension protocol v1, and Agent Skill are implemented. See the [compatibility policy](docs/compatibility.md) before depending on pre-1.0 contracts in production.
 
 ## Why FinishBit
 

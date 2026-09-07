@@ -34,7 +34,7 @@ Use `fnsh describe <id> --json` instead of hard-coding display text. Consumers s
 
 The machine-readable catalog from the built binary is authoritative:
 
-The unreleased first batch adds 97 Operations: 33 [media](media.md), 42 [PDF](pdf.md), and 22 [image enhancements](image-enhancements.md). The three existing image APIs gain an optional ImageMagick engine without changing their core defaults. The subsequent [table cleaning group](tables.md) adds 27 qsv Operations, and [document workflows](documents.md) add 10 Pandoc Operations, followed by 10 [archive Operations](archives.md), bringing the catalog to 170 before installed extensions.
+In v0.1.4, the first batch adds 97 Operations: 33 [media](media.md), 42 [PDF](pdf.md), and 22 [image enhancements](image-enhancements.md). The three existing image APIs gain an optional ImageMagick engine without changing their core defaults. The subsequent [table cleaning group](tables.md) adds 27 qsv Operations, and [document workflows](documents.md) add 10 Pandoc Operations, followed by 10 [archive Operations](archives.md), bringing the catalog to 170 before installed extensions.
 
 ```bash
 fnsh capabilities --json

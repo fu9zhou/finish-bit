@@ -17,7 +17,7 @@ The roadmap is capability-driven rather than a promise of dates.
 - Core PNG/JPEG inspection, resizing and conversion.
 - CSV inspection and CSV/JSON conversion with explicit column selection.
 
-## Implemented after v0.1.3 (unreleased)
+## Delivered in v0.1.4
 
 Batch A adds 97 Operations: 33 media, 35 pdfcpu, 7 Poppler and 22 ImageMagick. Batch A brought the catalog to 123 Operations; the existing three image Operations also support an explicit ImageMagick engine. Windows x64 acceptance uses pinned managed binaries. See [batch acceptance](batch-a-acceptance.md).
 
@@ -41,7 +41,7 @@ Concrete proposals should use the repository's capability issue template and inc
 
 ## 工具箱扩充提案（2026-09-07）
 
-状态：A 批已实现并完成 Windows x64 真实引擎验收，尚未发布；B 批的 qsv 表格、Pandoc 文档、7-Zip 压缩包组已实现并通过验收，Excelize 暂缓，C 批仍待落地。Operation ID 是建议命名，发布前需完成契约评审。开源项目的一手资料见 [工具箱调研](research/open-source-toolboxes.md)。以下优先级是针对 FinishBit 的产品判断，不代表用户量统计。
+状态：A 批已实现并完成 Windows x64 真实引擎验收，纳入 v0.1.4；B 批的 qsv 表格、Pandoc 文档、7-Zip 压缩包组已实现并通过验收，纳入 v0.1.4；Excelize 暂缓，C 批仍待落地。未实现能力的 Operation ID 是建议命名，发布前需完成契约评审。开源项目的一手资料见 [工具箱调研](research/open-source-toolboxes.md)。以下优先级是针对 FinishBit 的产品判断，不代表用户量统计。
 
 ### 最新方向：以成熟依赖扩展整类能力
 

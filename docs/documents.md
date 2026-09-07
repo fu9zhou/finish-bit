@@ -1,4 +1,4 @@
-# Document workflows (unreleased)
+# Document workflows (v0.1.4)
 
 The Pandoc group adds 10 Operations through the shared application registry. Install the pinned, SHA-256-verified Pandoc 3.11 package with `fnsh pkg add pandoc`. The registered and locally tested platform is Windows x64. It is downloaded separately under GPL-2.0-or-later; FinishBit does not bundle its binary in releases.
 

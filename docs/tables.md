@@ -1,6 +1,6 @@
 # Table cleaning and analysis
 
-This unreleased capability group adds 27 Operations through managed **qsv 22.0.1**. The existing 0.1.3 CSV inspection and CSV/JSON conversion remain available without qsv. These new Operations use the shared application service and require local input files.
+This v0.1.4 capability group adds 27 Operations through managed **qsv 22.0.1**. The existing 0.1.3 CSV inspection and CSV/JSON conversion remain available without qsv. These new Operations use the shared application service and require local input files.
 
 ```sh
 fnsh pkg add qsv

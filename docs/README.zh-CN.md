@@ -46,20 +46,20 @@ FinishBit 为 AI Agent 提供可复用的能力，覆盖 JSON 与文本转换、
 | 音视频处理 | 托管 FFmpeg/ffprobe 支持转码、拼接、字幕、预览及音频编辑，共 36 项 |
 | 压缩包 | 10 项 [7-Zip 能力](archives.md)：8 种写入格式、加密、选择提取、修改、转换及分卷 |
 | 文档 | 10 项 [Pandoc 文档能力](documents.md)：转换、合并、提取、拆分、模板与参考文献 |
-| 工具箱扩充（尚未发布） | 新增音视频、PDF、图片、表格、文档及压缩包共 144 项，目录达到 170 项；见[完整目录](operations.md)及[真实引擎验收](batch-b-acceptance.md) |
+| 工具箱扩充（v0.1.4） | 新增音视频、PDF、图片、表格、文档及压缩包共 144 项，目录达到 170 项；见[完整目录](operations.md)及[真实引擎验收](batch-b-acceptance.md) |
 | 扩展能力 | 安装语言无关的本地扩展，通过协议 v1 发布新的 Operation |
 
 核心 Operation 运行在单个 Go 二进制中，无须常驻服务；大型外部运行时只在需要时安装。`--json` 为 Agent 和自动化提供稳定的机器可读结果。
 
 结构化调用可使用 `fnsh run --request request.json --json`，详见[CLI 文档](cli-reference.md)。新增图片与表格能力的格式、限制和示例见[使用说明](images-and-tables.md)。
 
-新增能力需使用当前源码构建，正式版安装可能尚未包含。完整真实引擎验收目前覆盖 Windows x64；Poppler、qsv、Pandoc 和 7-Zip 仅注册 Windows x64，ImageMagick 注册 Windows x64/arm64。按 `fnsh describe <id> --json` 查看依赖，用 `fnsh pkg add <package>` 按需安装。
+新增能力已包含在 v0.1.4 中。完整真实引擎验收目前覆盖 Windows x64；Poppler、qsv、Pandoc 和 7-Zip 仅注册 Windows x64，ImageMagick 注册 Windows x64/arm64。按 `fnsh describe <id> --json` 查看依赖，用 `fnsh pkg add <package>` 按需安装。
 
 [表格指南](tables.md)包含新增 27 项能力的契约及可重复执行的验收脚本。官网能力目录由应用注册表生成，CI 会检查是否与代码同步。
 
 ## 项目状态
 
-FinishBit 当前沿 `v0.1.x` 系列迭代，`v0.1.3` 的下一版为 `v0.1.4`，随后按 `v0.1.5` 等逐次递增。新增功能或依赖组不自动改变版本系列。核心运行时、`fnsh` CLI、托管音视频/PDF/图片/表格/文档/压缩包 Provider、本地扩展协议 v1 和 Agent Skill 已经可用。生产环境依赖首个稳定版本前的接口前，请阅读[兼容性政策](compatibility.md)。
+FinishBit 当前沿 `v0.1.x` 系列迭代，当前版本为 `v0.1.4`，随后按 `v0.1.5` 等逐次递增。新增功能或依赖组不自动改变版本系列。核心运行时、`fnsh` CLI、托管音视频/PDF/图片/表格/文档/压缩包 Provider、本地扩展协议 v1 和 Agent Skill 已经可用。生产环境依赖首个稳定版本前的接口前，请阅读[兼容性政策](compatibility.md)。
 
 ## 为什么选择 FinishBit
 

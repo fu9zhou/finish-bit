@@ -6,7 +6,7 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 
 ## [Unreleased]
 
-Target release: **v0.1.4**. These changes remain unpublished; capability expansion does not change the v0.1.x release sequence.
+## [0.1.4] - 2026-09-07
 
 ### Added
 
@@ -25,7 +25,7 @@ Target release: **v0.1.4**. These changes remain unpublished; capability expansi
 ### Notes
 
 - Full new-provider acceptance currently runs on Windows x64. Poppler installation is registered for Windows x64 only; ImageMagick for Windows x64/arm64. See each capability guide for exact runtime and format boundaries.
-- OCR, Excel, document conversion and later dependency batches remain planned, not implemented in this batch.
+- OCR, Excel and later dependency batches remain planned, not implemented in this batch.
 - qsv currently supports Windows x64. Excelize was evaluated but not introduced: the latest stable version has an upstream parsing-panic advisory without a patched release as of 2026-09-07.
 
 ## [0.1.3] - 2026-09-06
@@ -80,9 +80,11 @@ Target release: **v0.1.4**. These changes remain unpublished; capability expansi
 - Rejected invalid extension response envelopes and inconsistent manifest sources.
 - Added macOS-compatible installer checksum verification and hardened release validation.
 
-[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.3...HEAD
+[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.4...HEAD
 [0.1.0]: https://github.com/fu9zhou/finish-bit/releases/tag/v0.1.0
 
 [0.1.1]: https://github.com/fu9zhou/finish-bit/compare/v0.1.0...v0.1.1
 [0.1.2]: https://github.com/fu9zhou/finish-bit/compare/v0.1.1...v0.1.2
 [0.1.3]: https://github.com/fu9zhou/finish-bit/compare/v0.1.2...v0.1.3
+
+[0.1.4]: https://github.com/fu9zhou/finish-bit/compare/v0.1.3...v0.1.4

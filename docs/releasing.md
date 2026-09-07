@@ -6,7 +6,7 @@ This document is for FinishBit maintainers. Releases are built by GitHub Actions
 
 Follow the project owner's release sequence and the [compatibility policy](compatibility.md):
 
-- The current release series is `v0.1.x`. After `v0.1.3`, the next planned release is `v0.1.4`, followed by `v0.1.5`, and so on.
+- The current release series is `v0.1.x`. The current release is `v0.1.4`, followed by `v0.1.5`, and so on.
 - Backward-compatible fixes, new Operations, new dependency groups and larger additive feature batches continue this patch sequence. Feature count does not justify changing the release series.
 - A series change requires an explicit owner decision. If the owner chooses `v0.2.x`, follow the requested sequence such as `v0.2.1`, `v0.2.2`; do not independently jump to it or to `v1.x`.
 - Document incompatible changes and resolve their migration/release scope explicitly; do not infer permission to change the series.

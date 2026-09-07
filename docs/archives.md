@@ -1,4 +1,4 @@
-# Archive workflows (unreleased)
+# Archive workflows (v0.1.4)
 
 Install the pinned, SHA-256-verified 7-Zip Extra 26.03 runtime with `fnsh pkg add 7zip`. The registered and locally tested target is Windows x64. The standalone `7za.exe` does not require a system installation or modify PATH. It is separately downloaded with its LGPL and bundled component notices.
 
