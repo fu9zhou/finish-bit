@@ -46,6 +46,14 @@ func TestLocalWorkflowsWithManagedTools(t *testing.T) {
 	if len(words.Data["words"].([]map[string]any)) < 3 {
 		t.Fatal(words.Data)
 	}
+	for _, word := range words.Data["words"].([]map[string]any) {
+		left, top := word["left"].(int), word["top"].(int)
+		width, height := word["width"].(int), word["height"].(int)
+		confidence := word["confidence"].(float64)
+		if left < 0 || top < 0 || width <= 0 || height <= 0 || left+width > 1200 || top+height > 240 || confidence < 0 || confidence > 100 {
+			t.Fatalf("invalid OCR word geometry/confidence: %v", word)
+		}
+	}
 	scanned := filepath.Join(dir, "scanned.pdf")
 	run("ocr.to-pdf", []string{image}, map[string]any{"language": "eng", "layout": 6, "output": scanned})
 	text := run("pdf.extract-text", []string{scanned}, nil)
@@ -65,6 +73,13 @@ func TestLocalWorkflowsWithManagedTools(t *testing.T) {
 		r := run("ocr.text", []string{cn}, map[string]any{"language": "chi_sim", "layout": 6})
 		if !strings.Contains(strings.ReplaceAll(r.Data["text"].(string), " ", ""), "你好世界") {
 			t.Fatal(r.Data)
+		}
+		cnPDF := filepath.Join(dir, "中文识别.pdf")
+		run("ocr.to-pdf", []string{cn}, map[string]any{"language": "chi_sim", "layout": 6, "output": cnPDF})
+		cnText := run("pdf.extract-text", []string{cnPDF}, nil)
+		// PDF extraction may put a line break between adjacent Chinese glyphs.
+		if !strings.Contains(strings.Join(strings.Fields(cnText.Data["text"].(string)), ""), "你好世界") {
+			t.Fatal("Chinese PDF text layer lost recognized text", cnText.Data)
 		}
 	}
 	two := filepath.Join(dir, "two.pdf")

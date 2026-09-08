@@ -8,7 +8,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/6tail/lunar-go/calendar"
 	"github.com/fu9zhou/finish-bit/internal/toolrun"
 	"github.com/fu9zhou/finish-bit/pkg/operation"
 	"github.com/pelletier/go-toml/v2"
@@ -33,17 +32,7 @@ func extraSpecs() []spec {
 	}
 	return rows
 }
-func runExtra(ctx context.Context, id string, v *toolrun.Values, a []string) (result map[string]any, err error) {
-	// The calendar library panics for nonexistent leap months; present that as a
-	// structured input error rather than allowing it to escape the Runner boundary.
-	if strings.HasPrefix(id, "calendar.") {
-		defer func() {
-			if recover() != nil {
-				result = nil
-				err = invalid("invalid date or nonexistent lunar leap month")
-			}
-		}()
-	}
+func runExtra(ctx context.Context, id string, v *toolrun.Values, a []string) (map[string]any, error) {
 	switch id {
 	case "cron.next":
 		if len(a[0]) > 1024 {
@@ -91,11 +80,11 @@ func runExtra(ctx context.Context, id string, v *toolrun.Values, a []string) (re
 		if e != nil {
 			return nil, e
 		}
-		if t.Year() < 1900 || t.Year() > 2100 {
-			return nil, invalid("supported Gregorian years are 1900–2100")
+		l, e := lunarFromSolar(t)
+		if e != nil {
+			return nil, e
 		}
-		l := calendar.NewSolarFromYmd(t.Year(), int(t.Month()), t.Day()).GetLunar()
-		return map[string]any{"year": l.GetYear(), "month": absInt(l.GetMonth()), "day": l.GetDay(), "leap": l.GetMonth() < 0, "text": l.String()}, nil
+		return map[string]any{"year": l.year, "month": l.month, "day": l.day, "leap": l.leap, "text": l.text()}, nil
 	case "calendar.solar":
 		y, e := strconv.Atoi(a[0])
 		if e != nil {
@@ -109,19 +98,11 @@ func runExtra(ctx context.Context, id string, v *toolrun.Values, a []string) (re
 		if e != nil {
 			return nil, invalid("invalid lunar day")
 		}
-		if y < 1900 || y > 2100 || m < 1 || m > 12 || d < 1 || d > 30 {
-			return nil, invalid("lunar year 1900–2100, month 1–12, day 1–30 required")
+		s, e := solarFromLunar(lunarDate{y, m, d, v.Bool("leap", false)})
+		if e != nil {
+			return nil, e
 		}
-		if v.Bool("leap", false) {
-			m = -m
-		}
-		l := calendar.NewLunarFromYmd(y, m, d)
-		s := l.GetSolar()
-		check := s.GetLunar()
-		if check.GetYear() != y || check.GetMonth() != m || check.GetDay() != d {
-			return nil, invalid("nonexistent lunar date")
-		}
-		return map[string]any{"date": s.ToYmd()}, nil
+		return map[string]any{"date": s.Format("2006-01-02")}, nil
 	case "toml.to-json", "toml.validate", "toml.format":
 		if len(a[0]) > 1<<20 {
 			return nil, invalid("TOML input exceeds 1 MiB")
@@ -162,12 +143,6 @@ func runExtra(ctx context.Context, id string, v *toolrun.Values, a []string) (re
 		return value(string(b)), nil
 	}
 	return nil, invalid("unknown additional utility")
-}
-func absInt(n int) int {
-	if n < 0 {
-		return -n
-	}
-	return n
 }
 func tomlValue(x any, depth int, budget *int) (any, error) {
 	*budget--

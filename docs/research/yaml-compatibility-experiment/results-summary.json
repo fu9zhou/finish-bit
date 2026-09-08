@@ -1,0 +1,283 @@
+[
+  {
+    "case": "safe_integer",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "uint64",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "over_uint64",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "long_decimal",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "overflow_exponent",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "typed_overflow_exponent",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "scalars",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "duplicate",
+    "candidate_matches": true,
+    "old_error": "duplicate YAML key: a",
+    "candidate_error": "[2:1] mapping key \"a\" already defined at [1:1]\n   1 | a: 1\n>  2 | a: 2\n       ^\n"
+  },
+  {
+    "case": "quoted_duplicate",
+    "candidate_matches": true,
+    "old_error": "duplicate YAML key: a",
+    "candidate_error": "[2:1] mapping key \"a\" already defined at [1:1]\n   1 | a: 1\n>  2 | 'a': 2\n       ^\n"
+  },
+  {
+    "case": "alias",
+    "candidate_matches": true,
+    "old_error": "YAML aliases are not accepted; expand them explicitly",
+    "candidate_error": "alias"
+  },
+  {
+    "case": "anchor_without_alias",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "recursive_alias",
+    "candidate_matches": true,
+    "old_error": "YAML aliases are not accepted; expand them explicitly",
+    "candidate_error": "alias"
+  },
+  {
+    "case": "multi_doc",
+    "candidate_matches": true,
+    "old_error": "multiple documents",
+    "candidate_error": "single doc required"
+  },
+  {
+    "case": "empty",
+    "candidate_matches": true,
+    "old_error": "EOF",
+    "candidate_error": "empty"
+  },
+  {
+    "case": "empty_doc",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "non_string_key",
+    "candidate_matches": true,
+    "old_error": "YAML mapping keys must be strings",
+    "candidate_error": "YAML mapping keys must be strings"
+  },
+  {
+    "case": "complex_key",
+    "candidate_matches": true,
+    "old_error": "YAML mapping keys must be strings",
+    "candidate_error": "[2:1] found an invalid key for this map\n   1 | ? [a,b]: hi\n       ^\n"
+  },
+  {
+    "case": "non_finite",
+    "candidate_matches": true,
+    "old_error": "YAML numeric scalars must be finite decimal values; convert hex/octal explicitly",
+    "candidate_error": "non finite"
+  },
+  {
+    "case": "hex",
+    "candidate_matches": true,
+    "old_error": "YAML numeric scalars must be finite decimal values; convert hex/octal explicitly",
+    "candidate_error": "YAML numeric scalars must be finite decimal values; convert hex/octal explicitly"
+  },
+  {
+    "case": "old_octal",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "new_octal",
+    "candidate_matches": true,
+    "old_error": "YAML numeric scalars must be finite decimal values; convert hex/octal explicitly",
+    "candidate_error": "YAML numeric scalars must be finite decimal values; convert hex/octal explicitly"
+  },
+  {
+    "case": "comments_indent",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "block_string",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "explicit_timestamp",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "custom_tag",
+    "candidate_matches": true,
+    "old_error": "unsupported YAML scalar tag: !secret",
+    "candidate_error": "unsupported YAML scalar tag: !secret"
+  },
+  {
+    "case": "date_key",
+    "candidate_matches": false,
+    "old_error": "YAML mapping keys must be strings",
+    "candidate_error": ""
+  },
+  {
+    "case": "quoted_big",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "nonspecific_tag",
+    "candidate_matches": false,
+    "old_error": "",
+    "candidate_error": "unsupported YAML scalar tag: !"
+  },
+  {
+    "case": "yaml_directive",
+    "candidate_matches": false,
+    "old_error": "",
+    "candidate_error": "single doc required"
+  },
+  {
+    "case": "typed_bool_yes",
+    "candidate_matches": true,
+    "old_error": "",
+    "candidate_error": ""
+  },
+  {
+    "case": "depth_129",
+    "candidate_matches": true,
+    "old_error": "YAML exceeds depth 128 or 100000 nodes",
+    "candidate_error": "limit"
+  },
+  {
+    "case": "nodes_100001",
+    "candidate_matches": true,
+    "old_error": "YAML exceeds depth 128 or 100000 nodes",
+    "candidate_error": "limit"
+  },
+  {
+    "convert": "v: 9007199254740993\n",
+    "convert_error": "",
+    "custom": "v: 9007199254740993\n",
+    "custom_error": "",
+    "json": "{\"v\":9007199254740993}",
+    "old": "v: 9007199254740993\n",
+    "old_error": "",
+    "plain": "v: \"9007199254740993\"\n",
+    "plain_error": "",
+    "roundtrip": {
+      "v": 9007199254740993
+    },
+    "roundtrip_error": "",
+    "typed": "v: !!int 9007199254740993\n",
+    "typed_error": ""
+  },
+  {
+    "convert": "v: \"18446744073709551616\"\n",
+    "convert_error": "",
+    "custom": "v: 18446744073709551616\n",
+    "custom_error": "",
+    "json": "{\"v\":18446744073709551616}",
+    "old": "v: !!int 18446744073709551616\n",
+    "old_error": "",
+    "plain": "v: \"18446744073709551616\"\n",
+    "plain_error": "",
+    "roundtrip": {
+      "v": 18446744073709551616
+    },
+    "roundtrip_error": "",
+    "typed": "v: !!int 18446744073709551616\n",
+    "typed_error": ""
+  },
+  {
+    "convert": "v: 0.12345678901234568\n",
+    "convert_error": "",
+    "custom": "v: 0.12345678901234567890123456789\n",
+    "custom_error": "",
+    "json": "{\"v\":0.12345678901234567890123456789}",
+    "old": "v: 0.12345678901234567890123456789\n",
+    "old_error": "",
+    "plain": "v: \"0.12345678901234567890123456789\"\n",
+    "plain_error": "",
+    "roundtrip": {
+      "v": 0.12345678901234568
+    },
+    "roundtrip_error": "",
+    "typed": "v: !!float 0.12345678901234567890123456789\n",
+    "typed_error": ""
+  },
+  {
+    "convert": "v: 1e309\n",
+    "convert_error": "",
+    "custom": "v: 1e309\n",
+    "custom_error": "",
+    "json": "{\"v\":1e309}",
+    "old": "v: !!float 1e309\n",
+    "old_error": "",
+    "plain": "v: 1e309\n",
+    "plain_error": "",
+    "roundtrip": {
+      "v": "Infinity"
+    },
+    "roundtrip_error": "",
+    "typed": "v: !!float 1e309\n",
+    "typed_error": ""
+  },
+  {
+    "convert": "bool: \"true\"\ndate: \"2026-09-08\"\nv: \"123\"\n\"null\": \"null\"\n\"yes\": \"yes\"\n",
+    "convert_error": "",
+    "custom": "bool: \"true\"\ndate: \"2026-09-08\"\n\"null\": \"null\"\nv: \"123\"\n\"yes\": \"yes\"\n",
+    "custom_error": "",
+    "json": "{\"bool\":\"true\",\"date\":\"2026-09-08\",\"v\":\"123\",\"null\":\"null\",\"yes\":\"yes\"}",
+    "old": "bool: \"true\"\ndate: \"2026-09-08\"\n\"null\": \"null\"\nv: \"123\"\nyes: yes\n",
+    "old_error": "",
+    "plain": "bool: \"true\"\ndate: \"2026-09-08\"\n\"null\": \"null\"\nv: \"123\"\n\"yes\": \"yes\"\n",
+    "plain_error": "",
+    "roundtrip": {
+      "bool": "true",
+      "date": "2026-09-08",
+      "null": "null",
+      "v": "123",
+      "yes": "yes"
+    },
+    "roundtrip_error": "",
+    "typed": "bool: \"true\"\ndate: \"2026-09-08\"\n\"null\": \"null\"\nv: \"123\"\n\"yes\": \"yes\"\n",
+    "typed_error": ""
+  }
+]

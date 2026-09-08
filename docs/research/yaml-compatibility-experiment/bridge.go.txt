@@ -1,0 +1,25 @@
+package main
+import("encoding/json";"fmt";"strconv";"strings";"github.com/goccy/go-yaml/ast";"github.com/goccy/go-yaml/parser";"github.com/goccy/go-yaml/token";g "github.com/goccy/go-yaml";y "go.yaml.in/yaml/v3")
+// Experimental bridge only: y.Node is an intermediate shape for reusing the exact existing validator.
+func bridge(n ast.Node,depth int,budget *int)(*y.Node,error){
+*budget--;if depth>128||*budget<0{return nil,fmt.Errorf("limit")}
+if n==nil{return &y.Node{Kind:y.ScalarNode,Tag:"!!null"},nil}
+out:=&y.Node{Kind:y.ScalarNode}
+switch v:=n.(type){
+case *ast.MappingNode:out.Kind=y.MappingNode;out.Tag="!!map";for _,e:=range v.Values{k,err:=bridge(e.Key,depth+1,budget);if err!=nil{return nil,err};val,err:=bridge(e.Value,depth+1,budget);if err!=nil{return nil,err};out.Content=append(out.Content,k,val)}
+case *ast.SequenceNode:out.Kind=y.SequenceNode;out.Tag="!!seq";for _,c:=range v.Values{child,e:=bridge(c,depth+1,budget);if e!=nil{return nil,e};out.Content=append(out.Content,child)}
+case *ast.AnchorNode:return bridge(v.Value,depth,budget)
+case *ast.AliasNode:return nil,fmt.Errorf("alias")
+case *ast.TagNode:child,e:=bridge(v.Value,depth,budget);if e!=nil{return nil,e};child.Tag=v.Start.Value;return child,nil
+case *ast.StringNode:out.Tag="!!str";out.Value=v.Value;if v.Token.Type==token.StringType{s:=strings.ReplaceAll(v.Value,"_","");if _,e:=strconv.ParseFloat(s,64);e==nil&&decimalPattern.MatchString(s){out.Tag="!!float"}}
+case *ast.LiteralNode:out.Tag="!!str";out.Value=v.Value.Value
+case *ast.IntegerNode:out.Tag="!!int";out.Value=v.Token.Value
+case *ast.FloatNode:out.Tag="!!float";out.Value=v.Token.Value
+case *ast.BoolNode:out.Tag="!!bool";out.Value=v.Token.Value
+case *ast.NullNode:out.Tag="!!null"
+case *ast.InfinityNode,*ast.NanNode:return nil,fmt.Errorf("non finite")
+default:return nil,fmt.Errorf("unsupported %T",n)
+};return out,nil
+}
+func candidate(s string)(any,error){f,e:=parser.ParseBytes([]byte(s),parser.ParseComments);if e!=nil{return nil,e};if len(f.Docs)!=1{return nil,fmt.Errorf("single doc required")};if f.Docs[0].Body==nil&&f.Docs[0].Start==nil{return nil,fmt.Errorf("empty")};b:=100000;n,e:=bridge(f.Docs[0].Body,1,&b);if e!=nil{return nil,e};b=100000;return yamlValue(n,1,&b)}
+func typedMarshal(v any)([]byte,error){return g.MarshalWithOptions(v,g.CustomMarshaler[json.Number](func(n json.Number)([]byte,error){tag:="!!int ";if strings.ContainsAny(string(n),".eE"){tag="!!float "};return []byte(tag+string(n)),nil}))}

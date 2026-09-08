@@ -21,7 +21,7 @@ go vet ./...
 go build ./cmd/fnsh
 ```
 
-The module uses pure-Go archive readers for the pinned ZIP/tar.xz/7z runtime distributions. Mature dependencies may be introduced when they enable a coherent capability group; record their purpose and keep heavyweight engines optional. Archive handling currently uses `github.com/bodgit/sevenzip` and `github.com/ulikunitz/xz`, with versions locked in `go.mod` and `go.sum`.
+ZIP and tar.gz runtime distributions use the Go standard library; tar.xz uses `github.com/ulikunitz/xz`, locked in `go.mod` and `go.sum`. Pinned 7z distributions use an existing managed 7-Zip reader or the official raw `7zr.exe` bootstrap. FinishBit validates the listing and writes each bounded stdout stream itself. Mature dependencies may be introduced when they enable a coherent capability group; record their purpose and keep heavyweight engines optional.
 
 ## Repository map
 

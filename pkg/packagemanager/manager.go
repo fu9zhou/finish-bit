@@ -160,8 +160,14 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 				files = append(files, entry)
 			}
 		}
-		if err := extractArchive(ctx, archivePath, filepath.Join(staging, "payload"), artifact.Format, files); err != nil {
-			return Installed{}, err
+		var extractErr error
+		if artifact.Format == "7z" {
+			extractErr = m.extract7z(ctx, name, archivePath, filepath.Join(staging, "payload"), files)
+		} else {
+			extractErr = extractArchive(ctx, archivePath, filepath.Join(staging, "payload"), artifact.Format, files)
+		}
+		if extractErr != nil {
+			return Installed{}, extractErr
 		}
 	}
 	for _, resource := range artifact.Downloads {

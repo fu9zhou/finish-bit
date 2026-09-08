@@ -1,0 +1,44 @@
+package main
+import("bytes";"encoding/json";"fmt";"io";"strings";g "github.com/goccy/go-yaml";"github.com/goccy/go-yaml/ast";"github.com/goccy/go-yaml/parser";y "go.yaml.in/yaml/v3")
+func old(s string)(any,string,error){var n,extra y.Node;d:=y.NewDecoder(strings.NewReader(s));if e:=d.Decode(&n);e!=nil{return nil,"",e};if e:=d.Decode(&extra);e!=io.EOF{return nil,"",fmt.Errorf("multiple documents")};b:=100000;v,e:=yamlValue(&n,0,&b);if e!=nil{return nil,"",e};var out bytes.Buffer;enc:=y.NewEncoder(&out);enc.SetIndent(2);e=enc.Encode(&n);return v,out.String(),e}
+func emit(v any){b,_:=json.Marshal(v);fmt.Println(string(b))}
+func errstr(e error)string{if e!=nil{return e.Error()};return ""}
+func dump(n ast.Node)any{if n==nil{return nil};r:=map[string]any{"type":n.Type().String(),"token":n.GetToken().Value};switch x:=n.(type){case *ast.MappingNode:a:=[]any{};for _,v:=range x.Values{a=append(a,map[string]any{"key":dump(v.Key),"value":dump(v.Value)})};r["children"]=a;case *ast.SequenceNode:a:=[]any{};for _,v:=range x.Values{a=append(a,dump(v))};r["children"]=a;case *ast.AnchorNode:r["child"]=dump(x.Value);case *ast.TagNode:r["child"]=dump(x.Value);case ast.ScalarNode:r["value"]=fmt.Sprintf("%v",x.GetValue())};return r}
+func main(){
+cases:=[]struct{name,input string}{
+{"safe_integer","v: 9007199254740993"},
+{"uint64","v: 18446744073709551615"},
+{"over_uint64","v: 18446744073709551616"},
+{"long_decimal","v: 0.12345678901234567890123456789"},
+{"overflow_exponent","v: 1e309"},
+{"typed_overflow_exponent","v: !!float 1e309"},
+{"scalars","yes: yes\ntrue_string: 'true'\nbool: TRUE\ndate: 2026-09-08\ntime: 2026-09-08T12:30:00Z\nnull_value: null\nstr_tag: !!str 123"},
+{"duplicate","a: 1\na: 2"},
+{"quoted_duplicate","a: 1\n'a': 2"},
+{"alias","a: &x [1]\nb: *x"},
+{"anchor_without_alias","a: &x [1]"},
+{"recursive_alias","x: &x [*x]"},
+{"multi_doc","a: 1\n---\nb: 2"},
+{"empty",""},
+{"empty_doc","---\n"},
+{"non_string_key","1: hi"},
+{"complex_key","? [a,b]\n: hi"},
+{"non_finite","v: .nan"},
+{"hex","v: 0x10"},
+{"old_octal","v: 012"},
+{"new_octal","v: 0o12"},
+{"comments_indent","# header\nouter:\n    value: 1 # inline\n    items:\n      - a\n      - b\n# footer"},
+{"block_string","v: |\n  hi\n  world\n"},
+{"explicit_timestamp","v: !!timestamp 2026-09-08"},
+{"custom_tag","v: !secret abc"},
+{"date_key","2026-09-08: hi"},
+{"quoted_big","v: '18446744073709551616'"},
+{"nonspecific_tag","v: ! 123"},
+{"yaml_directive","%YAML 1.1\n---\nv: yes"},
+{"typed_bool_yes","v: !!bool yes"},
+{"depth_129",strings.Repeat("[",129)+"0"+strings.Repeat("]",129)},
+{"nodes_100001","["+strings.Repeat("0,",100000)+"0]"},
+}
+for _,c:=range cases{s:=strings.ReplaceAll(c.input,"\\n","\n");ov,of,oe:=old(s);var dv any;de:=g.Unmarshal([]byte(s),&dv);j,je:=g.YAMLToJSON([]byte(s));f,pe:=parser.ParseBytes([]byte(s),parser.ParseComments);r:=map[string]any{"case":c.name,"old":ov,"old_error":errstr(oe),"old_format":of,"direct":fmt.Sprintf("%#v",dv),"direct_error":errstr(de),"yaml_to_json":string(j),"yaml_to_json_error":errstr(je),"parse_error":errstr(pe)};if pe==nil{a:=[]any{};for _,d:=range f.Docs{a=append(a,dump(d.Body))};r["ast"]=a;r["ast_format"]=f.String();b,e:=g.MarshalWithOptions(f.Docs[0],g.Indent(2));r["encoder_ast"]=string(b);r["encoder_error"]=errstr(e)};cv,ce:=candidate(s);r["candidate"]=cv;r["candidate_error"]=errstr(ce);ob,_:=json.Marshal(ov);cb,_:=json.Marshal(cv);r["candidate_matches"]=(oe!=nil&&ce!=nil)||(oe==nil&&ce==nil&&string(ob)==string(cb));emit(r)}
+for _,s:=range []string{`{"v":9007199254740993}`,`{"v":18446744073709551616}`,`{"v":0.12345678901234567890123456789}`,`{"v":1e309}`,`{"bool":"true","date":"2026-09-08","v":"123","null":"null","yes":"yes"}`}{var v any;d:=json.NewDecoder(strings.NewReader(s));d.UseNumber();_ = d.Decode(&v);plain,e:=g.Marshal(v);custom,ce:=g.MarshalWithOptions(v,g.CustomMarshaler[json.Number](func(n json.Number)([]byte,error){return []byte(n),nil}));converted,xe:=g.JSONToYAML([]byte(s));b:=100000;node,ne:=jsonYAML(v,0,&b);var oldout bytes.Buffer;if ne==nil{enc:=y.NewEncoder(&oldout);enc.SetIndent(2);ne=enc.Encode(node)};typed,te:=typedMarshal(v);round,re:=candidate(string(typed));emit(map[string]any{"typed":string(typed),"typed_error":errstr(te),"roundtrip":round,"roundtrip_error":errstr(re),"json":s,"plain":string(plain),"plain_error":errstr(e),"custom":string(custom),"custom_error":errstr(ce),"convert":string(converted),"convert_error":errstr(xe),"old":oldout.String(),"old_error":errstr(ne)})}
+}

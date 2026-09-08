@@ -1,0 +1,142 @@
+package main
+import (
+"encoding/json";"fmt";"strings";"sort";"math/big";"regexp";yaml "go.yaml.in/yaml/v3"
+)
+func invalid(s string) error {return fmt.Errorf("%s",s)}
+func yamlValue(n *yaml.Node, depth int, budget *int) (any, error) {
+	*budget--
+	if depth > 128 || *budget < 0 {
+		return nil, invalid("YAML exceeds depth 128 or 100000 nodes")
+	}
+	switch n.Kind {
+	case yaml.DocumentNode:
+		if len(n.Content) != 1 {
+			return nil, invalid("expected one YAML root")
+		}
+		return yamlValue(n.Content[0], depth+1, budget)
+	case yaml.AliasNode:
+		return nil, invalid("YAML aliases are not accepted; expand them explicitly")
+	case yaml.MappingNode:
+		m := map[string]any{}
+		for i := 0; i < len(n.Content); i += 2 {
+			k := n.Content[i]
+			if k.Kind != yaml.ScalarNode || k.Tag != "!!str" {
+				return nil, invalid("YAML mapping keys must be strings")
+			}
+			if _, ok := m[k.Value]; ok {
+				return nil, invalid("duplicate YAML key: " + k.Value)
+			}
+			v, e := yamlValue(n.Content[i+1], depth+1, budget)
+			if e != nil {
+				return nil, e
+			}
+			m[k.Value] = v
+		}
+		return m, nil
+	case yaml.SequenceNode:
+		a := []any{}
+		for _, c := range n.Content {
+			v, e := yamlValue(c, depth+1, budget)
+			if e != nil {
+				return nil, e
+			}
+			a = append(a, v)
+		}
+		return a, nil
+	case yaml.ScalarNode:
+		switch n.Tag {
+		case "!!str", "!!timestamp":
+			return n.Value, nil
+		case "!!null":
+			return nil, nil
+		case "!!bool":
+			return strings.EqualFold(n.Value, "true"), nil
+		case "!!int", "!!float":
+			s := strings.ReplaceAll(n.Value, "_", "")
+			if _, e := decimal(s); e != nil {
+				return nil, invalid("YAML numeric scalars must be finite decimal values; convert hex/octal explicitly")
+			}
+			if strings.HasPrefix(s, "+") {
+				s = s[1:]
+			}
+			if !json.Valid([]byte(s)) {
+				r, _ := decimal(s)
+				if r.IsInt() {
+					s = r.Num().String()
+				} else {
+					return nil, invalid("YAML number is not a JSON number")
+				}
+			}
+			return json.Number(s), nil
+		default:
+			return nil, invalid("unsupported YAML scalar tag: " + n.Tag)
+		}
+	}
+	return nil, invalid("unsupported YAML node")
+}
+func jsonYAML(x any, depth int, budget *int) (*yaml.Node, error) {
+	*budget--
+	if depth > 128 || *budget < 0 {
+		return nil, invalid("JSON exceeds depth 128 or 100000 nodes")
+	}
+	n := &yaml.Node{}
+	switch v := x.(type) {
+	case map[string]any:
+		n.Kind = yaml.MappingNode
+		n.Tag = "!!map"
+		keys := []string{}
+		for k := range v {
+			keys = append(keys, k)
+		}
+		sort.Strings(keys)
+		for _, k := range keys {
+			c, e := jsonYAML(v[k], depth+1, budget)
+			if e != nil {
+				return nil, e
+			}
+			n.Content = append(n.Content, &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!str", Value: k}, c)
+		}
+	case []any:
+		n.Kind = yaml.SequenceNode
+		n.Tag = "!!seq"
+		for _, i := range v {
+			c, e := jsonYAML(i, depth+1, budget)
+			if e != nil {
+				return nil, e
+			}
+			n.Content = append(n.Content, c)
+		}
+	case json.Number:
+		n.Kind = yaml.ScalarNode
+		n.Tag = "!!int"
+		if strings.ContainsAny(string(v), ".eE") {
+			n.Tag = "!!float"
+		}
+		n.Value = string(v)
+	case string:
+		n.Kind = yaml.ScalarNode
+		n.Tag = "!!str"
+		n.Value = v
+	case bool:
+		n.Kind = yaml.ScalarNode
+		n.Tag = "!!bool"
+		n.Value = fmt.Sprint(v)
+	case nil:
+		n.Kind = yaml.ScalarNode
+		n.Tag = "!!null"
+		n.Value = "null"
+	}
+	return n, nil
+}
+var decimalPattern = regexp.MustCompile(`^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]{1,3})?$`)
+
+func decimal(s string) (*big.Rat, error) {
+	if len(s) > 512 || !decimalPattern.MatchString(s) {
+		return nil, invalid("expected a finite decimal with at most 512 characters and a three-digit exponent")
+	}
+	r, ok := new(big.Rat).SetString(s)
+	if !ok {
+		return nil, invalid("invalid decimal")
+	}
+	return r, nil
+}

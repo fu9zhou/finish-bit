@@ -286,6 +286,27 @@
       }
     },
     {
+      "name": "7zip-bootstrap",
+      "version": "26.03",
+      "description": "Official standalone 7zr reader for bootstrapping managed 7z archives",
+      "license": "LGPL-2.1-or-later; upstream 7-Zip license",
+      "source": "https://github.com/ip7z/7zip/releases/tag/26.03",
+      "artifacts": {
+        "win32-x64": {
+          "url": "https://github.com/ip7z/7zip/releases/download/26.03/7zr.exe",
+          "sha256": "ad4c82fadcbdf93c03b4fc440f300509c7d60c5c2f4d183e35d9d70d6957037d",
+          "format": "raw",
+          "executables": { "7zip": "7zr.exe" }
+        },
+        "win32-arm64": {
+          "url": "https://github.com/ip7z/7zip/releases/download/26.03/7zr.exe",
+          "sha256": "ad4c82fadcbdf93c03b4fc440f300509c7d60c5c2f4d183e35d9d70d6957037d",
+          "format": "raw",
+          "executables": { "7zip": "7zr.exe" }
+        }
+      }
+    },
+    {
       "name": "7zip-full",
       "version": "26.03",
       "description": "Pinned full 7-Zip archive reader for extracting optional NSIS runtimes without running installers",
@@ -303,14 +324,14 @@
     },
     {
       "name": "tesseract",
-      "version": "5.5.0-fast-8741641",
-      "description": "Offline OCR engine with pinned simplified Chinese and English fast language models; approximately 79 MiB expanded",
+      "version": "5.5.3-fast-8741641",
+      "description": "Offline OCR engine with pinned simplified Chinese and English fast language models",
       "license": "Apache-2.0 and bundled component licenses",
-      "source": "https://github.com/tesseract-ocr/tesseract/releases/tag/5.5.0",
+      "source": "https://github.com/tesseract-ocr/tesseract/releases/tag/5.5.3",
       "artifacts": {
         "win32-x64": {
-          "url": "https://github.com/tesseract-ocr/tesseract/releases/download/5.5.0/tesseract-ocr-w64-setup-5.5.0.20241111.exe",
-          "sha256": "f3fc4236425b690c8be756f35793f77394ee004be0a6460a440c754d892f68bc",
+          "url": "https://github.com/tesseract-ocr/tesseract/releases/download/5.5.3/tesseract-ocr-w64-setup-5.5.3.20260724.exe",
+          "sha256": "bee9e3434bd94fd65387d9be28cd467a41f61b1275383b55b0f59a1331270ae4",
           "format": "nsis",
           "extractor": "7zip-full",
           "executables": { "tesseract": "tesseract.exe" },

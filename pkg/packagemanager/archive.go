@@ -11,7 +11,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/bodgit/sevenzip"
 	"github.com/ulikunitz/xz"
 )
 
@@ -141,20 +140,6 @@ func extractArchive(ctx context.Context, source, root, format string, files ...[
 				return fmt.Errorf("archive entry too large")
 			}
 			if err := extract(f.Name, f.Mode(), int64(f.UncompressedSize64), f.Open); err != nil {
-				return err
-			}
-		}
-	case "7z":
-		archive, err := sevenzip.OpenReader(source)
-		if err != nil {
-			return err
-		}
-		defer archive.Close()
-		for _, f := range archive.File {
-			if f.UncompressedSize > uint64(maxPackageBytes) {
-				return fmt.Errorf("archive entry too large")
-			}
-			if err := extract(f.Name, f.Mode(), int64(f.UncompressedSize), f.Open); err != nil {
 				return err
 			}
 		}
