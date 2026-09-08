@@ -15,6 +15,7 @@ This directory is the documentation entry point for FinishBit. Each topic has on
 | Install, upgrade, or remove `fnsh` | [Installation](installation.md) |
 | Find commands, JSON behavior, and exit codes | [CLI reference](cli-reference.md) |
 | Browse built-in capabilities and Operation rules | [Operations](operations.md) |
+| Use the expanded offline toolbox and OCR | [Local tools](local-tools.md) |
 | Compress, extract, inspect and update archives | [Archive workflows](archives.md) |
 | Convert, merge and inspect documents | [Document workflows](documents.md) |
 | Transform video, audio and subtitles | [Media operations](media.md) |
@@ -41,6 +42,7 @@ Machine-readable contracts live in [`schemas/`](../schemas/). The catalog return
 | Prepare and publish a release | [Release process](releasing.md) |
 | See planned direction without date commitments | [Roadmap](roadmap.md) |
 | Compare open-source toolbox capabilities | [工具箱调研](research/open-source-toolboxes.md) |
+| Compare QQ toolbox entries and plan lightweight additions | [帮小忙逐项核对清单](research/qq-tool-alignment-2026-09-07.md) |
 | Propose changes or submit code | [Contributing](../CONTRIBUTING.md) |
 | Understand decision rights | [Governance](../GOVERNANCE.md) |
 | Request help | [Support](../SUPPORT.md) |

@@ -27,12 +27,21 @@ type Package struct {
 }
 
 type Artifact struct {
-	URL         string            `json:"url"`
-	Mirrors     []string          `json:"mirrors,omitempty"`
-	SHA256      string            `json:"sha256"`
-	Format      string            `json:"format"`
-	Executables map[string]string `json:"executables"`
-	Resources   []string          `json:"resources,omitempty"`
+	URL         string             `json:"url"`
+	Mirrors     []string           `json:"mirrors,omitempty"`
+	SHA256      string             `json:"sha256"`
+	Format      string             `json:"format"`
+	Executables map[string]string  `json:"executables"`
+	Resources   []string           `json:"resources,omitempty"`
+	Extractor   string             `json:"extractor,omitempty"`
+	Downloads   []ResourceDownload `json:"downloads,omitempty"`
+}
+
+// ResourceDownload is a pinned supplementary data file, never an executable installer.
+type ResourceDownload struct {
+	URL    string `json:"url"`
+	SHA256 string `json:"sha256"`
+	Path   string `json:"path"`
 }
 
 func BuiltinRegistry() (Registry, error) {

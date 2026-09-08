@@ -11,7 +11,7 @@ An Operation is a stable task contract: identifier, searchable metadata, ordered
 - `requirements` identify managed packages needed at execution time.
 - `source` identifies the core, a managed provider, or an installed extension.
 
-Core text-like Operations accept at most 64 MiB from a literal value, file, or stdin. Inputs above that limit fail with `invalid_input` instead of being partially processed. Managed providers separately bound subprocess diagnostics returned in errors.
+Original core text Operations accept at most 64 MiB. The [new local toolbox](local-tools.md) generally limits text to 4 MiB and uses explicit literal/file/stdin modes; individual algorithm limits are smaller. Inputs above the applicable limit fail with `invalid_input`. Managed providers separately bound subprocess diagnostics returned in errors.
 
 Use `fnsh describe <id> --json` instead of hard-coding display text. Consumers should treat IDs, parameter names/types, result fields, and error codes according to the [compatibility policy](compatibility.md).
 
@@ -42,6 +42,8 @@ fnsh describe json.query --json
 ```
 
 ## Registration invariant
+
+The unreleased local toolbox adds 107 Operations, bringing the catalog to 277. See [local tools](local-tools.md) for supported subsets, runtime sizes and verification, and the generated website catalog for every contract. These additions are not part of the v0.1.5 release binary.
 
 Each ID uses lowercase `<domain>.<action>` segments and is unique across core and extensions. Registering once automatically enables search, describe, direct CLI dispatch, generic `run`, JSON schemas in responses, and future adapters through `pkg/app`.
 

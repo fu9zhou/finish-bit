@@ -48,12 +48,16 @@ func catalog() []spec {
 		{"pdf.remove-pages", "Remove selected PDF pages", "删除 PDF 页面", []operation.Parameter{pageOption()}, 1, "file"},
 		{"pdf.insert-pages", "Insert blank pages before or after selected pages", "插入 PDF 空白页", []operation.Parameter{pageOption(), opt("position", "before or after", "before")}, 1, "file"},
 		{"pdf.rotate", "Rotate selected PDF pages clockwise", "旋转 PDF", []operation.Parameter{pageOption(), opt("angle", "90, 180 or 270", "90")}, 1, "file"},
-		{"pdf.crop", "Set page crop boxes using a margin in points", "裁剪 PDF", []operation.Parameter{pageOption(), number("margin", "Margin on all sides in PDF points", 10)}, 1, "file"},
+		{"pdf.crop", "Set page crop boxes using independent margins in points", "裁剪 PDF", []operation.Parameter{pageOption(), number("margin", "Default margin on all sides in PDF points", 10), number("top", "Top margin; -1 uses margin", -1), number("right", "Right margin; -1 uses margin", -1), number("bottom", "Bottom margin; -1 uses margin", -1), number("left", "Left margin; -1 uses margin", -1)}, 1, "file"},
 		{"pdf.watermark", "Add a text, image or PDF watermark below page content", "PDF 水印", stampOptions(), 1, "file"},
 		{"pdf.stamp", "Add a text, image or PDF stamp above page content", "PDF 盖章", stampOptions(), 1, "file"},
 		{"pdf.remove-watermark", "Remove recognized pdfcpu watermarks", "移除 PDF 水印", []operation.Parameter{pageOption()}, 1, "file"},
 		{"pdf.remove-stamp", "Remove recognized pdfcpu stamps", "移除 PDF 印章", []operation.Parameter{pageOption()}, 1, "file"},
-		{"pdf.from-images", "Create PDF pages from ordered image files", "图片转 PDF", []operation.Parameter{list("files", "Additional image files in order")}, 1, "file"},
+		{"pdf.from-images", "Create PDF pages from ordered image files", "图片转 PDF", []operation.Parameter{list("files", "Additional image files in order"), number("dpi", "Image DPI used to size full-image pages", 72)}, 1, "file"},
+		{"pdf.resize-pages", "Resize PDF pages to a named paper size", "修改PDF页面尺寸", []operation.Parameter{pageOption(), opt("paper", "A3, A4, A5, Letter or Legal; optional P/L orientation suffix", "A4")}, 1, "file"},
+		{"pdf.metadata-set", "Set PDF title, author, subject and creator fields", "修改PDF元数据", []operation.Parameter{opt("title", "Document title", ""), opt("author", "Document author", ""), opt("subject", "Document subject", ""), opt("creator", "Content creator", "")}, 1, "file"},
+		{"pdf.page-numbers", "Stamp page numbers and total page count", "PDF加页码", []operation.Parameter{pageOption(), opt("text", "ASCII template; %p current page, %P total; %p3 adds offset 3", "%p / %P"), number("size", "Font size in points", 12), opt("position", "tl, tc, tr, l, c, r, bl, bc or br", "bc")}, 1, "file"},
+		{"pdf.sign-image", "Stamp a supplied signature image on selected PDF pages", "PDF签名图片", []operation.Parameter{pageOption(), toolrun.Param("signature", "Local signature PNG/JPEG", true), number("scale-percent", "Relative image scale percentage", 25), number("x", "Horizontal offset in points", 0), number("y", "Vertical offset in points", 0), opt("position", "tl, tc, tr, l, c, r, bl, bc or br", "br")}, 1, "file"},
 		{"pdf.optimize", "Remove redundant PDF resources", "优化 PDF", nil, 1, "file"},
 		{"pdf.encrypt", "Encrypt a PDF with AES-256 and password permissions", "PDF 加密", []operation.Parameter{toolrun.Param("owner-password", "Owner password", true), toolrun.Param("user-password", "User password", true), opt("permissions", "none, print or all", "none")}, 1, "file"},
 		{"pdf.decrypt", "Decrypt a PDF using a supplied password", "PDF 解密", []operation.Parameter{toolrun.Param("password", "User or owner password", true)}, 1, "file"},
@@ -237,7 +241,15 @@ func (p *Provider) run(ctx context.Context, item spec, r operation.Request) (ope
 		args = append(append([]string{"rotate"}, pages...), input, angle, target)
 	case "pdf.crop":
 		margin := v.Int("margin", 10, 0, 10000)
-		args = append(append([]string{"crop"}, pages...), strconv.Itoa(margin), input, target)
+		margins := []string{}
+		for _, side := range []string{"top", "right", "bottom", "left"} {
+			n := v.Int(side, -1, -1, 10000)
+			if n == -1 {
+				n = margin
+			}
+			margins = append(margins, strconv.Itoa(n))
+		}
+		args = append(append([]string{"crop"}, pages...), strings.Join(margins, " ")+" abs", input, target)
 	case "pdf.watermark", "pdf.stamp":
 		command := "watermark"
 		if item.id == "pdf.stamp" {
@@ -266,7 +278,40 @@ func (p *Provider) run(ctx context.Context, item spec, r operation.Request) (ope
 		}
 		args = append(append([]string{command, "remove"}, pages...), input, target)
 	case "pdf.from-images":
-		args = append([]string{"import", target}, paths...)
+		dpi := v.Int("dpi", 72, 36, 1200)
+		args = append([]string{"import", fmt.Sprintf("pos:full,dpi:%d", dpi), target}, paths...)
+	case "pdf.resize-pages":
+		paper := v.Enum("paper", "A4", "A3", "A4", "A5", "Letter", "Legal", "A3P", "A4P", "A5P", "LetterP", "LegalP", "A3L", "A4L", "A5L", "LetterL", "LegalL")
+		args = append(append([]string{"resize"}, pages...), "form:"+paper, input, target)
+	case "pdf.metadata-set":
+		args = []string{"properties", "add", input, target}
+		count := 0
+		for _, entry := range []struct{ key, name string }{{"title", "Title"}, {"author", "Author"}, {"subject", "Subject"}, {"creator", "Creator"}} {
+			if _, present := r.Options[entry.key]; present {
+				val := v.String(entry.key, "")
+				v.Check(len(val) <= 4096 && !strings.ContainsRune(val, '\x00'), "metadata value exceeds 4096 bytes or contains NUL")
+				args = append(args, entry.name+" = "+val)
+				count++
+			}
+		}
+		v.Check(count > 0, "provide at least one metadata field")
+	case "pdf.page-numbers":
+		text := v.String("text", "%p / %P")
+		v.Check(len(text) > 0 && len(text) <= 256, "page-number template must be 1 to 256 bytes")
+		for _, r := range text {
+			v.Check(r >= 32 && r <= 126, "page-number template must be printable ASCII")
+		}
+		size := v.Int("size", 12, 1, 100)
+		position := v.Enum("position", "bc", "tl", "tc", "tr", "l", "c", "r", "bl", "bc", "br")
+		args = append(append([]string{"stamp", "add", "--mode", "text"}, pages...), "--", text, fmt.Sprintf("font:Helvetica,points:%d,scale:1 abs,rot:0,pos:%s", size, position), input, target)
+	case "pdf.sign-image":
+		signature := v.File(v.String("signature", ""))
+		ext := strings.ToLower(filepath.Ext(signature))
+		v.Check(ext == ".png" || ext == ".jpg" || ext == ".jpeg", "signature must be PNG/JPEG")
+		scale := v.Int("scale-percent", 25, 1, 100)
+		x, y := v.Int("x", 0, -10000, 10000), v.Int("y", 0, -10000, 10000)
+		position := v.Enum("position", "br", "tl", "tc", "tr", "l", "c", "r", "bl", "bc", "br")
+		args = append(append([]string{"stamp", "add", "--mode", "image"}, pages...), "--", signature, fmt.Sprintf("scale:%.2f rel,rot:0,pos:%s,off:%d %d", float64(scale)/100, position, x, y), input, target)
 	case "pdf.optimize":
 		args = []string{"optimize", input, target}
 	case "pdf.encrypt":

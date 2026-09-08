@@ -1193,6 +1193,509 @@ const finishbitCatalog = [
     "source": "core"
   },
   {
+    "id": "biology.blood-types",
+    "summary": "Enumerate possible child ABO blood types under the simplified model",
+    "description": "Enumerate possible child ABO blood types under the simplified model. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "血型遗传规律"
+    ],
+    "tags": [
+      "biology",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "parent-one",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "parent-two",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "calendar.lunar",
+    "summary": "Convert a Gregorian date to the Chinese lunar calendar",
+    "description": "Convert a Gregorian date to the Chinese lunar calendar. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "公历转农历"
+    ],
+    "tags": [
+      "calendar",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "date",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "calendar.solar",
+    "summary": "Convert a Chinese lunar date to a Gregorian date",
+    "description": "Convert a Chinese lunar date to a Gregorian date. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "农历转公历"
+    ],
+    "tags": [
+      "calendar",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "year",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "month",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "day",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "leap",
+        "type": "boolean",
+        "description": "Month is a leap lunar month",
+        "default": false
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "cidr.inspect",
+    "summary": "Calculate network bounds and address count",
+    "description": "Calculate network bounds and address count. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "子网计算"
+    ],
+    "tags": [
+      "cidr",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "code.hello",
+    "summary": "Generate local Hello World source templates without executing code",
+    "description": "Generate local Hello World source templates without executing code. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "开发语言HelloWorld"
+    ],
+    "tags": [
+      "code",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "language",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "color.convert",
+    "summary": "Convert HEX and RGB to RGB, HSL, HSV and simple CMYK",
+    "description": "Convert HEX and RGB to RGB, HSL, HSV and simple CMYK. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "颜色转换"
+    ],
+    "tags": [
+      "color",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "contact.extract",
+    "summary": "Extract phone, email and shipment-number candidates",
+    "description": "Extract phone, email and shipment-number candidates. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "快递信息提取"
+    ],
+    "tags": [
+      "contact",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "cron.next",
+    "summary": "Validate a cron expression and calculate future occurrences without scheduling jobs",
+    "description": "Validate a cron expression and calculate future occurrences without scheduling jobs. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "Cron下次执行时间"
+    ],
+    "tags": [
+      "cron",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "expression",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "after",
+        "type": "string",
+        "description": "RFC3339 lower bound; empty means now",
+        "default": ""
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "description": "IANA timezone",
+        "default": "UTC"
+      },
+      {
+        "name": "seconds",
+        "type": "boolean",
+        "description": "Use six fields including seconds",
+        "default": false
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "description": "Number of future times",
+        "default": 10
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "crypto.decrypt",
+    "summary": "Decrypt and authenticate a FinishBit AES-256-GCM envelope",
+    "description": "Decrypt and authenticate a FinishBit AES-256-GCM envelope. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "本地文本解密"
+    ],
+    "tags": [
+      "crypto",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "64 hexadecimal key characters",
+        "required": true
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "crypto.encrypt",
+    "summary": "Encrypt UTF-8 text with authenticated AES-256-GCM",
+    "description": "Encrypt UTF-8 text with authenticated AES-256-GCM. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "本地文本加密"
+    ],
+    "tags": [
+      "crypto",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "64 hexadecimal key characters (not a password)",
+        "required": true
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "crypto.key",
+    "summary": "Generate a 256-bit cryptographic key",
+    "description": "Generate a 256-bit cryptographic key. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "生成加密密钥"
+    ],
+    "tags": [
+      "crypto",
+      "offline"
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
     "id": "csv.concat",
     "summary": "Combine CSV files by rows, aligned headers or columns",
     "description": "Combine CSV files by rows, aligned headers or columns. Local UTF-8 tables through managed qsv 22.0.1. Exact column names, staged output and bounded input; see docs/tables.md.",
@@ -2814,6 +3317,354 @@ const finishbitCatalog = [
     "source": "qsv"
   },
   {
+    "id": "date.add",
+    "summary": "Add calendar years, months and days with clamped month ends",
+    "description": "Add calendar years, months and days with clamped month ends. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "日期加减"
+    ],
+    "tags": [
+      "date",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "date",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "years",
+        "type": "integer",
+        "description": "Calendar years to add",
+        "default": 0
+      },
+      {
+        "name": "months",
+        "type": "integer",
+        "description": "Calendar months to add",
+        "default": 0
+      },
+      {
+        "name": "days",
+        "type": "integer",
+        "description": "Calendar days to add",
+        "default": 0
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "description": "IANA timezone for date inputs",
+        "default": "UTC"
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "date.age",
+    "summary": "Calculate completed calendar years and next birthday",
+    "description": "Calculate completed calendar years and next birthday. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "年龄计算"
+    ],
+    "tags": [
+      "date",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "birth-date",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "as-of",
+        "type": "string",
+        "description": "Reference date; empty means today",
+        "default": ""
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "description": "IANA timezone for date inputs",
+        "default": "UTC"
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "date.business-days",
+    "summary": "Count business days with explicit holidays and working-date overrides",
+    "description": "Count business days with explicit holidays and working-date overrides. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "工作日计算"
+    ],
+    "tags": [
+      "date",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "start",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "end",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "holidays",
+        "type": "strings",
+        "description": "Non-working YYYY-MM-DD dates",
+        "default": []
+      },
+      {
+        "name": "working-dates",
+        "type": "strings",
+        "description": "Working YYYY-MM-DD dates, overriding holidays/weekends",
+        "default": []
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "description": "IANA timezone for date inputs",
+        "default": "UTC"
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "date.diff",
+    "summary": "Calculate calendar-day and elapsed-time differences",
+    "description": "Calculate calendar-day and elapsed-time differences. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "日期间隔"
+    ],
+    "tags": [
+      "date",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "start",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "end",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "timezone",
+        "type": "string",
+        "description": "IANA timezone for date inputs",
+        "default": "UTC"
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "date.expiry",
+    "summary": "Calculate expiry dates from calendar months or days",
+    "description": "Calculate expiry dates from calendar months or days. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "保质期计算"
+    ],
+    "tags": [
+      "date",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "production-date",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "months",
+        "type": "integer",
+        "description": "Shelf-life calendar months",
+        "default": 0
+      },
+      {
+        "name": "days",
+        "type": "integer",
+        "description": "Shelf-life days",
+        "default": 0
+      },
+      {
+        "name": "as-of",
+        "type": "string",
+        "description": "Reference date; empty means today",
+        "default": ""
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "description": "IANA timezone for date inputs",
+        "default": "UTC"
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "disk.capacity",
+    "summary": "Calculate disk capacity units without changing any disk",
+    "description": "Calculate disk capacity units without changing any disk. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "硬盘分区容量计算"
+    ],
+    "tags": [
+      "disk",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "gib",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "alignment-kib",
+        "type": "integer",
+        "description": "Round byte count up to this alignment",
+        "default": 1024
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
     "id": "document.bibliography",
     "summary": "Convert bibliography records between citation formats",
     "description": "Convert bibliography records between citation formats. Managed Pandoc 3.11; local files, sandboxed IO, 3 minute timeout and staged outputs. See docs/documents.md.",
@@ -2865,6 +3716,95 @@ const finishbitCatalog = [
       }
     ],
     "source": "pandoc"
+  },
+  {
+    "id": "document.compare",
+    "summary": "Compare extracted document text without changing either input",
+    "description": "Compare extracted document text without changing either input. Local application workflow; source files are preserved and the final artifact is published only after every step succeeds. Reflowed text and page-image slides are not editable layout reconstruction.",
+    "aliases": [
+      "文档合同文本对比"
+    ],
+    "tags": [
+      "document",
+      "workflow",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local source file",
+        "required": true
+      },
+      {
+        "name": "second",
+        "type": "string",
+        "description": "Second local document",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "pandoc"
+      }
+    ],
+    "source": "app"
+  },
+  {
+    "id": "document.compress",
+    "summary": "Recompress OOXML ZIP entries and reduce embedded JPEG/PNG bytes",
+    "description": "Local DOCX/PPTX/XLSX containers, at most 32 MiB compressed and 128 MiB expanded. Preserves member names and relationships, changes only smaller re-encodings, rejects package signatures. No Office rendering or service required.",
+    "aliases": [
+      "文档瘦身"
+    ],
+    "tags": [
+      "document",
+      "offline",
+      "compression"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local .docx/.pptx/.xlsx",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "jpeg-quality",
+        "type": "integer",
+        "description": "JPEG re-encoding quality",
+        "default": 80
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "source": "core"
   },
   {
     "id": "document.convert",
@@ -3317,6 +4257,56 @@ const finishbitCatalog = [
     "source": "pandoc"
   },
   {
+    "id": "document.scan",
+    "summary": "Recognize a local document image into a reflowed Word document",
+    "description": "Recognize a local document image into a reflowed Word document. Local application workflow; source files are preserved and the final artifact is published only after every step succeeds. Reflowed text and page-image slides are not editable layout reconstruction.",
+    "aliases": [
+      "扫描图片转Word"
+    ],
+    "tags": [
+      "document",
+      "workflow",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local source file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "language",
+        "type": "string",
+        "description": "eng, chi_sim or chi_sim+eng",
+        "default": "chi_sim+eng"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "tesseract"
+      },
+      {
+        "package": "pandoc"
+      }
+    ],
+    "source": "app"
+  },
+  {
     "id": "document.split",
     "summary": "Split top-level document blocks at headings into text documents",
     "description": "Split top-level document blocks at headings into text documents. Managed Pandoc 3.11; local files, sandboxed IO, 3 minute timeout and staged outputs. See docs/documents.md.",
@@ -3525,6 +4515,189 @@ const finishbitCatalog = [
     "source": "core"
   },
   {
+    "id": "finance.compound",
+    "summary": "Calculate compound growth with periodic contributions",
+    "description": "Calculate compound growth with periodic contributions. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "投资收益计算"
+    ],
+    "tags": [
+      "finance",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "principal",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "annual-rate",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "periods",
+        "type": "integer",
+        "description": "Total periods",
+        "default": 12
+      },
+      {
+        "name": "per-year",
+        "type": "integer",
+        "description": "Compounding periods per year",
+        "default": 12
+      },
+      {
+        "name": "contribution",
+        "type": "string",
+        "description": "Contribution at end of each period",
+        "default": "0"
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "finance.contributions",
+    "summary": "Calculate contributions from user-supplied bases, rates and limits",
+    "description": "Calculate contributions from user-supplied bases, rates and limits. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "五险一金计算"
+    ],
+    "tags": [
+      "finance",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "salary",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "rates",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "floor",
+        "type": "string",
+        "description": "Minimum contribution base",
+        "default": "0"
+      },
+      {
+        "name": "ceiling",
+        "type": "string",
+        "description": "Maximum base; 0 means no ceiling",
+        "default": "0"
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "finance.mortgage",
+    "summary": "Calculate a fixed-rate amortization schedule",
+    "description": "Calculate a fixed-rate amortization schedule. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "房贷计算"
+    ],
+    "tags": [
+      "finance",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "principal",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "annual-rate",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "months",
+        "type": "integer",
+        "description": "Number of monthly repayments",
+        "default": 360
+      },
+      {
+        "name": "method",
+        "type": "string",
+        "description": "annuity or equal-principal",
+        "default": "annuity"
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
     "id": "hash.calculate",
     "summary": "Calculate a deterministic content hash",
     "description": "Hash literal text, a file, or stdin (-) with SHA-256, SHA-1, or MD5.",
@@ -3552,6 +4725,217 @@ const finishbitCatalog = [
         "type": "string",
         "description": "sha256, sha1, or md5",
         "default": "sha256"
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "health.bmi",
+    "summary": "Calculate BMI from kilograms and centimetres",
+    "description": "Calculate BMI from kilograms and centimetres. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "BMI计算"
+    ],
+    "tags": [
+      "health",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "weight-kg",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "height-cm",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "hex.decode",
+    "summary": "Decode hexadecimal bytes to base64 and UTF-8 text when valid",
+    "description": "Decode hexadecimal bytes to base64 and UTF-8 text when valid. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "十六进制解码"
+    ],
+    "tags": [
+      "hex",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "hex.encode",
+    "summary": "Encode UTF-8 text as hexadecimal bytes",
+    "description": "Encode UTF-8 text as hexadecimal bytes. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "十六进制编码"
+    ],
+    "tags": [
+      "hex",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "html.decode",
+    "summary": "Decode HTML entities",
+    "description": "Decode HTML entities. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "HTML反转义"
+    ],
+    "tags": [
+      "html",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "html.encode",
+    "summary": "Escape HTML text",
+    "description": "Escape HTML text. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "HTML转义"
+    ],
+    "tags": [
+      "html",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
       }
     ],
     "source": "core"
@@ -3691,6 +5075,59 @@ const finishbitCatalog = [
     "source": "imagemagick"
   },
   {
+    "id": "image.ascii",
+    "summary": "Convert an image to a grayscale character drawing",
+    "description": "Convert an image to a grayscale character drawing. Offline; local PNG/JPEG/GIF inputs up to 32 MiB and 25 million pixels. No automatic face detection or semantic image analysis.",
+    "aliases": [
+      "图片转字符画"
+    ],
+    "tags": [
+      "image",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF image file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "columns",
+        "type": "integer",
+        "description": "Text columns",
+        "default": 100
+      },
+      {
+        "name": "characters",
+        "type": "string",
+        "description": "Dark to light character ramp",
+        "default": "@%#*+=-:. "
+      },
+      {
+        "name": "invert",
+        "type": "boolean",
+        "description": "Invert character ramp",
+        "default": false
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional JSON/text output file",
+        "default": ""
+      }
+    ],
+    "source": "core"
+  },
+  {
     "id": "image.blur",
     "summary": "Apply Gaussian blur",
     "description": "Apply Gaussian blur. Managed ImageMagick; local raster inputs, bounded processing and staged output. See docs/image-enhancements.md.",
@@ -3793,6 +5230,53 @@ const finishbitCatalog = [
       }
     ],
     "source": "imagemagick"
+  },
+  {
+    "id": "image.color-at",
+    "summary": "Read a pixel color from an image",
+    "description": "Read a pixel color from an image. Offline; local PNG/JPEG/GIF inputs up to 32 MiB and 25 million pixels. No automatic face detection or semantic image analysis.",
+    "aliases": [
+      "图片取色"
+    ],
+    "tags": [
+      "image",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF image file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "x",
+        "type": "integer",
+        "description": "Pixel column",
+        "default": 0
+      },
+      {
+        "name": "y",
+        "type": "integer",
+        "description": "Pixel row",
+        "default": 0
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional JSON/text output file",
+        "default": ""
+      }
+    ],
+    "source": "core"
   },
   {
     "id": "image.compress",
@@ -4074,6 +5558,58 @@ const finishbitCatalog = [
     "source": "imagemagick"
   },
   {
+    "id": "image.filter",
+    "summary": "Apply a deterministic local photo or illustration filter",
+    "description": "Apply a deterministic local photo or illustration filter. Managed ImageMagick; local raster inputs, bounded processing and staged output. See docs/image-enhancements.md.",
+    "aliases": [
+      "油画滤镜 照片美化"
+    ],
+    "tags": [
+      "image",
+      "raster"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local raster image",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "preset",
+        "type": "string",
+        "description": "oil, sketch, sepia, charcoal, negate, auto-level or auto-gamma",
+        "default": "oil"
+      },
+      {
+        "name": "radius",
+        "type": "integer",
+        "description": "Oil/sketch radius",
+        "default": 2
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "imagemagick"
+      }
+    ],
+    "source": "imagemagick"
+  },
+  {
     "id": "image.flatten",
     "summary": "Flatten image transparency against a solid color",
     "description": "Flatten image transparency against a solid color. Managed ImageMagick; local raster inputs, bounded processing and staged output. See docs/image-enhancements.md.",
@@ -4315,6 +5851,47 @@ const finishbitCatalog = [
     "source": "imagemagick"
   },
   {
+    "id": "image.hide",
+    "summary": "Store a UTF-8 message in lossless PNG pixels with a checksum",
+    "description": "Store a UTF-8 message in lossless PNG pixels with a checksum. Offline; local PNG/JPEG/GIF inputs up to 32 MiB and 25 million pixels. No automatic face detection or semantic image analysis.",
+    "aliases": [
+      "图片隐写"
+    ],
+    "tags": [
+      "image",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF image file",
+        "required": true
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "description": "Literal text value",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination PNG file",
+        "required": true
+      }
+    ],
+    "source": "core"
+  },
+  {
     "id": "image.icon",
     "summary": "Generate a multi-resolution ICO icon",
     "description": "Generate a multi-resolution ICO icon. Managed ImageMagick; local raster inputs, bounded processing and staged output. See docs/image-enhancements.md.",
@@ -4353,6 +5930,65 @@ const finishbitCatalog = [
       }
     ],
     "source": "imagemagick"
+  },
+  {
+    "id": "image.id-photo",
+    "summary": "Center crop and resize a supplied portrait to a document photo preset",
+    "description": "Center crop and resize a supplied portrait to a document photo preset. Offline; local PNG/JPEG/GIF inputs up to 32 MiB and 25 million pixels. No automatic face detection or semantic image analysis.",
+    "aliases": [
+      "证件照尺寸生成"
+    ],
+    "tags": [
+      "image",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF image file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "preset",
+        "type": "string",
+        "description": "one-inch, two-inch, passport or custom",
+        "default": "one-inch"
+      },
+      {
+        "name": "width",
+        "type": "integer",
+        "description": "Custom width",
+        "default": 295
+      },
+      {
+        "name": "height",
+        "type": "integer",
+        "description": "Custom height",
+        "default": 413
+      },
+      {
+        "name": "background",
+        "type": "string",
+        "description": "Background for existing transparency",
+        "default": "#FFFFFF"
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination PNG file",
+        "required": true
+      }
+    ],
+    "source": "core"
   },
   {
     "id": "image.info",
@@ -4436,6 +6072,47 @@ const finishbitCatalog = [
     "source": "imagemagick"
   },
   {
+    "id": "image.minimum-bytes",
+    "summary": "Increase PNG file size with a valid private ancillary chunk",
+    "description": "Increase PNG file size with a valid private ancillary chunk. Offline; local PNG/JPEG/GIF inputs up to 32 MiB and 25 million pixels. No automatic face detection or semantic image analysis.",
+    "aliases": [
+      "增加图片文件大小"
+    ],
+    "tags": [
+      "image",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF image file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "bytes",
+        "type": "integer",
+        "description": "Minimum PNG file bytes",
+        "default": 102400
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination PNG file",
+        "required": true
+      }
+    ],
+    "source": "core"
+  },
+  {
     "id": "image.orient",
     "summary": "Apply EXIF orientation to image pixels",
     "description": "Apply EXIF orientation to image pixels. Managed ImageMagick; local raster inputs, bounded processing and staged output. See docs/image-enhancements.md.",
@@ -4474,6 +6151,112 @@ const finishbitCatalog = [
       }
     ],
     "source": "imagemagick"
+  },
+  {
+    "id": "image.palette",
+    "summary": "Find approximate dominant colors using a bounded histogram",
+    "description": "Find approximate dominant colors using a bounded histogram. Offline; local PNG/JPEG/GIF inputs up to 32 MiB and 25 million pixels. No automatic face detection or semantic image analysis.",
+    "aliases": [
+      "图片配色提取"
+    ],
+    "tags": [
+      "image",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF image file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "count",
+        "type": "integer",
+        "description": "Palette entries",
+        "default": 8
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional JSON/text output file",
+        "default": ""
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "image.pixelate",
+    "summary": "Pixelate an image or selected rectangle",
+    "description": "Pixelate an image or selected rectangle. Offline; local PNG/JPEG/GIF inputs up to 32 MiB and 25 million pixels. No automatic face detection or semantic image analysis.",
+    "aliases": [
+      "图片像素化"
+    ],
+    "tags": [
+      "image",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF image file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "block",
+        "type": "integer",
+        "description": "Square block size",
+        "default": 12
+      },
+      {
+        "name": "x",
+        "type": "integer",
+        "description": "Rectangle left",
+        "default": 0
+      },
+      {
+        "name": "y",
+        "type": "integer",
+        "description": "Rectangle top",
+        "default": 0
+      },
+      {
+        "name": "width",
+        "type": "integer",
+        "description": "Rectangle width; 0 to edge",
+        "default": 0
+      },
+      {
+        "name": "height",
+        "type": "integer",
+        "description": "Rectangle height; 0 to edge",
+        "default": 0
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination PNG file",
+        "required": true
+      }
+    ],
+    "source": "core"
   },
   {
     "id": "image.resize",
@@ -4544,6 +6327,41 @@ const finishbitCatalog = [
         "type": "string",
         "description": "core (PNG/JPEG) or imagemagick (requires fnsh pkg add imagemagick; more raster formats)",
         "default": "core"
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "image.reveal",
+    "summary": "Recover a FinishBit message from PNG pixels",
+    "description": "Recover a FinishBit message from PNG pixels. Offline; local PNG/JPEG/GIF inputs up to 32 MiB and 25 million pixels. No automatic face detection or semantic image analysis.",
+    "aliases": [
+      "图片隐写解码"
+    ],
+    "tags": [
+      "image",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF image file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional JSON/text output file",
+        "default": ""
       }
     ],
     "source": "core"
@@ -4641,6 +6459,98 @@ const finishbitCatalog = [
     "source": "imagemagick"
   },
   {
+    "id": "image.solid",
+    "summary": "Create a solid PNG canvas",
+    "description": "Create a solid PNG canvas. Offline; local PNG/JPEG/GIF inputs up to 32 MiB and 25 million pixels. No automatic face detection or semantic image analysis.",
+    "aliases": [
+      "纯色图片生成"
+    ],
+    "tags": [
+      "image",
+      "offline"
+    ],
+    "options": [
+      {
+        "name": "width",
+        "type": "integer",
+        "description": "Pixel width",
+        "default": 512
+      },
+      {
+        "name": "height",
+        "type": "integer",
+        "description": "Pixel height",
+        "default": 512
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "description": "Opaque #RRGGBB",
+        "default": "#FFFFFF"
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination PNG file",
+        "required": true
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "image.split-grid",
+    "summary": "Split an image into ordered grid tiles",
+    "description": "Split an image into ordered grid tiles. Offline; local PNG/JPEG/GIF inputs up to 32 MiB and 25 million pixels. No automatic face detection or semantic image analysis.",
+    "aliases": [
+      "九宫格切图"
+    ],
+    "tags": [
+      "image",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF image file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "columns",
+        "type": "integer",
+        "description": "Grid columns",
+        "default": 3
+      },
+      {
+        "name": "rows",
+        "type": "integer",
+        "description": "Grid rows",
+        "default": 3
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "New destination directory for PNG tiles",
+        "required": true
+      }
+    ],
+    "source": "core"
+  },
+  {
     "id": "image.strip-metadata",
     "summary": "Remove profiles and comments while re-encoding pixels",
     "description": "Remove profiles and comments while re-encoding pixels. Managed ImageMagick; local raster inputs, bounded processing and staged output. See docs/image-enhancements.md.",
@@ -4679,6 +6589,59 @@ const finishbitCatalog = [
       }
     ],
     "source": "imagemagick"
+  },
+  {
+    "id": "image.target-size",
+    "summary": "Encode JPEG at the highest tested quality meeting a byte budget",
+    "description": "Encode JPEG at the highest tested quality meeting a byte budget. Offline; local PNG/JPEG/GIF inputs up to 32 MiB and 25 million pixels. No automatic face detection or semantic image analysis.",
+    "aliases": [
+      "图片目标大小压缩"
+    ],
+    "tags": [
+      "image",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF image file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "bytes",
+        "type": "integer",
+        "description": "Maximum output bytes",
+        "default": 102400
+      },
+      {
+        "name": "min-quality",
+        "type": "integer",
+        "description": "Minimum JPEG quality",
+        "default": 10
+      },
+      {
+        "name": "max-quality",
+        "type": "integer",
+        "description": "Maximum JPEG quality",
+        "default": 95
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination JPEG file",
+        "required": true
+      }
+    ],
+    "source": "core"
   },
   {
     "id": "image.transparent",
@@ -4789,6 +6752,94 @@ const finishbitCatalog = [
       }
     ],
     "source": "imagemagick"
+  },
+  {
+    "id": "ip.inspect",
+    "summary": "Inspect a local IPv4 or IPv6 address",
+    "description": "Inspect a local IPv4 or IPv6 address. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "IP地址解析"
+    ],
+    "tags": [
+      "ip",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "json.diff",
+    "summary": "Compare JSON values with JSON Pointer paths and exact numbers",
+    "description": "Compare JSON values with JSON Pointer paths and exact numbers. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "JSON差异"
+    ],
+    "tags": [
+      "json",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "before",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "after",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
   },
   {
     "id": "json.format",
@@ -4942,6 +6993,88 @@ const finishbitCatalog = [
     "source": "core"
   },
   {
+    "id": "json.to-toml",
+    "summary": "Convert a JSON object to TOML and reject unrepresentable values",
+    "description": "Convert a JSON object to TOML and reject unrepresentable values. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "JSON转TOML"
+    ],
+    "tags": [
+      "json",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "json.to-yaml",
+    "summary": "Convert JSON into YAML with explicit scalar types",
+    "description": "Convert JSON into YAML with explicit scalar types. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "JSON转YAML"
+    ],
+    "tags": [
+      "json",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
     "id": "json.validate",
     "summary": "Validate JSON syntax",
     "description": "Validate JSON and report its root value type.",
@@ -5011,6 +7144,223 @@ const finishbitCatalog = [
     "source": "qsv"
   },
   {
+    "id": "jwt.decode",
+    "summary": "Inspect JWT header and payload without verifying the signature",
+    "description": "Inspect JWT header and payload without verifying the signature. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "JWT解析"
+    ],
+    "tags": [
+      "jwt",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "markdown.mindmap",
+    "summary": "Generate an offline collapsible outline from Markdown headings and lists",
+    "description": "Generate an offline collapsible outline from Markdown headings and lists. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "便捷思维导图"
+    ],
+    "tags": [
+      "markdown",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "markdown",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "markdown.to-html",
+    "summary": "Render Markdown and GFM to HTML locally with raw HTML disabled",
+    "description": "Render Markdown and GFM to HTML locally with raw HTML disabled. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "Markdown渲染"
+    ],
+    "tags": [
+      "markdown",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "standalone",
+        "type": "boolean",
+        "description": "Write a standalone HTML page",
+        "default": true
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "description": "Standalone page title",
+        "default": "Document"
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "math.evaluate",
+    "summary": "Evaluate bounded arithmetic expressions and math functions locally",
+    "description": "Evaluate bounded arithmetic expressions and math functions locally. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "计算器"
+    ],
+    "tags": [
+      "math",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "expression",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "math.statistics",
+    "summary": "Calculate descriptive statistics for finite numbers",
+    "description": "Calculate descriptive statistics for finite numbers. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "基础统计"
+    ],
+    "tags": [
+      "math",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
     "id": "media.info",
     "summary": "Inspect media streams, chapters and container metadata",
     "description": "Inspect media streams, chapters and container metadata. Local files only. Outputs are staged; existing files require overwrite. See docs/media.md for supported formats and limits.",
@@ -5035,6 +7385,491 @@ const finishbitCatalog = [
       }
     ],
     "source": "ffmpeg"
+  },
+  {
+    "id": "name.generate",
+    "summary": "Combine user-supplied words into random names",
+    "description": "Combine user-supplied words into random names. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "随机网名 项目名生成"
+    ],
+    "tags": [
+      "name",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "prefixes",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "suffixes",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "count",
+        "type": "integer",
+        "description": "Number of names",
+        "default": 10
+      },
+      {
+        "name": "separator",
+        "type": "string",
+        "description": "Join text",
+        "default": " "
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "number.base",
+    "summary": "Convert arbitrary precision integers between bases 2 and 36",
+    "description": "Convert arbitrary precision integers between bases 2 and 36. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "进制转换"
+    ],
+    "tags": [
+      "number",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "from",
+        "type": "integer",
+        "description": "Input base",
+        "default": 10
+      },
+      {
+        "name": "to",
+        "type": "integer",
+        "description": "Output base",
+        "default": 16
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "number.chinese",
+    "summary": "Write decimal numbers or CNY amounts in Chinese",
+    "description": "Write decimal numbers or CNY amounts in Chinese. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "数字人民币大写"
+    ],
+    "tags": [
+      "number",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "money",
+        "type": "boolean",
+        "description": "Use financial characters and yuan/jiao/fen",
+        "default": true
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "ocr.text",
+    "summary": "Recognize printed text in a local image",
+    "description": "Recognize printed text in a local image. Tesseract fast Chinese/English models, offline; printed text is the target, not guaranteed handwriting or specialized document field extraction.",
+    "aliases": [
+      "图片文字识别 印刷体识别 英文识别"
+    ],
+    "tags": [
+      "ocr",
+      "image",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF up to 32 MiB and 25 million pixels",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "language",
+        "type": "string",
+        "description": "eng, chi_sim or chi_sim+eng",
+        "default": "chi_sim+eng"
+      },
+      {
+        "name": "layout",
+        "type": "integer",
+        "description": "Page segmentation mode: 3,4,6,7,8,11,13",
+        "default": 3
+      },
+      {
+        "name": "dpi",
+        "type": "integer",
+        "description": "Assumed input DPI",
+        "default": 300
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Output file; optional for text/words"
+      }
+    ],
+    "requirements": [
+      {
+        "package": "tesseract"
+      }
+    ],
+    "source": "tesseract"
+  },
+  {
+    "id": "ocr.to-html",
+    "summary": "Export local OCR as hOCR with word coordinates",
+    "description": "Export local OCR as hOCR with word coordinates. Tesseract fast Chinese/English models, offline; printed text is the target, not guaranteed handwriting or specialized document field extraction.",
+    "aliases": [
+      "OCR转HTML"
+    ],
+    "tags": [
+      "ocr",
+      "image",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF up to 32 MiB and 25 million pixels",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "language",
+        "type": "string",
+        "description": "eng, chi_sim or chi_sim+eng",
+        "default": "chi_sim+eng"
+      },
+      {
+        "name": "layout",
+        "type": "integer",
+        "description": "Page segmentation mode: 3,4,6,7,8,11,13",
+        "default": 3
+      },
+      {
+        "name": "dpi",
+        "type": "integer",
+        "description": "Assumed input DPI",
+        "default": 300
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Output file; optional for text/words",
+        "required": true
+      }
+    ],
+    "requirements": [
+      {
+        "package": "tesseract"
+      }
+    ],
+    "source": "tesseract"
+  },
+  {
+    "id": "ocr.to-pdf",
+    "summary": "Create a searchable PDF from an image using local OCR",
+    "description": "Create a searchable PDF from an image using local OCR. Tesseract fast Chinese/English models, offline; printed text is the target, not guaranteed handwriting or specialized document field extraction.",
+    "aliases": [
+      "图片转可搜索PDF"
+    ],
+    "tags": [
+      "ocr",
+      "image",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF up to 32 MiB and 25 million pixels",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "language",
+        "type": "string",
+        "description": "eng, chi_sim or chi_sim+eng",
+        "default": "chi_sim+eng"
+      },
+      {
+        "name": "layout",
+        "type": "integer",
+        "description": "Page segmentation mode: 3,4,6,7,8,11,13",
+        "default": 3
+      },
+      {
+        "name": "dpi",
+        "type": "integer",
+        "description": "Assumed input DPI",
+        "default": 300
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Output file; optional for text/words",
+        "required": true
+      }
+    ],
+    "requirements": [
+      {
+        "package": "tesseract"
+      }
+    ],
+    "source": "tesseract"
+  },
+  {
+    "id": "ocr.words",
+    "summary": "Recognize words with bounding boxes and confidence",
+    "description": "Recognize words with bounding boxes and confidence. Tesseract fast Chinese/English models, offline; printed text is the target, not guaranteed handwriting or specialized document field extraction.",
+    "aliases": [
+      "OCR文字坐标"
+    ],
+    "tags": [
+      "ocr",
+      "image",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF up to 32 MiB and 25 million pixels",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "language",
+        "type": "string",
+        "description": "eng, chi_sim or chi_sim+eng",
+        "default": "chi_sim+eng"
+      },
+      {
+        "name": "layout",
+        "type": "integer",
+        "description": "Page segmentation mode: 3,4,6,7,8,11,13",
+        "default": 3
+      },
+      {
+        "name": "dpi",
+        "type": "integer",
+        "description": "Assumed input DPI",
+        "default": 300
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Output file; optional for text/words"
+      }
+    ],
+    "requirements": [
+      {
+        "package": "tesseract"
+      }
+    ],
+    "source": "tesseract"
+  },
+  {
+    "id": "password.generate",
+    "summary": "Generate cryptographic passwords from a configurable alphabet",
+    "description": "Generate cryptographic passwords from a configurable alphabet. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "随机密码生成"
+    ],
+    "tags": [
+      "password",
+      "offline"
+    ],
+    "options": [
+      {
+        "name": "length",
+        "type": "integer",
+        "description": "Characters per password",
+        "default": 20
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "description": "Number of passwords",
+        "default": 1
+      },
+      {
+        "name": "alphabet",
+        "type": "string",
+        "description": "Distinct characters; blank uses ASCII letters, digits and symbols",
+        "default": ""
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "password.inspect",
+    "summary": "Inspect password patterns locally without logging or network lookups",
+    "description": "Inspect password patterns locally without logging or network lookups. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "密码安全检测"
+    ],
+    "tags": [
+      "password",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "password",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
   },
   {
     "id": "pdf.attach",
@@ -5234,9 +8069,80 @@ const finishbitCatalog = [
     "source": "pdfcpu"
   },
   {
+    "id": "pdf.compress-images",
+    "summary": "Rebuild selected PDF pages with JPEG compression and report the size change",
+    "description": "Rebuild selected PDF pages with JPEG compression and report the size change. Local application workflow; source files are preserved and the final artifact is published only after every step succeeds. Reflowed text and page-image slides are not editable layout reconstruction.",
+    "aliases": [
+      "扫描PDF图像压缩"
+    ],
+    "tags": [
+      "pdf",
+      "workflow",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local source file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "first",
+        "type": "integer",
+        "description": "First page",
+        "default": 1
+      },
+      {
+        "name": "last",
+        "type": "integer",
+        "description": "Last page (explicit, up to 50 pages)",
+        "default": 1
+      },
+      {
+        "name": "dpi",
+        "type": "integer",
+        "description": "Rendering DPI",
+        "default": 120
+      },
+      {
+        "name": "quality",
+        "type": "integer",
+        "description": "JPEG quality; rasterizes pages and removes original text/links/forms",
+        "default": 75
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "poppler"
+      },
+      {
+        "package": "pdfcpu"
+      },
+      {
+        "package": "imagemagick"
+      }
+    ],
+    "source": "app"
+  },
+  {
     "id": "pdf.crop",
-    "summary": "Set page crop boxes using a margin in points",
-    "description": "Set page crop boxes using a margin in points. Uses managed pdfcpu offline with a disabled user config; modifies only staged copies. See docs/pdf.md.",
+    "summary": "Set page crop boxes using independent margins in points",
+    "description": "Set page crop boxes using independent margins in points. Uses managed pdfcpu offline with a disabled user config; modifies only staged copies. See docs/pdf.md.",
     "aliases": [
       "裁剪 PDF"
     ],
@@ -5262,8 +8168,32 @@ const finishbitCatalog = [
       {
         "name": "margin",
         "type": "integer",
-        "description": "Margin on all sides in PDF points",
+        "description": "Default margin on all sides in PDF points",
         "default": 10
+      },
+      {
+        "name": "top",
+        "type": "integer",
+        "description": "Top margin; -1 uses margin",
+        "default": -1
+      },
+      {
+        "name": "right",
+        "type": "integer",
+        "description": "Right margin; -1 uses margin",
+        "default": -1
+      },
+      {
+        "name": "bottom",
+        "type": "integer",
+        "description": "Bottom margin; -1 uses margin",
+        "default": -1
+      },
+      {
+        "name": "left",
+        "type": "integer",
+        "description": "Left margin; -1 uses margin",
+        "default": -1
       },
       {
         "name": "output",
@@ -5872,6 +8802,12 @@ const finishbitCatalog = [
         "description": "Additional image files in order"
       },
       {
+        "name": "dpi",
+        "type": "integer",
+        "description": "Image DPI used to size full-image pages",
+        "default": 72
+      },
+      {
         "name": "output",
         "type": "string",
         "description": "Destination file",
@@ -6131,6 +9067,70 @@ const finishbitCatalog = [
     "source": "pdfcpu"
   },
   {
+    "id": "pdf.metadata-set",
+    "summary": "Set PDF title, author, subject and creator fields",
+    "description": "Set PDF title, author, subject and creator fields. Uses managed pdfcpu offline with a disabled user config; modifies only staged copies. See docs/pdf.md.",
+    "aliases": [
+      "修改PDF元数据"
+    ],
+    "tags": [
+      "pdf",
+      "document"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local input file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "title",
+        "type": "string",
+        "description": "Document title",
+        "default": ""
+      },
+      {
+        "name": "author",
+        "type": "string",
+        "description": "Document author",
+        "default": ""
+      },
+      {
+        "name": "subject",
+        "type": "string",
+        "description": "Document subject",
+        "default": ""
+      },
+      {
+        "name": "creator",
+        "type": "string",
+        "description": "Content creator",
+        "default": ""
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "pdfcpu"
+      }
+    ],
+    "source": "pdfcpu"
+  },
+  {
     "id": "pdf.nup",
     "summary": "Arrange multiple PDF pages on each output sheet",
     "description": "Arrange multiple PDF pages on each output sheet. Uses managed pdfcpu offline with a disabled user config; modifies only staged copies. See docs/pdf.md.",
@@ -6177,6 +9177,145 @@ const finishbitCatalog = [
     "source": "pdfcpu"
   },
   {
+    "id": "pdf.ocr",
+    "summary": "Rebuild selected PDF pages with a searchable OCR layer",
+    "description": "Rebuild selected PDF pages with a searchable OCR layer. Local application workflow; source files are preserved and the final artifact is published only after every step succeeds. Reflowed text and page-image slides are not editable layout reconstruction.",
+    "aliases": [
+      "扫描PDF文字识别"
+    ],
+    "tags": [
+      "pdf",
+      "workflow",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local source file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "first",
+        "type": "integer",
+        "description": "First page",
+        "default": 1
+      },
+      {
+        "name": "last",
+        "type": "integer",
+        "description": "Last page (explicit, up to 50 pages)",
+        "default": 1
+      },
+      {
+        "name": "dpi",
+        "type": "integer",
+        "description": "Rendering DPI",
+        "default": 120
+      },
+      {
+        "name": "language",
+        "type": "string",
+        "description": "eng, chi_sim or chi_sim+eng",
+        "default": "chi_sim+eng"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "poppler"
+      },
+      {
+        "package": "tesseract"
+      },
+      {
+        "package": "pdfcpu"
+      }
+    ],
+    "source": "app"
+  },
+  {
+    "id": "pdf.ocr-text",
+    "summary": "Recognize text in selected PDF page images",
+    "description": "Recognize text in selected PDF page images. Local application workflow; source files are preserved and the final artifact is published only after every step succeeds. Reflowed text and page-image slides are not editable layout reconstruction.",
+    "aliases": [
+      "扫描PDF提取文字"
+    ],
+    "tags": [
+      "pdf",
+      "workflow",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local source file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "first",
+        "type": "integer",
+        "description": "First page",
+        "default": 1
+      },
+      {
+        "name": "last",
+        "type": "integer",
+        "description": "Last page (explicit, up to 50 pages)",
+        "default": 1
+      },
+      {
+        "name": "dpi",
+        "type": "integer",
+        "description": "Rendering DPI",
+        "default": 120
+      },
+      {
+        "name": "language",
+        "type": "string",
+        "description": "eng, chi_sim or chi_sim+eng",
+        "default": "chi_sim+eng"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "poppler"
+      },
+      {
+        "package": "tesseract"
+      }
+    ],
+    "source": "app"
+  },
+  {
     "id": "pdf.optimize",
     "summary": "Remove redundant PDF resources",
     "description": "Remove redundant PDF resources. Uses managed pdfcpu offline with a disabled user config; modifies only staged copies. See docs/pdf.md.",
@@ -6215,6 +9354,132 @@ const finishbitCatalog = [
       }
     ],
     "source": "pdfcpu"
+  },
+  {
+    "id": "pdf.page-numbers",
+    "summary": "Stamp page numbers and total page count",
+    "description": "Stamp page numbers and total page count. Uses managed pdfcpu offline with a disabled user config; modifies only staged copies. See docs/pdf.md.",
+    "aliases": [
+      "PDF加页码"
+    ],
+    "tags": [
+      "pdf",
+      "document"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local input file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "pages",
+        "type": "string",
+        "description": "One-based pages/ranges, odd/even; empty means all",
+        "default": ""
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "description": "ASCII template; %p current page, %P total; %p3 adds offset 3",
+        "default": "%p / %P"
+      },
+      {
+        "name": "size",
+        "type": "integer",
+        "description": "Font size in points",
+        "default": 12
+      },
+      {
+        "name": "position",
+        "type": "string",
+        "description": "tl, tc, tr, l, c, r, bl, bc or br",
+        "default": "bc"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "pdfcpu"
+      }
+    ],
+    "source": "pdfcpu"
+  },
+  {
+    "id": "pdf.rasterize",
+    "summary": "Create an image-only PDF from a selected page range",
+    "description": "Create an image-only PDF from a selected page range. Local application workflow; source files are preserved and the final artifact is published only after every step succeeds. Reflowed text and page-image slides are not editable layout reconstruction.",
+    "aliases": [
+      "转纯图PDF"
+    ],
+    "tags": [
+      "pdf",
+      "workflow",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local source file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "first",
+        "type": "integer",
+        "description": "First page",
+        "default": 1
+      },
+      {
+        "name": "last",
+        "type": "integer",
+        "description": "Last page (explicit, up to 50 pages)",
+        "default": 1
+      },
+      {
+        "name": "dpi",
+        "type": "integer",
+        "description": "Rendering DPI",
+        "default": 120
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "poppler"
+      },
+      {
+        "package": "pdfcpu"
+      }
+    ],
+    "source": "app"
   },
   {
     "id": "pdf.remove-attachments",
@@ -6458,6 +9723,58 @@ const finishbitCatalog = [
     "source": "poppler"
   },
   {
+    "id": "pdf.resize-pages",
+    "summary": "Resize PDF pages to a named paper size",
+    "description": "Resize PDF pages to a named paper size. Uses managed pdfcpu offline with a disabled user config; modifies only staged copies. See docs/pdf.md.",
+    "aliases": [
+      "修改PDF页面尺寸"
+    ],
+    "tags": [
+      "pdf",
+      "document"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local input file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "pages",
+        "type": "string",
+        "description": "One-based pages/ranges, odd/even; empty means all",
+        "default": ""
+      },
+      {
+        "name": "paper",
+        "type": "string",
+        "description": "A3, A4, A5, Letter or Legal; optional P/L orientation suffix",
+        "default": "A4"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "pdfcpu"
+      }
+    ],
+    "source": "pdfcpu"
+  },
+  {
     "id": "pdf.rotate",
     "summary": "Rotate selected PDF pages clockwise",
     "description": "Rotate selected PDF pages clockwise. Uses managed pdfcpu offline with a disabled user config; modifies only staged copies. See docs/pdf.md.",
@@ -6534,6 +9851,82 @@ const finishbitCatalog = [
         "type": "string",
         "description": "One-based pages/ranges, odd/even; empty means all",
         "default": ""
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "pdfcpu"
+      }
+    ],
+    "source": "pdfcpu"
+  },
+  {
+    "id": "pdf.sign-image",
+    "summary": "Stamp a supplied signature image on selected PDF pages",
+    "description": "Stamp a supplied signature image on selected PDF pages. Uses managed pdfcpu offline with a disabled user config; modifies only staged copies. See docs/pdf.md.",
+    "aliases": [
+      "PDF签名图片"
+    ],
+    "tags": [
+      "pdf",
+      "document"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local input file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "pages",
+        "type": "string",
+        "description": "One-based pages/ranges, odd/even; empty means all",
+        "default": ""
+      },
+      {
+        "name": "signature",
+        "type": "string",
+        "description": "Local signature PNG/JPEG",
+        "required": true
+      },
+      {
+        "name": "scale-percent",
+        "type": "integer",
+        "description": "Relative image scale percentage",
+        "default": 25
+      },
+      {
+        "name": "x",
+        "type": "integer",
+        "description": "Horizontal offset in points",
+        "default": 0
+      },
+      {
+        "name": "y",
+        "type": "integer",
+        "description": "Vertical offset in points",
+        "default": 0
+      },
+      {
+        "name": "position",
+        "type": "string",
+        "description": "tl, tc, tr, l, c, r, bl, bc or br",
+        "default": "br"
       },
       {
         "name": "output",
@@ -6718,6 +10111,68 @@ const finishbitCatalog = [
     "source": "poppler"
   },
   {
+    "id": "pdf.to-docx",
+    "summary": "Extract PDF text into a reflowed Word document",
+    "description": "Extract PDF text into a reflowed Word document. Local application workflow; source files are preserved and the final artifact is published only after every step succeeds. Reflowed text and page-image slides are not editable layout reconstruction.",
+    "aliases": [
+      "PDF转Word文字版"
+    ],
+    "tags": [
+      "pdf",
+      "workflow",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local source file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "first",
+        "type": "integer",
+        "description": "First page",
+        "default": 1
+      },
+      {
+        "name": "last",
+        "type": "integer",
+        "description": "Last page (explicit, up to 50 pages)",
+        "default": 1
+      },
+      {
+        "name": "dpi",
+        "type": "integer",
+        "description": "Rendering DPI",
+        "default": 120
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "poppler"
+      },
+      {
+        "package": "pandoc"
+      }
+    ],
+    "source": "app"
+  },
+  {
     "id": "pdf.to-html",
     "summary": "Convert selected PDF pages to an HTML bundle",
     "description": "Convert selected PDF pages to an HTML bundle. Local, managed Poppler; existing text only, no OCR. See docs/pdf.md.",
@@ -6762,6 +10217,130 @@ const finishbitCatalog = [
       }
     ],
     "source": "poppler"
+  },
+  {
+    "id": "pdf.to-long-image",
+    "summary": "Join rendered PDF pages into a vertical image",
+    "description": "Join rendered PDF pages into a vertical image. Local application workflow; source files are preserved and the final artifact is published only after every step succeeds. Reflowed text and page-image slides are not editable layout reconstruction.",
+    "aliases": [
+      "PDF转长图"
+    ],
+    "tags": [
+      "pdf",
+      "workflow",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local source file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "first",
+        "type": "integer",
+        "description": "First page",
+        "default": 1
+      },
+      {
+        "name": "last",
+        "type": "integer",
+        "description": "Last page (explicit, up to 50 pages)",
+        "default": 1
+      },
+      {
+        "name": "dpi",
+        "type": "integer",
+        "description": "Rendering DPI",
+        "default": 120
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "poppler"
+      },
+      {
+        "package": "imagemagick"
+      }
+    ],
+    "source": "app"
+  },
+  {
+    "id": "pdf.to-pptx",
+    "summary": "Create a presentation with one rendered PDF page per slide",
+    "description": "Create a presentation with one rendered PDF page per slide. Local application workflow; source files are preserved and the final artifact is published only after every step succeeds. Reflowed text and page-image slides are not editable layout reconstruction.",
+    "aliases": [
+      "PDF转PPT图片版"
+    ],
+    "tags": [
+      "pdf",
+      "workflow",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local source file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "first",
+        "type": "integer",
+        "description": "First page",
+        "default": 1
+      },
+      {
+        "name": "last",
+        "type": "integer",
+        "description": "Last page (explicit, up to 50 pages)",
+        "default": 1
+      },
+      {
+        "name": "dpi",
+        "type": "integer",
+        "description": "Rendering DPI",
+        "default": 120
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "poppler"
+      },
+      {
+        "package": "pandoc"
+      }
+    ],
+    "source": "app"
   },
   {
     "id": "pdf.to-ps",
@@ -6932,6 +10511,571 @@ const finishbitCatalog = [
     "source": "pdfcpu"
   },
   {
+    "id": "qrcode.contact",
+    "summary": "Generate a vCard QR code from contact fields",
+    "description": "Generate a vCard QR code from contact fields. Offline; local PNG/JPEG/GIF inputs up to 32 MiB and 25 million pixels. No automatic face detection or semantic image analysis.",
+    "aliases": [
+      "二维码名片"
+    ],
+    "tags": [
+      "qrcode",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "Literal text value",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "phone",
+        "type": "string",
+        "description": "Phone number",
+        "default": ""
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "description": "Email address",
+        "default": ""
+      },
+      {
+        "name": "organization",
+        "type": "string",
+        "description": "Organization",
+        "default": ""
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "description": "Contact URL",
+        "default": ""
+      },
+      {
+        "name": "size",
+        "type": "integer",
+        "description": "Minimum QR width",
+        "default": 512
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination PNG file",
+        "required": true
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "qrcode.decode",
+    "summary": "Decode a QR code from a local PNG/JPEG/GIF image",
+    "description": "Decode a QR code from a local PNG/JPEG/GIF image. Offline; local PNG/JPEG/GIF inputs up to 32 MiB and 25 million pixels. No automatic face detection or semantic image analysis.",
+    "aliases": [
+      "二维码扫描"
+    ],
+    "tags": [
+      "qrcode",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Local PNG/JPEG/GIF image file",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional JSON/text output file",
+        "default": ""
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "qrcode.generate",
+    "summary": "Generate a colored QR code and verify it can be read back",
+    "description": "Generate a colored QR code and verify it can be read back. Offline; local PNG/JPEG/GIF inputs up to 32 MiB and 25 million pixels. No automatic face detection or semantic image analysis.",
+    "aliases": [
+      "二维码生成 美化"
+    ],
+    "tags": [
+      "qrcode",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "text",
+        "type": "string",
+        "description": "Literal text value",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "size",
+        "type": "integer",
+        "description": "Minimum square pixel size",
+        "default": 512
+      },
+      {
+        "name": "level",
+        "type": "string",
+        "description": "L, M, Q or H error correction",
+        "default": "M"
+      },
+      {
+        "name": "foreground",
+        "type": "string",
+        "description": "Opaque #RRGGBB modules",
+        "default": "#000000"
+      },
+      {
+        "name": "background",
+        "type": "string",
+        "description": "Opaque #RRGGBB background",
+        "default": "#FFFFFF"
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace existing file",
+        "default": false
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination PNG file",
+        "required": true
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "random.choose",
+    "summary": "Choose or shuffle entries from a user-supplied line list",
+    "description": "Choose or shuffle entries from a user-supplied line list. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "随机抽签 今天吃什么"
+    ],
+    "tags": [
+      "random",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "count",
+        "type": "integer",
+        "description": "Number of items; 0 means shuffle all",
+        "default": 1
+      },
+      {
+        "name": "replacement",
+        "type": "boolean",
+        "description": "Allow drawing the same entry again",
+        "default": false
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "random.integer",
+    "summary": "Generate unbiased cryptographic random integers",
+    "description": "Generate unbiased cryptographic random integers. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "随机数生成"
+    ],
+    "tags": [
+      "random",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "min",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "max",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "count",
+        "type": "integer",
+        "description": "Number of results",
+        "default": 1
+      },
+      {
+        "name": "unique",
+        "type": "boolean",
+        "description": "Sample without replacement",
+        "default": false
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "regex.match",
+    "summary": "Find regular expression matches and capture byte offsets",
+    "description": "Find regular expression matches and capture byte offsets. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "正则匹配"
+    ],
+    "tags": [
+      "regex",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "pattern",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": "Maximum returned matches",
+        "default": 1000
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "regex.replace",
+    "summary": "Replace Go RE2 regular expression matches",
+    "description": "Replace Go RE2 regular expression matches. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "正则替换"
+    ],
+    "tags": [
+      "regex",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "pattern",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "replacement",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "literal",
+        "type": "boolean",
+        "description": "Treat replacement literally instead of $ capture expansion",
+        "default": false
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "regex.validate",
+    "summary": "Validate a Go RE2 regular expression",
+    "description": "Validate a Go RE2 regular expression. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "正则校验"
+    ],
+    "tags": [
+      "regex",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "pattern",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "screen.record",
+    "summary": "Record the Windows desktop or an explicit rectangle into a silent MP4",
+    "description": "Record the Windows desktop or an explicit rectangle into a silent MP4. Windows only. Explicit user invocation; no resident service, no uploads and no voice or video playback.",
+    "aliases": [
+      "本地屏幕录制"
+    ],
+    "tags": [
+      "screen",
+      "video",
+      "offline"
+    ],
+    "options": [
+      {
+        "name": "seconds",
+        "type": "integer",
+        "description": "Recording duration, 1 to 300 seconds",
+        "default": 10
+      },
+      {
+        "name": "fps",
+        "type": "integer",
+        "description": "Frame rate",
+        "default": 15
+      },
+      {
+        "name": "width",
+        "type": "integer",
+        "description": "Rectangle width; 0 captures the desktop",
+        "default": 0
+      },
+      {
+        "name": "height",
+        "type": "integer",
+        "description": "Rectangle height; must accompany width",
+        "default": 0
+      },
+      {
+        "name": "x",
+        "type": "integer",
+        "description": "Rectangle left offset",
+        "default": 0
+      },
+      {
+        "name": "y",
+        "type": "integer",
+        "description": "Rectangle top offset",
+        "default": 0
+      },
+      {
+        "name": "cursor",
+        "type": "boolean",
+        "description": "Include mouse cursor",
+        "default": true
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "requirements": [
+      {
+        "package": "ffmpeg"
+      }
+    ],
+    "source": "ffmpeg"
+  },
+  {
+    "id": "speech.synthesize",
+    "summary": "Synthesize text into a WAV file using an installed offline Windows voice",
+    "description": "Synthesize text into a WAV file using an installed offline Windows voice. Windows only. Explicit user invocation; no resident service, no uploads and no voice or video playback.",
+    "aliases": [
+      "文本转语音"
+    ],
+    "tags": [
+      "speech",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "text",
+        "type": "string",
+        "description": "Literal UTF-8 text up to 32768 bytes",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "voice",
+        "type": "string",
+        "description": "Installed voice name; blank selects the OS default",
+        "default": ""
+      },
+      {
+        "name": "rate",
+        "type": "integer",
+        "description": "Speaking rate -10 to 10",
+        "default": 0
+      },
+      {
+        "name": "volume",
+        "type": "integer",
+        "description": "Volume 0 to 100",
+        "default": 100
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Destination file",
+        "required": true
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing destination",
+        "default": false
+      }
+    ],
+    "source": "windows"
+  },
+  {
+    "id": "speech.voices",
+    "summary": "List installed offline Windows speech voices",
+    "description": "List installed offline Windows speech voices. Windows only. Explicit user invocation; no resident service, no uploads and no voice or video playback.",
+    "aliases": [
+      "本地语音列表"
+    ],
+    "tags": [
+      "speech",
+      "offline"
+    ],
+    "source": "windows"
+  },
+  {
     "id": "subtitle.add",
     "summary": "Add a local SRT subtitle track to video",
     "description": "Add a local SRT subtitle track to video. Local files only. Outputs are staged; existing files require overwrite. See docs/media.md for supported formats and limits.",
@@ -7070,6 +11214,159 @@ const finishbitCatalog = [
     "source": "ffmpeg"
   },
   {
+    "id": "temperature.convert",
+    "summary": "Convert Celsius, Fahrenheit and Kelvin",
+    "description": "Convert Celsius, Fahrenheit and Kelvin. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "温度转换"
+    ],
+    "tags": [
+      "temperature",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "from",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "to",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "precision",
+        "type": "integer",
+        "description": "Output decimal places",
+        "default": 6
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "text.case",
+    "summary": "Convert text letter case",
+    "description": "Convert text letter case. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "大小写转换"
+    ],
+    "tags": [
+      "text",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "mode",
+        "type": "string",
+        "description": "upper, lower, title",
+        "default": "lower"
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "text.chinese",
+    "summary": "Convert simplified and traditional Chinese with local phrase dictionaries",
+    "description": "Convert simplified and traditional Chinese with local phrase dictionaries. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "简繁转换"
+    ],
+    "tags": [
+      "text",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "direction",
+        "type": "string",
+        "description": "s2t or t2s",
+        "default": "s2t"
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
     "id": "text.count",
     "summary": "Count text bytes, characters, words, and lines",
     "description": "Return deterministic text statistics.",
@@ -7087,6 +11384,345 @@ const finishbitCatalog = [
         "type": "string",
         "description": "Text, file path, or - for stdin",
         "required": true
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "text.diff",
+    "summary": "Compare text lines with an exact bounded LCS",
+    "description": "Compare text lines with an exact bounded LCS. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "文本比较"
+    ],
+    "tags": [
+      "text",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "before",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "after",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "text.emoticons",
+    "summary": "List a small original collection of text faces",
+    "description": "List a small original collection of text faces. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "文本颜艺 颜文字"
+    ],
+    "tags": [
+      "text",
+      "offline"
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "text.hide",
+    "summary": "Encode a text payload using zero-width characters",
+    "description": "Encode a text payload using zero-width characters. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "文字隐写"
+    ],
+    "tags": [
+      "text",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "cover",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "text.led",
+    "summary": "Generate an offline fullscreen scrolling text page",
+    "description": "Generate an offline fullscreen scrolling text page. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "手持弹幕LED"
+    ],
+    "tags": [
+      "text",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "text",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "seconds",
+        "type": "integer",
+        "description": "Seconds per scroll",
+        "default": 10
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "description": "Text #RRGGBB",
+        "default": "#00FF66"
+      },
+      {
+        "name": "size",
+        "type": "integer",
+        "description": "Font size in viewport-height percent",
+        "default": 30
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "text.map",
+    "summary": "Apply a caller-supplied Unicode character mapping in one pass",
+    "description": "Apply a caller-supplied Unicode character mapping in one pass. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "火星文字符映射"
+    ],
+    "tags": [
+      "text",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "mapping",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "text.normalize",
+    "summary": "Normalize whitespace, line endings and Unicode width",
+    "description": "Normalize whitespace, line endings and Unicode width. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "文本空白整理"
+    ],
+    "tags": [
+      "text",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "mode",
+        "type": "string",
+        "description": "space, lines, trim, fullwidth, halfwidth",
+        "default": "space"
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "text.pinyin",
+    "summary": "Convert Chinese characters into pinyin or initials",
+    "description": "Convert Chinese characters into pinyin or initials. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "文字转拼音"
+    ],
+    "tags": [
+      "text",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "style",
+        "type": "string",
+        "description": "plain, tone, number or initials",
+        "default": "plain"
+      },
+      {
+        "name": "heteronym",
+        "type": "boolean",
+        "description": "Include alternate pronunciations",
+        "default": false
+      },
+      {
+        "name": "separator",
+        "type": "string",
+        "description": "Syllable separator",
+        "default": " "
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
       }
     ],
     "source": "core"
@@ -7135,6 +11771,88 @@ const finishbitCatalog = [
         "type": "string",
         "description": "Write the result to this file",
         "default": ""
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "text.reveal",
+    "summary": "Decode a FinishBit zero-width text payload",
+    "description": "Decode a FinishBit zero-width text payload. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "文字隐写解码"
+    ],
+    "tags": [
+      "text",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "text.reverse",
+    "summary": "Reverse Unicode code points",
+    "description": "Reverse Unicode code points. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "文字倒序"
+    ],
+    "tags": [
+      "text",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
       }
     ],
     "source": "core"
@@ -7250,6 +11968,322 @@ const finishbitCatalog = [
     "source": "core"
   },
   {
+    "id": "time.world",
+    "summary": "Show one instant in multiple IANA timezones",
+    "description": "Show one instant in multiple IANA timezones. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "世界时间"
+    ],
+    "tags": [
+      "time",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "instant",
+        "type": "string",
+        "description": "RFC3339 instant; omit for now"
+      }
+    ],
+    "options": [
+      {
+        "name": "zones",
+        "type": "strings",
+        "description": "IANA timezone names; default UTC, Asia/Shanghai, America/New_York, Europe/London",
+        "default": []
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "description": "IANA timezone for date inputs",
+        "default": "UTC"
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "toml.format",
+    "summary": "Re-encode TOML values with normalized layout",
+    "description": "Re-encode TOML values with normalized layout. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "TOML格式化"
+    ],
+    "tags": [
+      "toml",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "toml.to-json",
+    "summary": "Convert TOML to JSON with timestamps encoded as strings",
+    "description": "Convert TOML to JSON with timestamps encoded as strings. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "TOML转JSON"
+    ],
+    "tags": [
+      "toml",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "toml.validate",
+    "summary": "Validate a TOML document",
+    "description": "Validate a TOML document. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "TOML校验"
+    ],
+    "tags": [
+      "toml",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "unicode.decode",
+    "summary": "Decode JSON Unicode escapes",
+    "description": "Decode JSON Unicode escapes. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "Unicode解码"
+    ],
+    "tags": [
+      "unicode",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "unicode.encode",
+    "summary": "Encode Unicode as JSON Unicode escapes",
+    "description": "Encode Unicode as JSON Unicode escapes. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "Unicode编码"
+    ],
+    "tags": [
+      "unicode",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "unit.convert",
+    "summary": "Convert length, area, volume, mass, duration and data units exactly",
+    "description": "Convert length, area, volume, mass, duration and data units exactly. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "单位换算 字节数换算 长度转换"
+    ],
+    "tags": [
+      "unit",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "from",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      },
+      {
+        "name": "to",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "precision",
+        "type": "integer",
+        "description": "Output decimal places",
+        "default": 12
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
     "id": "url.decode",
     "summary": "Decode percent-encoded URL data",
     "description": "Decode a URL query component.",
@@ -7289,6 +12323,88 @@ const finishbitCatalog = [
         "type": "string",
         "description": "Text to encode or decode",
         "required": true
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "url.parse",
+    "summary": "Parse URL components and repeated query parameters",
+    "description": "Parse URL components and repeated query parameters. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "URL解析"
+    ],
+    "tags": [
+      "url",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "useragent.parse",
+    "summary": "Parse common browser and operating system tokens locally",
+    "description": "Parse common browser and operating system tokens locally. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "UA解析"
+    ],
+    "tags": [
+      "useragent",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
       }
     ],
     "source": "core"
@@ -8372,5 +13488,275 @@ const finishbitCatalog = [
       }
     ],
     "source": "ffmpeg"
+  },
+  {
+    "id": "worksheet.handwriting",
+    "summary": "Generate an offline printable Chinese handwriting worksheet",
+    "description": "Generate an offline printable Chinese handwriting worksheet. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "字帖生成"
+    ],
+    "tags": [
+      "worksheet",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "text",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "columns",
+        "type": "integer",
+        "description": "Cells per row",
+        "default": 12
+      },
+      {
+        "name": "repeat",
+        "type": "integer",
+        "description": "Rows per character group",
+        "default": 3
+      },
+      {
+        "name": "grid",
+        "type": "string",
+        "description": "square, cross or rice",
+        "default": "rice"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "description": "Worksheet title",
+        "default": "练字字帖"
+      },
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "xml.format",
+    "summary": "Format XML without fetching external entities",
+    "description": "Format XML without fetching external entities. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "XML格式化"
+    ],
+    "tags": [
+      "xml",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "xml.validate",
+    "summary": "Validate XML well-formedness without external entities or DTDs",
+    "description": "Validate XML well-formedness without external entities or DTDs. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "XML校验"
+    ],
+    "tags": [
+      "xml",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "yaml.format",
+    "summary": "Format a bounded YAML document",
+    "description": "Format a bounded YAML document. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "YAML格式化"
+    ],
+    "tags": [
+      "yaml",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "yaml.to-json",
+    "summary": "Convert a single YAML document into lossless JSON-compatible values",
+    "description": "Convert a single YAML document into lossless JSON-compatible values. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "YAML转JSON"
+    ],
+    "tags": [
+      "yaml",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
+  },
+  {
+    "id": "yaml.validate",
+    "summary": "Validate a single YAML document and its JSON-compatible mapping",
+    "description": "Validate a single YAML document and its JSON-compatible mapping. Offline local execution. Text inputs default to literal, are UTF-8 and limited to 4 MiB; file/stdin require explicit input-mode. See docs/local-tools.md.",
+    "aliases": [
+      "YAML校验"
+    ],
+    "tags": [
+      "yaml",
+      "offline"
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "string",
+        "description": "Literal value; use --input-mode file or stdin to read text",
+        "required": true
+      }
+    ],
+    "options": [
+      {
+        "name": "input-mode",
+        "type": "string",
+        "description": "literal, file (all inputs), or stdin (first input only)",
+        "default": "literal"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "description": "Optional UTF-8 text or JSON result file",
+        "default": ""
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "description": "Replace an existing output",
+        "default": false
+      }
+    ],
+    "source": "core"
   }
 ];

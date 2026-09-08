@@ -6,6 +6,18 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 
 ## [Unreleased]
 
+### Added
+
+- 107 local Operations (277 total), including QR generation/decoding, bounded text/JSON diffs and RE2 tools, YAML/TOML/XML, Chinese text conversion, date/calendar/unit/math utilities, cryptographic random and AES-GCM helpers, and image/document utilities.
+- Managed Windows x64 Tesseract with pinned Chinese/English fast models, searchable PDF and OCR-to-document workflows; NSIS archive extraction and separately checksummed package resources without running installers.
+- Shared application workflows for PDF-to-DOCX text reflow, page-image PPTX, long images, raster PDFs and JPEG page compression; Windows installed-voice WAV generation and explicit silent screen recording.
+- Offline handwriting worksheets, LED HTML, collapsible Markdown outlines, OOXML image/ZIP compression and a 166-entry implementation audit with explicit limits.
+
+### Changed
+
+- PDF crop supports independent margins; added metadata fields, dynamic page numbers, paper resizing, image signatures and image filter presets.
+- Release archives include third-party notices for the new embedded libraries and dictionaries.
+
 ## [0.1.5] - 2026-09-07
 
 ### Added

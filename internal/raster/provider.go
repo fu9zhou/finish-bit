@@ -49,6 +49,7 @@ func catalog() []spec {
 		{"image.blur", "Apply Gaussian blur", "图片模糊", []operation.Parameter{n("sigma", "Blur sigma in pixels", 2)}, 1, "file"},
 		{"image.sharpen", "Sharpen image edges", "图片锐化", []operation.Parameter{n("sigma", "Sharpen sigma in pixels", 1)}, 1, "file"},
 		{"image.adjust", "Adjust brightness, saturation and hue", "图片调色", []operation.Parameter{n("brightness", "Brightness percent", 100), n("saturation", "Saturation percent", 100), n("hue", "Hue percent: 100 unchanged", 100)}, 1, "file"},
+		{"image.filter", "Apply a deterministic local photo or illustration filter", "油画滤镜 照片美化", []operation.Parameter{s("preset", "oil, sketch, sepia, charcoal, negate, auto-level or auto-gamma", "oil"), n("radius", "Oil/sketch radius", 2)}, 1, "file"},
 		{"image.difference", "Render the pixel difference between equal-sized images", "图片差异图", nil, 2, "file"},
 		{"image.gif-create", "Create an animated GIF from ordered images", "生成 GIF 动图", []operation.Parameter{files(), n("delay", "Frame delay in centiseconds", 20), n("loops", "Loop count; 0 is infinite", 0)}, 1, "file"},
 		{"image.gif-split", "Coalesce and export GIF frames as PNG", "GIF 拆帧", nil, 1, "directory"},
@@ -344,6 +345,21 @@ func Run(ctx context.Context, resolver toolrun.Resolver, id string, r operation.
 		args = append(args, "-sharpen", "0x"+strconv.Itoa(v.Int("sigma", 1, 1, 20)))
 	case "image.adjust":
 		args = append(args, "-modulate", fmt.Sprintf("%d,%d,%d", v.Int("brightness", 100, 0, 300), v.Int("saturation", 100, 0, 300), v.Int("hue", 100, 0, 200)))
+	case "image.filter":
+		preset := v.Enum("preset", "oil", "oil", "sketch", "sepia", "charcoal", "negate", "auto-level", "auto-gamma")
+		radius := v.Int("radius", 2, 1, 10)
+		switch preset {
+		case "oil":
+			args = append(args, "-paint", strconv.Itoa(radius))
+		case "sketch":
+			args = append(args, "-sketch", fmt.Sprintf("%dx1+120", radius))
+		case "sepia":
+			args = append(args, "-sepia-tone", "80%")
+		case "charcoal":
+			args = append(args, "-charcoal", strconv.Itoa(radius))
+		default:
+			args = append(args, "-"+preset)
+		}
 	case "image.difference":
 		v.Check(len(paths) == 2, "difference requires two images")
 		if v.Err != nil {

@@ -12,8 +12,11 @@ import (
 
 	archiveprovider "github.com/fu9zhou/finish-bit/internal/archive"
 	"github.com/fu9zhou/finish-bit/internal/builtin"
+	"github.com/fu9zhou/finish-bit/internal/desktop"
 	"github.com/fu9zhou/finish-bit/internal/document"
 	ffmpegprovider "github.com/fu9zhou/finish-bit/internal/ffmpeg"
+	"github.com/fu9zhou/finish-bit/internal/localtools"
+	"github.com/fu9zhou/finish-bit/internal/ocr"
 	pdfprovider "github.com/fu9zhou/finish-bit/internal/pdf"
 	"github.com/fu9zhou/finish-bit/internal/raster"
 	"github.com/fu9zhou/finish-bit/internal/tabular"
@@ -52,6 +55,15 @@ func New(config Config) (*App, error) {
 	if err := builtin.Register(registry, packages); err != nil {
 		return nil, err
 	}
+	if err := localtools.Register(registry); err != nil {
+		return nil, err
+	}
+	if err := ocr.Register(registry, packages); err != nil {
+		return nil, err
+	}
+	if err := desktop.Register(registry, packages); err != nil {
+		return nil, err
+	}
 	if err := ffmpegprovider.Register(registry, packages); err != nil {
 		return nil, err
 	}
@@ -70,6 +82,9 @@ func New(config Config) (*App, error) {
 	if err := archiveprovider.Register(registry, packages); err != nil {
 		return nil, err
 	}
+	if err := registerWorkflows(registry); err != nil {
+		return nil, err
+	}
 	issues := extensions.RegisterAvailable(registry)
 	return &App{registry: registry, packages: packages, extensions: extensions, extensionIssues: issues}, nil
 }
@@ -84,6 +99,15 @@ func (a *App) snapshot() *operation.Registry {
 func (a *App) refresh() error {
 	registry := operation.NewRegistry()
 	if err := builtin.Register(registry, a.packages); err != nil {
+		return err
+	}
+	if err := localtools.Register(registry); err != nil {
+		return err
+	}
+	if err := ocr.Register(registry, a.packages); err != nil {
+		return err
+	}
+	if err := desktop.Register(registry, a.packages); err != nil {
 		return err
 	}
 	if err := ffmpegprovider.Register(registry, a.packages); err != nil {
@@ -102,6 +126,9 @@ func (a *App) refresh() error {
 		return err
 	}
 	if err := archiveprovider.Register(registry, a.packages); err != nil {
+		return err
+	}
+	if err := registerWorkflows(registry); err != nil {
 		return err
 	}
 	a.extensionIssues = a.extensions.RegisterAvailable(registry)

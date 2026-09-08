@@ -1,0 +1,3122 @@
+[
+  {
+    "number": 1,
+    "name": "图片压缩",
+    "url": "https://tool.browser.qq.com/tupianyasuo.html",
+    "categories": "图片",
+    "status": "部分",
+    "batch": "B",
+    "current": "image.compress",
+    "plan": "补目标字节数、批量压缩和结果是否变小的反馈；复用 ImageMagick，极限目标明确失败",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "image.target-size",
+        "image.compress"
+      ],
+      "boundary": "JPEG 目标字节数；无法达到时失败。批量可逐文件调用。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 2,
+    "name": "证件照生成",
+    "url": "https://tool.browser.qq.com/id_photo.html",
+    "categories": "图片",
+    "status": "部分",
+    "batch": "B/C",
+    "current": "image.crop,image.resize,image.canvas",
+    "plan": "B 做标准尺寸、DPI、裁切和已透明背景换色；自动人像抠图需 C 模型，不能宣称全等价",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "image.id-photo"
+      ],
+      "boundary": "标准像素尺寸、中心裁切、已有透明背景填色；无自动抠图/人脸对齐。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 3,
+    "name": "PDF转Word",
+    "url": "https://tool.browser.qq.com/pdf_2_word.html",
+    "categories": "PDF",
+    "status": "部分",
+    "batch": "B/C",
+    "current": "pdf.extract-text,document.convert",
+    "plan": "B 组合文本提取到 DOCX（重排版）；扫描件 OCR 和复杂版式保真转 Word 归 C",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "pdf.to-docx",
+        "document.scan"
+      ],
+      "boundary": "提取文字或图片 OCR 后重排 DOCX；无复杂版式重建。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 4,
+    "name": "PDF转Excel",
+    "url": "https://tool.browser.qq.com/pdf_2_excel.html",
+    "categories": "PDF",
+    "status": "待评估",
+    "batch": "C",
+    "current": "pdf.text-boxes",
+    "plan": "规则表格可按字坐标聚类再导出；合并单元格、无框表及扫描件需独立样本评测",
+    "evidence": "详情使用说明",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 5,
+    "name": "PDF转HTML",
+    "url": "https://tool.browser.qq.com/pdf_2_html.html",
+    "categories": "PDF",
+    "status": "已有",
+    "batch": "R",
+    "current": "pdf.to-html",
+    "plan": "已有 HTML 文件包导出；字体、复杂版面保真不等于网站效果已验收",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "pdf.to-html"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 6,
+    "name": "PDF转图片",
+    "url": "https://tool.browser.qq.com/pdf_2_png.html",
+    "categories": "PDF",
+    "status": "部分",
+    "batch": "B",
+    "current": "pdf.render,image.join",
+    "plan": "已有分页渲染，补一键长图合成及像素上限",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "pdf.render",
+        "pdf.to-long-image"
+      ],
+      "boundary": "分页图与长图；显式选页，最多50页。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 7,
+    "name": "PDF转PPT",
+    "url": "https://tool.browser.qq.com/pdf_2_ppt.html",
+    "categories": "PDF",
+    "status": "部分",
+    "batch": "B",
+    "current": "pdf.render,document.convert",
+    "plan": "每页渲染图片后嵌入 PPTX；可展示但文字不可编辑，不算可编辑版式重建",
+    "evidence": "详情使用说明",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "pdf.to-pptx"
+      ],
+      "boundary": "一页一张图片幻灯片；文字不可编辑。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 8,
+    "name": "Word转PDF",
+    "url": "https://tool.browser.qq.com/word_2_pdf.html",
+    "categories": "文档",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "Pandoc 当前无 PDF writer；完整 DOC/DOCX 排版需 LibreOffice 等大运行时，不纳入轻量核心",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "待用户决定",
+      "operations": [],
+      "boundary": "LibreOffice MSI展开约1.47 GiB，超出1GB阈值；未新增完整Office渲染。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 9,
+    "name": "垃圾分类查询",
+    "url": "https://tool.browser.qq.com/garbage.html",
+    "categories": "生活娱乐",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "先核实可再分发分类数据及城市版本；小型离线字典与地区参数",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 10,
+    "name": "Word格式转换",
+    "url": "https://tool.browser.qq.com/word_convert.html",
+    "categories": "文档",
+    "status": "部分",
+    "batch": "B/C",
+    "current": "document.convert",
+    "plan": "DOCX→HTML 已有；旧 DOC、PNG/PDF 需排版引擎，不能把文本转换算保真转换",
+    "evidence": "详情使用说明",
+    "implementation": {
+      "status": "待用户决定",
+      "operations": [],
+      "boundary": "LibreOffice MSI展开约1.47 GiB，超出1GB阈值；未新增完整Office渲染。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 11,
+    "name": "PPT格式转换",
+    "url": "https://tool.browser.qq.com/ppt_convert.html",
+    "categories": "文档",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "现有 Pandoc 不读 PPT/PPTX；图片、HTML、PDF 导出需新增 Office 渲染引擎",
+    "evidence": "详情使用说明",
+    "implementation": {
+      "status": "待用户决定",
+      "operations": [],
+      "boundary": "LibreOffice MSI展开约1.47 GiB，超出1GB阈值；未新增完整Office渲染。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 12,
+    "name": "PDF加水印",
+    "url": "https://tool.browser.qq.com/pdf_watermark.html",
+    "categories": "PDF",
+    "status": "已有",
+    "batch": "R",
+    "current": "pdf.watermark,pdf.stamp",
+    "plan": "已有文字、图片、PDF 水印和盖章；中文可通过图片资产处理",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "pdf.watermark",
+        "pdf.stamp"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 13,
+    "name": "PDF瘦身",
+    "url": "https://tool.browser.qq.com/pdf_compress.html",
+    "categories": "PDF",
+    "status": "部分",
+    "batch": "B",
+    "current": "pdf.optimize,pdf.render,pdf.from-images",
+    "plan": "结构优化已有；补扫描图降采样和目标大小，明确重栅格化会损失文本层",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "pdf.compress-images",
+        "pdf.optimize"
+      ],
+      "boundary": "JPEG 重新栅格化和结构优化；返回大小，无任意目标字节保证。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 14,
+    "name": "在线录屏",
+    "url": "https://tool.browser.qq.com/screen_record.html",
+    "categories": "视频",
+    "status": "环境依赖",
+    "batch": "E",
+    "current": "—",
+    "plan": "FFmpeg 现有输入仅本地文件；新增平台屏幕捕获或未来 Web getDisplayMedia，需交互选择与授权",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "平台子集",
+      "operations": [
+        "screen.record"
+      ],
+      "boundary": "Windows FFmpeg 桌面/矩形无声 MP4；仅参数验证，未实际录屏。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 15,
+    "name": "Excel转PDF",
+    "url": "https://tool.browser.qq.com/excel_to_pdf.html",
+    "categories": "文档",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "XLS/XLSX 保留分页打印样式需 Office 引擎；简单数据表生成 PDF 只是子集",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "待用户决定",
+      "operations": [],
+      "boundary": "LibreOffice MSI展开约1.47 GiB，超出1GB阈值；未新增完整Office渲染。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 16,
+    "name": "去手写",
+    "url": "https://tool.browser.qq.com/handwriting_erasure.html",
+    "categories": "教育",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "需要图像理解/分割/生成或修复模型；简单滤镜不等价，先核实引擎与权重许可、下载/内存及样本效果，不塞进核心",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 17,
+    "name": "文档瘦身",
+    "url": "https://tool.browser.qq.com/office_reduce.html",
+    "categories": "文档",
+    "status": "新增",
+    "batch": "B",
+    "current": "—",
+    "plan": "Go archive/zip + 图片重编码重打包 OOXML；先 DOCX/PPTX/XLSX，保留关系、宏和非图片项",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "document.compress"
+      ],
+      "boundary": "OOXML ZIP和图片减重；签名包拒绝、元数据图片保留、不变小则原样副本。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 18,
+    "name": "身份证识别",
+    "url": "https://tool.browser.qq.com/identification.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 19,
+    "name": "银行卡识别",
+    "url": "https://tool.browser.qq.com/bankcard_ocr.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 20,
+    "name": "印刷体识别",
+    "url": "https://tool.browser.qq.com/basic_ocr.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "ocr.text",
+        "ocr.words",
+        "ocr.to-pdf",
+        "ocr.to-html"
+      ],
+      "boundary": "中英文印刷体；已真实引擎验收，不承诺通用识别准确率。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 21,
+    "name": "手写体识别",
+    "url": "https://tool.browser.qq.com/handwriting_ocr.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 22,
+    "name": "广告体识别",
+    "url": "https://tool.browser.qq.com/ocr_advertise.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 23,
+    "name": "英语识别",
+    "url": "https://tool.browser.qq.com/ocr_english.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "英文印刷体已验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 24,
+    "name": "护照识别",
+    "url": "https://tool.browser.qq.com/passport_ocr.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 25,
+    "name": "PDF签名",
+    "url": "https://tool.browser.qq.com/pdf_sign.html",
+    "categories": "PDF",
+    "status": "部分",
+    "batch": "B",
+    "current": "pdf.stamp",
+    "plan": "已有签名图片盖章；补坐标、大小、页选择；手绘属未来 UI；不宣称证书数字签名",
+    "evidence": "详情使用说明",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "pdf.sign-image"
+      ],
+      "boundary": "用户提供签名图片，位置/尺寸/页选择；非证书数字签名。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 26,
+    "name": "运单识别",
+    "url": "https://tool.browser.qq.com/waybill.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 27,
+    "name": "集装箱识别",
+    "url": "https://tool.browser.qq.com/container_ocr.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 28,
+    "name": "车辆证件识别",
+    "url": "https://tool.browser.qq.com/carcard_ocr.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 29,
+    "name": "营业执照识别",
+    "url": "https://tool.browser.qq.com/ocr_bizLicense.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 30,
+    "name": "名片识别",
+    "url": "https://tool.browser.qq.com/ocr_businesscard.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 31,
+    "name": "港澳台证件识别",
+    "url": "https://tool.browser.qq.com/ocr_permit.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 32,
+    "name": "银行回单识别",
+    "url": "https://tool.browser.qq.com/bankslip_ocr.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 33,
+    "name": "完税证明识别",
+    "url": "https://tool.browser.qq.com/ocr_dutypaidproof.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 34,
+    "name": "医疗票据识别",
+    "url": "https://tool.browser.qq.com/ocr_recognize_medical_invoice.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 35,
+    "name": "网约车行程单识别",
+    "url": "https://tool.browser.qq.com/onlinetaxi_ocr.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 36,
+    "name": "人脸年龄选择",
+    "url": "https://tool.browser.qq.com/face_age_transformation.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "需要图像理解/分割/生成或修复模型；简单滤镜不等价，先核实引擎与权重许可、下载/内存及样本效果，不塞进核心",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 37,
+    "name": "图片编辑器",
+    "url": "https://tool.browser.qq.com/img_edit_canvas.html",
+    "categories": "图片",
+    "status": "部分",
+    "batch": "B/E",
+    "current": "image.crop,image.rotate,image.flip,image.annotate,image.adjust",
+    "plan": "CLI 编辑原语已有；补组合操作；画布、拖拽、撤销是 UI 层",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "image.pixelate",
+        "image.filter",
+        "image.crop",
+        "image.annotate"
+      ],
+      "boundary": "本地编辑操作；未开发交互画布。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 38,
+    "name": "密码安全检测",
+    "url": "https://tool.browser.qq.com/password_check.html",
+    "categories": "开发",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "本地长度、字符类别、重复模式和可选开源弱口令词表；结果是估计，不联网泄露密码",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "password.inspect"
+      ],
+      "boundary": "本地长度、字符和重复模式检查；不联网查询泄漏库。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 39,
+    "name": "文件安全检测",
+    "url": "https://tool.browser.qq.com/file_scan.html",
+    "categories": "开发",
+    "status": "待评估",
+    "batch": "C",
+    "current": "file.checksum,file.info",
+    "plan": "元数据和哈希不是恶意文件检测；ClamAV/病毒库很大，另设可选 provider 才可能覆盖",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 40,
+    "name": "手机安装包检测",
+    "url": "https://tool.browser.qq.com/app_inspector.html",
+    "categories": "开发",
+    "status": "待评估",
+    "batch": "C",
+    "current": "archive.list",
+    "plan": "APK ZIP/manifest/权限静态检查可做子集；风险查杀、行为和信誉检测不等价",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 41,
+    "name": "搜狗百宝箱",
+    "url": "https://tool.browser.qq.com/sogou_box.html",
+    "categories": "生活娱乐",
+    "status": "环境依赖",
+    "batch": "E",
+    "current": "—",
+    "plan": "聚合跳转服务；不能当一个独立算法计入完成",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "服务边界",
+      "operations": [],
+      "boundary": "在线服务或浏览器/账户集成超出本地算法；未接第三方处理API。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 42,
+    "name": "合同验签",
+    "url": "https://tool.browser.qq.com/contract_verification.html",
+    "categories": "生活娱乐",
+    "status": "待评估",
+    "batch": "C",
+    "current": "pdf.validate",
+    "plan": "结构校验不是合同验签；证书链、签署格式、时间戳与吊销状态需独立设计",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 43,
+    "name": "合同对比",
+    "url": "https://tool.browser.qq.com/contract_comparison.html",
+    "categories": "生活娱乐",
+    "status": "部分",
+    "batch": "B",
+    "current": "document.text,pdf.extract-text",
+    "plan": "提取文字后做段落 diff；扫描件和版式差异另评估，不能代替条款法律审查",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "document.compare"
+      ],
+      "boundary": "提取文字逐行diff；无视觉版式对比或法律判断。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 44,
+    "name": "图片转PDF",
+    "url": "https://tool.browser.qq.com/img_2_pdf_convert.html",
+    "categories": "PDF",
+    "status": "已有",
+    "batch": "R",
+    "current": "pdf.from-images",
+    "plan": "有序图片生成 PDF；与站点格式矩阵逐项验收另做",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "pdf.from-images"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 45,
+    "name": "PPT转PDF",
+    "url": "https://tool.browser.qq.com/ppt_2_pdf.html",
+    "categories": "文档",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "同 PPT 转换，完整排版引擎超过轻量默认范围",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "待用户决定",
+      "operations": [],
+      "boundary": "LibreOffice MSI展开约1.47 GiB，超出1GB阈值；未新增完整Office渲染。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 46,
+    "name": "搜狗PDF文件搜索",
+    "url": "https://tool.browser.qq.com/pdf_search.html",
+    "categories": "生活娱乐",
+    "status": "环境依赖",
+    "batch": "E",
+    "current": "—",
+    "plan": "搜索索引属于线上服务；本地目录 PDF 搜索是另一个可新增的子集",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "服务边界",
+      "operations": [],
+      "boundary": "在线服务或浏览器/账户集成超出本地算法；未接第三方处理API。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 47,
+    "name": "PDF拆分",
+    "url": "https://tool.browser.qq.com/pdf_split.html",
+    "categories": "PDF",
+    "status": "已有",
+    "batch": "R",
+    "current": "pdf.split,pdf.select-pages",
+    "plan": "已有按组拆分、选页输出",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "pdf.split",
+        "pdf.select-pages"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 48,
+    "name": "PDF合并",
+    "url": "https://tool.browser.qq.com/pdf_merge.html",
+    "categories": "PDF",
+    "status": "已有",
+    "batch": "R",
+    "current": "pdf.merge",
+    "plan": "已有有序合并",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "pdf.merge"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 49,
+    "name": "转纯图PDF",
+    "url": "https://tool.browser.qq.com/pdf_imagefy.html",
+    "categories": "PDF",
+    "status": "部分",
+    "batch": "B",
+    "current": "pdf.render,pdf.from-images",
+    "plan": "组合渲染→图片 PDF；补统一入口、分页尺寸及 DPI",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "pdf.rasterize"
+      ],
+      "boundary": "统一选页/DPI的纯图 PDF；不保留原文字和交互对象。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 50,
+    "name": "PDF页面管理",
+    "url": "https://tool.browser.qq.com/pdf_page_manage.html",
+    "categories": "PDF",
+    "status": "已有",
+    "batch": "R",
+    "current": "pdf.select-pages,pdf.remove-pages,pdf.insert-pages,pdf.rotate",
+    "plan": "已有抽取、重排、删页、插空白页和旋转；可补从其他 PDF 插页",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "pdf.select-pages",
+        "pdf.remove-pages",
+        "pdf.insert-pages",
+        "pdf.rotate"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 51,
+    "name": "PDF图片提取",
+    "url": "https://tool.browser.qq.com/pdf_img_extract.html",
+    "categories": "PDF",
+    "status": "已有",
+    "batch": "R",
+    "current": "pdf.extract-images",
+    "plan": "已有嵌入图片提取；不是语义图表识别",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "pdf.extract-images"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 52,
+    "name": "PDF加解密",
+    "url": "https://tool.browser.qq.com/pdf_password.html",
+    "categories": "PDF",
+    "status": "已有",
+    "batch": "R",
+    "current": "pdf.encrypt,pdf.decrypt",
+    "plan": "已有 AES-256 及已知密码解密",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "pdf.encrypt",
+        "pdf.decrypt"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 53,
+    "name": "PDF页面裁剪",
+    "url": "https://tool.browser.qq.com/pdf_crop.html",
+    "categories": "PDF",
+    "status": "部分",
+    "batch": "B",
+    "current": "pdf.crop",
+    "plan": "已有等边距 CropBox；补四边独立边距/矩形坐标和逐页参数",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "pdf.crop"
+      ],
+      "boundary": "四边独立非负点数边距，支持页选择。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 54,
+    "name": "修改PDF元数据",
+    "url": "https://tool.browser.qq.com/pdf_metadata.html",
+    "categories": "PDF",
+    "status": "部分",
+    "batch": "B",
+    "current": "pdf.info,pdf.keywords-add,pdf.keywords-remove",
+    "plan": "仅关键词修改已有；补标题、作者、主题、创建信息等可写字段",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "pdf.metadata-set"
+      ],
+      "boundary": "标题/作者/主题/创建者；不修改时间戳等所有底层字段。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 55,
+    "name": "字帖生成",
+    "url": "https://tool.browser.qq.com/zitie_new.html",
+    "categories": "教育",
+    "status": "新增",
+    "batch": "B",
+    "current": "—",
+    "plan": "Go SVG/HTML 模板生成田字格、米字格、描红；用户字体或开放字体，PDF 输出再复用已支持路径",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "worksheet.handwriting"
+      ],
+      "boundary": "可离线打印的HTML方格/田字格/米字格描红，使用系统字体。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 56,
+    "name": "Excel格式转换",
+    "url": "https://tool.browser.qq.com/excel_convert.html",
+    "categories": "文档",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "CSV/JSON 工具不能等于 XLS/XLSX→PNG/HTML/PDF；完整排版需要 Office 渲染",
+    "evidence": "详情使用说明",
+    "implementation": {
+      "status": "待用户决定",
+      "operations": [],
+      "boundary": "LibreOffice MSI展开约1.47 GiB，超出1GB阈值；未新增完整Office渲染。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 57,
+    "name": "图片转Excel",
+    "url": "https://tool.browser.qq.com/table_recognize.html",
+    "categories": "文档",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 58,
+    "name": "今天吃什么",
+    "url": "https://tool.browser.qq.com/whattoeat.html",
+    "categories": "生活娱乐",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "crypto/rand 从用户菜单抽取，可种子复现、排除项和批量抽签；默认菜单自建",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "random.choose"
+      ],
+      "boundary": "用户菜单随机抽取/洗牌；无内置菜单或种子模式。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 59,
+    "name": "文本转语音",
+    "url": "https://tool.browser.qq.com/tts.html",
+    "categories": "文本",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "开源 TTS 引擎及声音数据按需安装；中文质量、模型许可与体积需要验证",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "平台子集",
+      "operations": [
+        "speech.voices",
+        "speech.synthesize"
+      ],
+      "boundary": "Windows已安装离线声音→WAV，已验收；不另下载声音。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 60,
+    "name": "提取文字",
+    "url": "https://tool.browser.qq.com/ocr.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "复用独立 OCR provider 后加此类字段/表格解析；先测 Tesseract+最小语言包，手写/特殊证件不保证达到网站效果；模型及语言包单算体积",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "ocr.text",
+        "pdf.ocr-text"
+      ],
+      "boundary": "本地图片与扫描PDF文字提取。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 61,
+    "name": "亲戚关系计算",
+    "url": "https://tool.browser.qq.com/relatives_name.html",
+    "categories": "教育",
+    "status": "新增",
+    "batch": "D",
+    "current": "—",
+    "plan": "亲属关系图规则、性别和地域称谓；规则集须自建或开源许可明确",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 62,
+    "name": "PDF加页码",
+    "url": "https://tool.browser.qq.com/pdf_page_number.html",
+    "categories": "PDF",
+    "status": "部分",
+    "batch": "B",
+    "current": "pdf.stamp",
+    "plan": "复用盖章实现起始页码、总页数、位置；核实动态占位符，不能把固定文本当完成",
+    "evidence": "详情使用说明",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "pdf.page-numbers"
+      ],
+      "boundary": "动态当前页、总页、偏移模板和位置。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 63,
+    "name": "修改PDF页面尺寸",
+    "url": "https://tool.browser.qq.com/pdf_pagesize.html",
+    "categories": "PDF",
+    "status": "新增",
+    "batch": "B",
+    "current": "—",
+    "plan": "扩展 pdfcpu provider 页面缩放/纸张规格，明确缩放内容还是仅改页面框",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "pdf.resize-pages"
+      ],
+      "boundary": "A3/A4/A5/Letter/Legal及方向，真实引擎验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 64,
+    "name": "高校查询",
+    "url": "https://tool.browser.qq.com/school.html",
+    "categories": "教育",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "高校名称、地区、类型及版本化来源；招生等动态内容不能静态冒充最新",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 65,
+    "name": "图片转字符画",
+    "url": "https://tool.browser.qq.com/img_2_text.html",
+    "categories": "图片",
+    "status": "新增",
+    "batch": "B",
+    "current": "—",
+    "plan": "灰度采样映射字符；可选 ANSI/HTML 彩色输出，标准库即可",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "image.ascii"
+      ],
+      "boundary": "灰度字符画、宽度和自定义字符渐变。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 66,
+    "name": "人脸性别转换",
+    "url": "https://tool.browser.qq.com/face_gender_transformation.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "需要图像理解/分割/生成或修复模型；简单滤镜不等价，先核实引擎与权重许可、下载/内存及样本效果，不塞进核心",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 67,
+    "name": "卡路里查询",
+    "url": "https://tool.browser.qq.com/calories.html",
+    "categories": "生活娱乐",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "食物热量查询与 calories_list/food_calories 共用一份有许可和计量单位的数据",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 68,
+    "name": "增加图片大小",
+    "url": "https://tool.browser.qq.com/img_enlarge.html",
+    "categories": "图片",
+    "status": "部分",
+    "batch": "B",
+    "current": "image.resize",
+    "plan": "尺寸放大已有；补最小文件字节数的编码策略，明确不增加真实细节",
+    "evidence": "详情使用说明",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "image.minimum-bytes"
+      ],
+      "boundary": "PNG合法辅助块增加字节数；不增加真实细节。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 69,
+    "name": "发票提取",
+    "url": "https://tool.browser.qq.com/invoice_extract.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "OCR+发票字段/金额规范化；不同票据模板及扫描质量需评测",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "仅通用OCR基础",
+      "operations": [
+        "ocr.text",
+        "ocr.words"
+      ],
+      "boundary": "已可提取普通印刷文字及坐标；此类证件/手写/票据/表格专用解析尚未实现或验收。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 70,
+    "name": "颜色转换",
+    "url": "https://tool.browser.qq.com/colortrans.html",
+    "categories": "开发",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "RGB/HEX/HSL/HSV/CMYK 公式转换；可复用 go-colorful，说明 CMYK 无 ICC 色彩管理",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "color.convert"
+      ],
+      "boundary": "HEX/RGB输入，输出HEX/RGB/HSL/HSV/CMYK；无ICC。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 71,
+    "name": "图片日漫滤镜",
+    "url": "https://tool.browser.qq.com/img_anime_filter.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "需要图像理解/分割/生成或修复模型；简单滤镜不等价，先核实引擎与权重许可、下载/内存及样本效果，不塞进核心",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 72,
+    "name": "头像二次元",
+    "url": "https://tool.browser.qq.com/img_face_anime.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "需要图像理解/分割/生成或修复模型；简单滤镜不等价，先核实引擎与权重许可、下载/内存及样本效果，不塞进核心",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 73,
+    "name": "美化你的头像",
+    "url": "https://tool.browser.qq.com/img_module_face_stylize.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "需要图像理解/分割/生成或修复模型；简单滤镜不等价，先核实引擎与权重许可、下载/内存及样本效果，不塞进核心",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 74,
+    "name": "油画滤镜",
+    "url": "https://tool.browser.qq.com/img_painting_filter.html",
+    "categories": "图片",
+    "status": "新增",
+    "batch": "B",
+    "current": "—",
+    "plan": "复用 ImageMagick 艺术滤镜；普通油画效果可达，网站模型风格不保证一致",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "image.filter"
+      ],
+      "boundary": "确定性油画/素描/棕褐/炭笔/负片/自动调色预设。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 75,
+    "name": "人像分割",
+    "url": "https://tool.browser.qq.com/img_human_split.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "需要图像理解/分割/生成或修复模型；简单滤镜不等价，先核实引擎与权重许可、下载/内存及样本效果，不塞进核心",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 76,
+    "name": "照片美化",
+    "url": "https://tool.browser.qq.com/img_pic_beauty.html",
+    "categories": "图片",
+    "status": "部分",
+    "batch": "B/C",
+    "current": "image.adjust,image.sharpen,image.blur",
+    "plan": "亮度饱和度锐化已有；补预设，磨皮和人脸语义美化归 C",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "image.filter",
+        "image.adjust"
+      ],
+      "boundary": "普通调色滤镜；无语义人像美颜。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 77,
+    "name": "文档图片扭曲恢复",
+    "url": "https://tool.browser.qq.com/doc_wrap.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "四角透视校正可小算法做子集；弯曲纸张自动展平需视觉检测和评测",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 78,
+    "name": "图片修复",
+    "url": "https://tool.browser.qq.com/img_fix.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "需要图像理解/分割/生成或修复模型；简单滤镜不等价，先核实引擎与权重许可、下载/内存及样本效果，不塞进核心",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 79,
+    "name": "图片去摩尔纹",
+    "url": "https://tool.browser.qq.com/image_enhance.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "image.blur",
+    "plan": "普通滤波不等于去摩尔纹；先评估频域方案，再决定是否需要模型",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 80,
+    "name": "多人卡通画",
+    "url": "https://tool.browser.qq.com/img_ai_cartoon.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "需要图像理解/分割/生成或修复模型；简单滤镜不等价，先核实引擎与权重许可、下载/内存及样本效果，不塞进核心",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 81,
+    "name": "童话脸",
+    "url": "https://tool.browser.qq.com/img_ai_face.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "需要图像理解/分割/生成或修复模型；简单滤镜不等价，先核实引擎与权重许可、下载/内存及样本效果，不塞进核心",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 82,
+    "name": "乔丹风格化",
+    "url": "https://tool.browser.qq.com/img_ai_jordanstyle.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "需要图像理解/分割/生成或修复模型；简单滤镜不等价，先核实引擎与权重许可、下载/内存及样本效果，不塞进核心",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 83,
+    "name": "国漫水彩风",
+    "url": "https://tool.browser.qq.com/img_ai_watercolor.html",
+    "categories": "图片",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "需要图像理解/分割/生成或修复模型；简单滤镜不等价，先核实引擎与权重许可、下载/内存及样本效果，不塞进核心",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 84,
+    "name": "头像挂饰",
+    "url": "https://tool.browser.qq.com/avatar_pendant.html",
+    "categories": "图片",
+    "status": "部分",
+    "batch": "B",
+    "current": "image.watermark,image.canvas",
+    "plan": "补开放或用户提供挂饰模板、裁切和批处理，不复制站点素材",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "image.watermark",
+        "image.canvas",
+        "image.crop"
+      ],
+      "boundary": "复用用户提供挂饰素材；无站点模板。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 85,
+    "name": "字数计算",
+    "url": "https://tool.browser.qq.com/wordcount.html",
+    "categories": "教育",
+    "status": "已有",
+    "batch": "R",
+    "current": "text.count",
+    "plan": "已有文本统计；中文计数口径与标点、空格定义需与样例对齐",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "text.count"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 86,
+    "name": "英文创业公司/项目名生成",
+    "url": "https://tool.browser.qq.com/startupname.html",
+    "categories": "生活娱乐",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "用户词库/自建词根组合生成项目名；可设长度和数量，不承诺商标可用",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "name.generate"
+      ],
+      "boundary": "用户前后缀词表组合，不保证商标可用或不重复。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 87,
+    "name": "手持弹幕LED",
+    "url": "https://tool.browser.qq.com/led.html",
+    "categories": "生活娱乐",
+    "status": "新增",
+    "batch": "B/E",
+    "current": "—",
+    "plan": "生成本地 HTML/SVG 滚动弹幕或 GIF；全屏亮度与交互属浏览器",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "text.led"
+      ],
+      "boundary": "离线HTML滚动文字，支持减少动态效果偏好。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 88,
+    "name": "JSON diff",
+    "url": "https://tool.browser.qq.com/jsondiff.html",
+    "categories": "开发",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "encoding/json + 结构化递归 diff；数组策略、路径、数值精度明确",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "json.diff"
+      ],
+      "boundary": "JSON Pointer结构差异，缺失和null区分、精确有界数字。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 89,
+    "name": "JSON校验",
+    "url": "https://tool.browser.qq.com/jsoncheck.html",
+    "categories": "开发",
+    "status": "已有",
+    "batch": "R",
+    "current": "json.validate",
+    "plan": "已有 JSON 校验",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "json.validate"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 90,
+    "name": "文本颜艺",
+    "url": "https://tool.browser.qq.com/emoji.html",
+    "categories": "生活娱乐",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "自建小型颜文字集合，筛选/随机输出",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "text.emoticons"
+      ],
+      "boundary": "自建10个简单文本表情，不复制外部词库。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 91,
+    "name": "古诗词取名",
+    "url": "https://tool.browser.qq.com/makename.html",
+    "categories": "生活娱乐",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "公版诗词+署名和版本出处生成名字；选集整理数据也需许可检查",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 92,
+    "name": "车牌归属地",
+    "url": "https://tool.browser.qq.com/carnumber.html",
+    "categories": "生活娱乐",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "离线省份/城市车牌前缀表，区分民用及特殊号牌，标版本",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 93,
+    "name": "电话区号查询",
+    "url": "https://tool.browser.qq.com/phonenumber.html",
+    "categories": "生活娱乐",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "国内外电话区号字典；不是实时号码所有人或携号转网查询",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 94,
+    "name": "英文人名生成",
+    "url": "https://tool.browser.qq.com/fakeword.html",
+    "categories": "生活娱乐",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "开源许可明确或自建名字词库随机组合，可复现",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "name.generate"
+      ],
+      "boundary": "用户提供英文名字词表；无预装人名库。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 95,
+    "name": "温度转换",
+    "url": "https://tool.browser.qq.com/temperaturetrans.html",
+    "categories": "数据换算",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "摄氏/华氏/开尔文，绝对零度与精度校验",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "temperature.convert"
+      ],
+      "boundary": "C/F/K换算与绝对零度校验。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 96,
+    "name": "投资收益计算",
+    "url": "https://tool.browser.qq.com/invest.html",
+    "categories": "数据换算",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "本金、利率、复利周期、追加投入计算；参数由用户给定，不提供投资预测",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "finance.compound"
+      ],
+      "boundary": "用户输入利率、复利频率、定期追加；无收益预测。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 97,
+    "name": "血型遗传规律",
+    "url": "https://tool.browser.qq.com/bloodtype.html",
+    "categories": "生活娱乐",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "ABO 简化遗传枚举；清楚标模型假设，不用于亲子鉴定",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "biology.blood-types"
+      ],
+      "boundary": "简化ABO遗传可能性枚举；不用于亲子鉴定。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 98,
+    "name": "五险一金计算",
+    "url": "https://tool.browser.qq.com/wuxianyijin.html",
+    "categories": "数据换算",
+    "status": "新增",
+    "batch": "A/D",
+    "current": "—",
+    "plan": "A 做用户输入比例/基数/封顶的计算；城市当期政策数据归 D",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "finance.contributions"
+      ],
+      "boundary": "用户提供基数与比例；无城市实时政策库。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 99,
+    "name": "md5加密",
+    "url": "https://tool.browser.qq.com/md5.html",
+    "categories": "开发",
+    "status": "已有",
+    "batch": "R",
+    "current": "hash.calculate",
+    "plan": "支持 MD5 摘要；修正站点命名误导，MD5 不是加密或密码强度检测",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "hash.calculate"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 100,
+    "name": "进制转换",
+    "url": "https://tool.browser.qq.com/hexconvert.html",
+    "categories": "数据换算",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "math/big 任意精度 2–36 进制整数，负数及非法位校验",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "number.base"
+      ],
+      "boundary": "2至36进制任意精度整数。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 101,
+    "name": "简体繁体转换",
+    "url": "https://tool.browser.qq.com/chinese.html",
+    "categories": "文本",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "轻量开源简繁词典库；逐字/词组/地区变体及多义转换需要样例",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "text.chinese"
+      ],
+      "boundary": "OpenCC 1.1.7字词典，最长词优先；非完整mmseg或地区变体。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 102,
+    "name": "房贷计算",
+    "url": "https://tool.browser.qq.com/mortgage.html",
+    "categories": "数据换算",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "等额本息、等额本金和还款计划；输入利率，不内置未经维护的现行政策",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "finance.mortgage"
+      ],
+      "boundary": "等额本息/等额本金和计划表；参数由用户给定。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 103,
+    "name": "Unicode编解码",
+    "url": "https://tool.browser.qq.com/unicode.html",
+    "categories": "开发",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "Unicode code point、JSON \\u 转义、代理对与 UTF-8 校验；模式明确",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "unicode.encode",
+        "unicode.decode"
+      ],
+      "boundary": "JSON Unicode转义和代理对；拒绝孤立代理项。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 104,
+    "name": "url编解码",
+    "url": "https://tool.browser.qq.com/urlencode.html",
+    "categories": "开发",
+    "status": "已有",
+    "batch": "R",
+    "current": "url.encode,url.decode",
+    "plan": "已有 query 编解码；路径段模式和表单 + 规则可扩展",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "url.encode",
+        "url.decode"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 105,
+    "name": "数字大小写转换",
+    "url": "https://tool.browser.qq.com/num2zh.html",
+    "categories": "数据换算",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "中文数字及人民币大写，分角/负数/零与精度，用十进制定点处理",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "number.chinese"
+      ],
+      "boundary": "中文数字及人民币大写，定点角分；不隐式舍入更多小数。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 106,
+    "name": "BMI计算",
+    "url": "https://tool.browser.qq.com/bmi.html",
+    "categories": "数据换算",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "体重身高换算并计算 BMI；只给数值和明确引用的分类标准",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "health.bmi"
+      ],
+      "boundary": "仅BMI数值，无未经维护的分类建议。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 107,
+    "name": "IP归属地",
+    "url": "https://tool.browser.qq.com/iplocation.html",
+    "categories": "生活娱乐",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "IP 库许可、大小、更新和 IPv6 覆盖需核实；net/netip 只解析地址不能定位",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 108,
+    "name": "文本比较",
+    "url": "https://tool.browser.qq.com/textdiff.html",
+    "categories": "文本",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "文本逐行/逐词 diff；Go 实现或 go-diff，明确大输入资源限制",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "text.diff"
+      ],
+      "boundary": "精确逐行LCS，每边最多2000行。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 109,
+    "name": "JSON格式化",
+    "url": "https://tool.browser.qq.com/jsonbeautify.html",
+    "categories": "开发",
+    "status": "已有",
+    "batch": "R",
+    "current": "json.format,json.minify",
+    "plan": "已有格式化和压缩",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "json.format",
+        "json.minify"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 110,
+    "name": "时间戳转换",
+    "url": "https://tool.browser.qq.com/timestamp.html",
+    "categories": "数据换算",
+    "status": "已有",
+    "batch": "R",
+    "current": "time.convert",
+    "plan": "已有秒/毫秒/RFC3339/时区转换；补日期输入和边界测试可增强",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "time.convert"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 111,
+    "name": "在线加解密",
+    "url": "https://tool.browser.qq.com/crypto.html",
+    "categories": "开发",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "标准库 AES-GCM 文本/文件封装及必要兼容模式；先核实网站算法清单，不自行实现密码算法",
+    "evidence": "详情使用说明",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "crypto.key",
+        "crypto.encrypt",
+        "crypto.decrypt"
+      ],
+      "boundary": "AES-256-GCM文本信封，需256位密钥；非所有网站兼容算法。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 112,
+    "name": "GIF分解",
+    "url": "https://tool.browser.qq.com/gifsplitter.html",
+    "categories": "图片",
+    "status": "已有",
+    "batch": "R",
+    "current": "image.gif-split",
+    "plan": "已有合成完整帧后输出 PNG",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "image.gif-split"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 113,
+    "name": "URL解析",
+    "url": "https://tool.browser.qq.com/urlparse.html",
+    "categories": "开发",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "net/url 解析 scheme/host/port/path/query/fragment，保留重复查询键",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "url.parse"
+      ],
+      "boundary": "保留重复query参数及URL各组成部分。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 114,
+    "name": "历史朝代查询",
+    "url": "https://tool.browser.qq.com/dynasties.html",
+    "categories": "教育",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "自建注明出处的历史时间表；并存朝代与公元前日期显式处理",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 115,
+    "name": "各国首都",
+    "url": "https://tool.browser.qq.com/capital.html",
+    "categories": "教育",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "国家首都数据需要许可和更新日期；多首都/地区口径明确",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 116,
+    "name": "日期计算",
+    "url": "https://tool.browser.qq.com/datecal.html",
+    "categories": "数据换算",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "日期加减/间隔/工作日；节假日表可由用户传入，时区和月末语义固定",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "date.add",
+        "date.diff",
+        "date.business-days",
+        "date.age"
+      ],
+      "boundary": "月末截断；工作日使用用户调休表。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 117,
+    "name": "计算器",
+    "url": "https://tool.browser.qq.com/calculator.html",
+    "categories": "数据换算",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "白名单表达式解析器，括号/幂/函数/精度及深度限制；不执行任意脚本",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "math.evaluate",
+        "math.statistics"
+      ],
+      "boundary": "白名单数学表达式和有限数统计；不执行脚本。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 118,
+    "name": "随机密码生成",
+    "url": "https://tool.browser.qq.com/pwdgenerator.html",
+    "categories": "开发",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "crypto/rand、字符策略、长度、批量生成；不复用普通伪随机数生成口令",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "password.generate"
+      ],
+      "boundary": "crypto/rand独立均匀字符；非强制类别配额。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 119,
+    "name": "长度转换",
+    "url": "https://tool.browser.qq.com/lengthconvert.html",
+    "categories": "数据换算",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "长度单位表及精确比例；后续可扩面积/体积/质量",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "unit.convert"
+      ],
+      "boundary": "长度/面积/体积/质量/时长/数据的精确比率。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 120,
+    "name": "随机数生成",
+    "url": "https://tool.browser.qq.com/random.html",
+    "categories": "生活娱乐",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "区间整数、抽样/无放回、种子模式及密码学随机模式",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "random.integer",
+        "random.choose"
+      ],
+      "boundary": "密码学随机区间与无放回抽样；无种子复现。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 121,
+    "name": "base64编码",
+    "url": "https://tool.browser.qq.com/base64.html",
+    "categories": "开发",
+    "status": "已有",
+    "batch": "R",
+    "current": "base64.encode,base64.decode",
+    "plan": "已有编码解码；核对 URL-safe、padding 等具体选项再增强",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "base64.encode",
+        "base64.decode"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 122,
+    "name": "二维码生成",
+    "url": "https://tool.browser.qq.com/qrcode.html",
+    "categories": "图片",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "gozxing 生成 PNG，内容/边距/尺寸/纠错级别",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "qrcode.generate"
+      ],
+      "boundary": "纠错/尺寸/配色，输出前回扫。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 123,
+    "name": "视频转gif",
+    "url": "https://tool.browser.qq.com/video_2_gif.html",
+    "categories": "视频",
+    "status": "已有",
+    "batch": "R",
+    "current": "video.gif",
+    "plan": "已有 FFmpeg 视频转 GIF",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "video.gif"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 124,
+    "name": "markdown编辑器",
+    "url": "https://tool.browser.qq.com/markdown.html",
+    "categories": "开发",
+    "status": "部分",
+    "batch": "A/E",
+    "current": "document.convert",
+    "plan": "已有 Markdown→HTML 转换；goldmark 可补轻量预览输出，在线编辑器属 UI",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "markdown.to-html"
+      ],
+      "boundary": "GFM本地HTML，禁原始HTML和远程资源；非交互编辑器。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 125,
+    "name": "九宫格切图",
+    "url": "https://tool.browser.qq.com/img9grid.html",
+    "categories": "图片",
+    "status": "部分",
+    "batch": "B",
+    "current": "image.crop",
+    "plan": "原语可裁切；补一键 NxM 分块、顺序清单和非整除边缘规则",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "image.split-grid"
+      ],
+      "boundary": "NxM行优先切图，非整除边缘完整覆盖。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 126,
+    "name": "图片格式转换",
+    "url": "https://tool.browser.qq.com/imgconvert.html",
+    "categories": "图片",
+    "status": "已有",
+    "batch": "R",
+    "current": "image.convert,image.formats",
+    "plan": "已有 core PNG/JPEG 和可选 ImageMagick 格式；实际支持查运行时",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "image.convert",
+        "image.formats"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 127,
+    "name": "GIF合成",
+    "url": "https://tool.browser.qq.com/gifcreate.html",
+    "categories": "图片",
+    "status": "已有",
+    "batch": "R",
+    "current": "image.gif-create",
+    "plan": "已有帧序列合成 GIF",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "image.gif-create"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 128,
+    "name": "文字转拼音",
+    "url": "https://tool.browser.qq.com/tta.html",
+    "categories": "文本",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "go-pinyin 转拼音、声调/首字母/多音字选项；不承诺自动消歧",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "text.pinyin"
+      ],
+      "boundary": "拼音/声调/首字母/多音候选；无上下文消歧。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 129,
+    "name": "正则校验",
+    "url": "https://tool.browser.qq.com/regexp.html",
+    "categories": "开发",
+    "status": "部分",
+    "batch": "A",
+    "current": "text.replace",
+    "plan": "原text.replace为字面替换；新增Go RE2校验、匹配、分组、位置和替换接口，明确不支持回溯/环视",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "regex.validate",
+        "regex.match",
+        "regex.replace"
+      ],
+      "boundary": "新建Go RE2接口；原text.replace仅字面替换。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 130,
+    "name": "二维码美化",
+    "url": "https://tool.browser.qq.com/prettify_qrcode.html",
+    "categories": "图片",
+    "status": "新增",
+    "batch": "B",
+    "current": "—",
+    "plan": "复用二维码+配色/图标叠加，输出前回扫校验；不破坏定位图案和静区",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "qrcode.generate"
+      ],
+      "boundary": "配色和尺寸美化并回扫；无图标嵌入或艺术模型。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 131,
+    "name": "二维码名片",
+    "url": "https://tool.browser.qq.com/visit_card.html",
+    "categories": "图片",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "vCard/MECARD 序列化+二维码，共用 QR 实现",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "qrcode.contact"
+      ],
+      "boundary": "vCard QR，字段转义与输出回扫。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 132,
+    "name": "快递查询",
+    "url": "https://tool.browser.qq.com/kuaidi.html",
+    "categories": "生活娱乐",
+    "status": "环境依赖",
+    "batch": "E",
+    "current": "—",
+    "plan": "物流实时查询依赖承运商 API/凭据；单号格式识别不等于追踪",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "服务边界",
+      "operations": [],
+      "boundary": "在线服务或浏览器/账户集成超出本地算法；未接第三方处理API。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 133,
+    "name": "成语接龙",
+    "url": "https://tool.browser.qq.com/jielong.html",
+    "categories": "教育",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "成语库建立首尾字/拼音索引，与成语大全复用数据",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 134,
+    "name": "医院推荐",
+    "url": "https://tool.browser.qq.com/hospitalrecommend.html",
+    "categories": "生活娱乐",
+    "status": "环境依赖",
+    "batch": "E",
+    "current": "—",
+    "plan": "医院名录、地域、专科资料及更新来源；不以简单排序冒充医疗推荐",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "服务边界",
+      "operations": [],
+      "boundary": "在线服务或浏览器/账户集成超出本地算法；未接第三方处理API。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 135,
+    "name": "便捷思维导图",
+    "url": "https://tool.browser.qq.com/markmap.html",
+    "categories": "教育",
+    "status": "新增",
+    "batch": "B",
+    "current": "—",
+    "plan": "Markdown 标题解析生成可离线 HTML/SVG 树图；交互包单独资源，许可和体积待锁版",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "markdown.mindmap"
+      ],
+      "boundary": "离线可折叠大纲HTML；非自由布局编辑器。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 136,
+    "name": "汉字标准发音",
+    "url": "https://tool.browser.qq.com/hanzifayin.html",
+    "categories": "教育",
+    "status": "待评估",
+    "batch": "C/D",
+    "current": "—",
+    "plan": "拼音标注可复用 go-pinyin；标准读音播放需授权音频或 TTS，二者不等价",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "text.pinyin",
+        "speech.synthesize"
+      ],
+      "boundary": "拼音标注/用户已有系统声音；不等于权威字典逐字录音。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 137,
+    "name": "YAML/JSON互相转换",
+    "url": "https://tool.browser.qq.com/yaml_2_json.html",
+    "categories": "开发",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "维护中的 YAML 库；拒绝不兼容 JSON 的键，明确 alias/多文档/类型转换",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "yaml.to-json",
+        "json.to-yaml",
+        "yaml.format",
+        "yaml.validate"
+      ],
+      "boundary": "单文档、字符串键、拒绝别名和重复键、保留有界数值。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 138,
+    "name": "图片黑白化",
+    "url": "https://tool.browser.qq.com/img_fade.html",
+    "categories": "图片",
+    "status": "已有",
+    "batch": "R",
+    "current": "image.grayscale",
+    "plan": "已有灰度转换",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "image.grayscale"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 139,
+    "name": "元素周期表",
+    "url": "https://tool.browser.qq.com/periodic.html",
+    "categories": "教育",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "元素基本信息与来源、单位；小数据文件，资料许可需核实",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 140,
+    "name": "食物热量表",
+    "url": "https://tool.browser.qq.com/calories_list.html",
+    "categories": "生活娱乐",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "与两处热量查询共用离线食物表，不重复开发三份",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 141,
+    "name": "卡路里查询",
+    "url": "https://tool.browser.qq.com/food_calories.html",
+    "categories": "生活娱乐",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "与 calories/calories_list 共用查询、分量换算和来源",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 142,
+    "name": "火星文翻译器",
+    "url": "https://tool.browser.qq.com/toMars.html",
+    "categories": "文本",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "自建可配置字符映射规则；明确非标准、不可逆，不冒充自然语言翻译",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "text.map"
+      ],
+      "boundary": "用户字符映射一次转换，非标准火星文词库。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 143,
+    "name": "翻译",
+    "url": "https://tool.browser.qq.com/translate.html",
+    "categories": "教育",
+    "status": "待评估",
+    "batch": "C/E",
+    "current": "—",
+    "plan": "本地翻译模型体积大；第三方 API 需要账户，词典替换不等价",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "专项待评估",
+      "operations": [],
+      "boundary": "需要专项引擎/模型/样本；现有普通变换不等于该能力。详见原评估方案。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 144,
+    "name": "汉字偏旁",
+    "url": "https://tool.browser.qq.com/radical.html",
+    "categories": "教育",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "汉字部首/笔画字典，明确字形和字典版本",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 145,
+    "name": "歇后语",
+    "url": "https://tool.browser.qq.com/allegory.html",
+    "categories": "教育",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "歇后语问答查询与随机；整理词库许可先核实",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 146,
+    "name": "词语注解",
+    "url": "https://tool.browser.qq.com/explain.html",
+    "categories": "教育",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "词语释义需要可再分发词典；不能复制站点释义库",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 147,
+    "name": "世界时间校准",
+    "url": "https://tool.browser.qq.com/timer.html",
+    "categories": "生活娱乐",
+    "status": "部分",
+    "batch": "A",
+    "current": "time.convert",
+    "plan": "补多城市当前时间输出；网页显示时间不等于修改操作系统时钟",
+    "evidence": "详情使用说明",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "time.world"
+      ],
+      "boundary": "内置IANA时区显示同一时刻，不校准系统时钟。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 148,
+    "name": "成语大全",
+    "url": "https://tool.browser.qq.com/chengyujielong.html",
+    "categories": "教育",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "成语释义/搜索/接龙共用一库，避免与 jielong 重复",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 149,
+    "name": "随机网名",
+    "url": "https://tool.browser.qq.com/nick.html",
+    "categories": "生活娱乐",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "自建前后缀/用户词库随机网名，可排除字符和重复",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "name.generate"
+      ],
+      "boundary": "用户词表组合随机网名。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 150,
+    "name": "快递信息提取",
+    "url": "https://tool.browser.qq.com/number_acquisition.html",
+    "categories": "生活娱乐",
+    "status": "新增",
+    "batch": "A/D",
+    "current": "—",
+    "plan": "正则提取姓名电话地址候选与单号，保留歧义；行政区解析要版本化数据",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "contact.extract"
+      ],
+      "boundary": "电话/邮箱/单号候选；无地址姓名行政区自动解析。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 151,
+    "name": "字节数换算",
+    "url": "https://tool.browser.qq.com/byte_cal.html",
+    "categories": "数据换算",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "bit/byte、SI 1000 和 IEC 1024 分开，支持小数和精度",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "unit.convert"
+      ],
+      "boundary": "SI与IEC、bit/byte明确区分。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 152,
+    "name": "邮编查询",
+    "url": "https://tool.browser.qq.com/zipcode.html",
+    "categories": "生活娱乐",
+    "status": "数据待核",
+    "batch": "D",
+    "current": "—",
+    "plan": "邮编地区映射可本地查，数据覆盖和许可需核实",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "词库暂缓",
+      "operations": [],
+      "boundary": "用户将此类查询设为低优先级；缺少已验收可再分发数据，不复制网站数据。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 153,
+    "name": "userAgent工具",
+    "url": "https://tool.browser.qq.com/useragent.html",
+    "categories": "开发",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "解析浏览器/系统/设备及原始 UA；规则库若过大先做明确覆盖的子集",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "useragent.parse"
+      ],
+      "boundary": "常见浏览器/系统token启发式；保留原文。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 154,
+    "name": "保质期计算",
+    "url": "https://tool.browser.qq.com/shelflife.html",
+    "categories": "生活娱乐",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "生产日期+天/月期限及到期剩余量；自然月和包含当天规则明确",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "date.expiry"
+      ],
+      "boundary": "自然月/天期限、明确参考日期与到期边界。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 155,
+    "name": "取名字",
+    "url": "https://tool.browser.qq.com/naming.html",
+    "categories": "生活娱乐",
+    "status": "新增",
+    "batch": "A/D",
+    "current": "—",
+    "plan": "A 用户词库组合；D 开放中文名字素材，和其他取名入口共用生成器",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "name.generate"
+      ],
+      "boundary": "用户名字素材；无内置专业取名库。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 156,
+    "name": "文本去重",
+    "url": "https://tool.browser.qq.com/unique.html",
+    "categories": "文本",
+    "status": "已有",
+    "batch": "R",
+    "current": "text.unique",
+    "plan": "已有按行去重；段落/大小写/保持顺序策略可扩展",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "text.unique"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 157,
+    "name": "图片像素化",
+    "url": "https://tool.browser.qq.com/img_pixel.html",
+    "categories": "图片",
+    "status": "新增",
+    "batch": "B",
+    "current": "—",
+    "plan": "Go 块平均/最近邻，或 ImageMagick 缩小放大；支持区域像素化",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "image.pixelate"
+      ],
+      "boundary": "整图或矩形区域块平均马赛克。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 158,
+    "name": "硬盘分区",
+    "url": "https://tool.browser.qq.com/partition.html",
+    "categories": "数据换算",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "仅实现 NTFS/FAT32 显示容量换算；详情使用说明是计算器，不操作磁盘",
+    "evidence": "详情使用说明",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "disk.capacity"
+      ],
+      "boundary": "容量显示/对齐计算；不修改磁盘。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 159,
+    "name": "图片隐写",
+    "url": "https://tool.browser.qq.com/image_secret_msg.html",
+    "categories": "图片",
+    "status": "新增",
+    "batch": "B",
+    "current": "—",
+    "plan": "PNG 无损像素 LSB 编码/解码，自定义版本头、容量和校验；不是加密",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "image.hide",
+        "image.reveal"
+      ],
+      "boundary": "PNG RGB LSB、长度/版本/CRC32校验。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 160,
+    "name": "开发语言输出hello world",
+    "url": "https://tool.browser.qq.com/compilation.html",
+    "categories": "开发",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "自建多语言 Hello World 模板，只返回源码，不安装或执行各语言运行时",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "code.hello"
+      ],
+      "boundary": "12种语言源码模板；不安装或执行解释器。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 161,
+    "name": "文字隐写",
+    "url": "https://tool.browser.qq.com/text_secret_msg.html",
+    "categories": "文本",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "零宽字符编码/解码、版本和校验；提示文本规范化可能破坏载荷",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "text.hide",
+        "text.reveal"
+      ],
+      "boundary": "零宽编码、版本、CRC32；文字清洗可能破坏载荷。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 162,
+    "name": "uuid生成",
+    "url": "https://tool.browser.qq.com/uuid.html",
+    "categories": "开发",
+    "status": "已有",
+    "batch": "R",
+    "current": "uuid.generate",
+    "plan": "已有 UUID 生成；不是加密功能",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "uuid.generate"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 163,
+    "name": "图片加水印",
+    "url": "https://tool.browser.qq.com/watermark.html",
+    "categories": "图片（首页独有）",
+    "status": "已有",
+    "batch": "R",
+    "current": "image.watermark",
+    "plan": "已有图片水印；文字可复用 annotate，批量水印预设可增强",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "保留已有",
+      "operations": [
+        "image.watermark"
+      ],
+      "boundary": "复用原有操作；本轮没有宣称与网站逐样本全等价。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 164,
+    "name": "表情包制作",
+    "url": "https://tool.browser.qq.com/biaoqing.html",
+    "categories": "图片",
+    "status": "部分",
+    "batch": "B",
+    "current": "image.annotate,image.gif-create",
+    "plan": "补图片+文字模板、换行、字体、GIF 模板；不复制站点表情素材",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "image.annotate",
+        "image.canvas",
+        "image.gif-create"
+      ],
+      "boundary": "复用用户图片/字体的文字和GIF操作；无现成表情模板。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 165,
+    "name": "二维码扫描",
+    "url": "https://tool.browser.qq.com/qrcode_scan.html",
+    "categories": "图片",
+    "status": "新增",
+    "batch": "A",
+    "current": "—",
+    "plan": "gozxing 从本地图片解码；摄像头扫描另由未来 UI 捕获图像，共用同一 Runner",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "基础已实现",
+      "operations": [
+        "qrcode.decode"
+      ],
+      "boundary": "本地PNG/JPEG/GIF二维码识别，无摄像头捕获。",
+      "updated": "2026-09-08"
+    }
+  },
+  {
+    "number": 166,
+    "name": "文档扫描",
+    "url": "https://tool.browser.qq.com/word_scan.html",
+    "categories": "文档",
+    "status": "待评估",
+    "batch": "C",
+    "current": "—",
+    "plan": "扫描图增强、透视校正、OCR→DOCX 组合；当前无 OCR，先验证轻量候选",
+    "evidence": "目录入口；执行效果待验收",
+    "implementation": {
+      "status": "子集已实现",
+      "operations": [
+        "document.scan",
+        "pdf.ocr"
+      ],
+      "boundary": "图像或PDF OCR重排文档；无自动透视/曲面展平。",
+      "updated": "2026-09-08"
+    }
+  }
+]

@@ -32,6 +32,9 @@ archives:
     files:
       - LICENSE
       - README.md
+      - THIRD_PARTY_NOTICES.md
+      - third_party/licenses/**
+      - docs/local-tools.md
       - skills/finishbit/**
 
 checksum:

@@ -141,8 +141,18 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 		}
 	}
 	executables := map[string]string{}
-	isArchive := artifact.Format == "zip" || artifact.Format == "tar.gz" || artifact.Format == "tar.xz" || artifact.Format == "7z"
-	if isArchive {
+	isArchive := artifact.Format == "zip" || artifact.Format == "tar.gz" || artifact.Format == "tar.xz" || artifact.Format == "7z" || artifact.Format == "nsis"
+	if artifact.Format == "nsis" {
+		if artifact.Extractor == name {
+			return Installed{}, fmt.Errorf("package cannot extract itself")
+		}
+		if _, err := m.Install(ctx, artifact.Extractor); err != nil {
+			return Installed{}, err
+		}
+		if err := m.extractNSIS(ctx, artifact.Extractor, archivePath, filepath.Join(staging, "payload")); err != nil {
+			return Installed{}, err
+		}
+	} else if isArchive {
 		var files []string
 		if artifact.Resources != nil {
 			files = append(files, artifact.Resources...)
@@ -151,6 +161,29 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 			}
 		}
 		if err := extractArchive(ctx, archivePath, filepath.Join(staging, "payload"), artifact.Format, files); err != nil {
+			return Installed{}, err
+		}
+	}
+	for _, resource := range artifact.Downloads {
+		target, err := archiveTarget(filepath.Join(staging, "payload"), resource.Path)
+		if err != nil {
+			return Installed{}, err
+		}
+		if _, err := os.Lstat(target); !os.IsNotExist(err) {
+			return Installed{}, fmt.Errorf("supplementary resource would replace an existing entry: %s", resource.Path)
+		}
+		if err := os.MkdirAll(filepath.Dir(target), 0755); err != nil {
+			return Installed{}, err
+		}
+		if err := m.download(ctx, Artifact{URL: resource.URL, SHA256: resource.SHA256}, target); err != nil {
+			return Installed{}, err
+		}
+		if err := verifyFile(target, resource.SHA256); err != nil {
+			return Installed{}, err
+		}
+	}
+	if isArchive {
+		if err := checkPayloadSize(filepath.Join(staging, "payload")); err != nil {
 			return Installed{}, err
 		}
 	}
@@ -272,8 +305,42 @@ func validateArtifact(artifact Artifact) error {
 			return fmt.Errorf("single-file artifacts require one executable")
 		}
 	case "zip", "tar.gz", "tar.xz", "7z":
+	case "nsis":
+		if artifact.Extractor != "7zip-full" || artifact.Resources != nil {
+			return fmt.Errorf("NSIS requires the pinned 7zip-full extractor and full payload")
+		}
 	default:
 		return fmt.Errorf("unsupported artifact format %q", artifact.Format)
+	}
+	if artifact.Format != "nsis" && artifact.Extractor != "" {
+		return fmt.Errorf("extractor requires NSIS format")
+	}
+	if len(artifact.Downloads) > 32 {
+		return fmt.Errorf("at most 32 supplementary resources")
+	}
+	seenResources := map[string]bool{}
+	for _, resource := range artifact.Downloads {
+		if artifact.Format == "raw" || artifact.Format == "gzip" {
+			return fmt.Errorf("supplementary resources require archive format")
+		}
+		if _, err := archiveTarget("payload", resource.Path); err != nil {
+			return err
+		}
+		key := strings.ToLower(resource.Path)
+		if seenResources[key] {
+			return fmt.Errorf("duplicate supplementary resource")
+		}
+		seenResources[key] = true
+		u, err := url.Parse(resource.URL)
+		if err != nil || u.Scheme != "https" || u.Host == "" {
+			return fmt.Errorf("resource requires HTTPS")
+		}
+		if len(resource.SHA256) != 64 {
+			return fmt.Errorf("resource requires SHA-256")
+		}
+		if _, err := hex.DecodeString(resource.SHA256); err != nil {
+			return err
+		}
 	}
 	for logical, entry := range artifact.Executables {
 		if logical == "" || strings.Trim(logical, "abcdefghijklmnopqrstuvwxyz0123456789-.") != "" || logical == "." || logical == ".." {
