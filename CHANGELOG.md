@@ -6,8 +6,12 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 
 ## [Unreleased]
 
+## [0.1.7] - 2026-09-08
+
 ### Changed
 
+- Refine the bilingual website homepage, guide navigation, operation browsing context and runtime installation guidance.
+- Replace lunar-go with a fixed calendar table and local conversion while preserving the supported 1900–2100 input range and output compatibility. Together with the 7-Zip change, declared Go dependencies decrease from 20 in v0.1.6 to 9.
 - Reuse managed 7-Zip for runtime installation, automatically downloading the official standalone bootstrap on cold installs. Remove the embedded Go sevenzip decoder and nine transitive modules while retaining bounded, exclusive writes for 7z entries.
 - Upgrade the managed Windows x64 OCR engine to Tesseract 5.5.3, keeping the pinned English and simplified Chinese fast models. The extracted runtime and models occupy approximately 103.3 MiB. Existing users can install the registered version with `fnsh pkg add tesseract` after updating the CLI.
 
