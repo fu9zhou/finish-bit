@@ -1,6 +1,6 @@
 # FinishBit website
 
-Dependency-free static website with English and Simplified Chinese overview pages, a dedicated searchable capability catalog, hierarchical Operation detail routes, thirteen documentation topics, and explicit not-found handling. Content follows the repository documentation. The terminal is an illustrative workflow; the website does not execute CLI commands.
+Dependency-free static website with English and Simplified Chinese overview pages, a dedicated searchable capability catalog, hierarchical Operation detail routes, five guide topics and catalog-owned workflow guides, and explicit not-found handling. Content follows the repository documentation. The terminal is an illustrative workflow; the website does not execute CLI commands.
 
 ## Local preview
 
@@ -33,14 +33,32 @@ The first browser language/locale selects Chinese for `zh` or region `CN`, other
 
 ## Design and maintenance
 
-The UI/UX Pro Max minimal / Swiss documentation direction is adapted with warm neutral surfaces, forest green, monospaced command blocks, visible keyboard focus, responsive layouts and reduced-motion support. System fonts avoid external font dependencies.
+The homepage leads with saving AI tokens and making execution more predictable through reusable implementations and mature tools. Its light execution workbench retains FinishBit's green identity, pairs system sans-serif typography with monospaced commands, and provides PDF, video and JSON workflow examples. These examples are illustrative and never execute in the browser. No fixed token savings or universal correctness guarantee is claimed.
+
+The design combines taste-skill, frontend-design and UI/UX Pro Max guidance with native CSS. Responsive layouts, visible keyboard focus and reduced-motion support apply throughout. System fonts avoid external font dependencies.
+
+Quick start, Agent integration and the homepage share a copyable installation prompt: ask an agent to install the complete FinishBit Skill directory and the platform-appropriate CLI, configure PATH and verify the installation. Manual installation remains available. This onboarding follows the Skill-plus-CLI pattern in [agent-browser](https://github.com/vercel-labs/agent-browser/blob/main/docs/src/app/skills/page.mdx) and [Peekaboo](https://peekaboo.sh/agent-skill.html); FinishBit installation steps come from this repository.
+
+On desktop, the documentation sidebar groups three user guides and two developer references. It is capped to the available viewport height and its navigation scrolls internally when needed. Initial spacing and the sticky offset share the same gap plus the measured header height, updated with ResizeObserver after header changes. Verify that the first sidebar label has the same viewport position at scroll 0 and after a small scroll on both desktop and tablet. When checking layout, scroll a long guide at 720px viewport height, verify that the sidebar stays below the header and all topics remain reachable, then check the two-row tablet header and the non-sticky mobile layout.
 
 - `index.html`: static shell and metadata.
 - `styles.css`: layout, responsive rules and semantic color tokens.
+- `home.css`: homepage layouts and shared visual refinements.
+- `home.js`: bilingual homepage, task example switching and FAQ content.
 - `routes.js`: pure route parsing shared with the route regression test.
-- `app.js`: translated content, page rendering, documentation/catalog search, filtering and clipboard feedback.
+- `app.js`: translated content, page rendering, catalog search, filtering and clipboard feedback.
 - `catalog.js`: generated application contracts, including inputs, options and dependency requirements.
+
+Load `home.js` before `app.js`; the homepage uses shared translation and catalog helpers when `app.js` renders it. Both homepage assets are included explicitly in the Pages workflow. After changing them, run `node --check website/home.js`, `node --check website/app.js` and `node scripts/test-website-routes.mjs`, `node scripts/test-website-navigation.mjs`, and verify both languages and mobile layouts in a browser.
 
 Keep CLI examples and requirements synchronized with the repository documentation. Regenerate the source catalog with `go build ./cmd/fnsh` then `node scripts/website-catalog.mjs`. Run `node scripts/website-catalog.mjs --check` to detect drift; CI enforces this check. Generation uses an isolated runtime home so local extensions never enter the website. `fnsh capabilities --json` remains authoritative for a user's installed version.
 
 The website marks Operations introduced in v0.1.4 and text-output behavior updated in v0.1.5. The v0.1.6 catalog has 277 Operations, including 107 local-toolbox additions marked v0.1.6; the v0.1.5 binary has 170. Future additions must clearly identify their release availability. Category filters and search terms have shareable URLs, such as `#/operations?category=pdf&q=text`. PDF, image, table, document and archive guides include installation commands and tested platform boundaries.
+
+## Information architecture
+
+The catalog owns individual contracts and shared workflow guides (`#/operations/guides/:topic`). Selecting a category reveals its guide; operation detail pages link to the appropriate usage and platform notes. Counts and release announcements are not duplicated in those guides.
+
+The guide navigation has three user topics (quick start, installation, troubleshooting) and two developer topics (CLI/automation and extensions). Quick start includes manual Agent setup in an expandable section. Legacy `#/docs/agents` and `#/docs/discovery` URLs redirect to their merged topics; former category-document URLs redirect to their catalog guides. Route regression tests cover these migrations.
+
+Operation details display the full registry description (English source text) and an explicit bilingual Windows-only notice for screen recording. Catalog category and search parameters travel through detail and workflow-guide links, so return links survive reloads and language changes. Direct links to the shared local guide return to all capabilities; links from an Operation retain its category.
