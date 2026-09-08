@@ -6,6 +6,8 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 
 ## [Unreleased]
 
+## [0.1.6] - 2026-09-08
+
 ### Added
 
 - 107 local Operations (277 total), including QR generation/decoding, bounded text/JSON diffs and RE2 tools, YAML/TOML/XML, Chinese text conversion, date/calendar/unit/math utilities, cryptographic random and AES-GCM helpers, and image/document utilities.
@@ -109,7 +111,8 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 - Rejected invalid extension response envelopes and inconsistent manifest sources.
 - Added macOS-compatible installer checksum verification and hardened release validation.
 
-[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.5...HEAD
+[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.6...HEAD
+[0.1.6]: https://github.com/fu9zhou/finish-bit/compare/v0.1.5...v0.1.6
 [0.1.0]: https://github.com/fu9zhou/finish-bit/releases/tag/v0.1.0
 
 [0.1.1]: https://github.com/fu9zhou/finish-bit/compare/v0.1.0...v0.1.1

@@ -43,7 +43,7 @@ fnsh describe json.query --json
 
 ## Registration invariant
 
-The unreleased local toolbox adds 107 Operations, bringing the catalog to 277. See [local tools](local-tools.md) for supported subsets, runtime sizes and verification, and the generated website catalog for every contract. These additions are not part of the v0.1.5 release binary.
+The v0.1.6 local toolbox adds 107 Operations, bringing the catalog to 277. See [local tools](local-tools.md) for supported subsets, runtime sizes and verification, and the generated website catalog for every contract. These additions require v0.1.6 or later.
 
 Each ID uses lowercase `<domain>.<action>` segments and is unique across core and extensions. Registering once automatically enables search, describe, direct CLI dispatch, generic `run`, JSON schemas in responses, and future adapters through `pkg/app`.
 

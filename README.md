@@ -48,7 +48,7 @@ Deterministic building blocks are the design goal: defined execution behavior re
 | Media | 36 Operations for conversion, editing, subtitles, previews and audio processing through managed FFmpeg/ffprobe |
 | Expanded toolbox (v0.1.4) | 144 new media, PDF, image, table, document and archive Operations, bringing the catalog to 170; see the [catalog](docs/operations.md) and [acceptance record and gates](docs/batch-b-acceptance.md) |
 | Readable paper text (v0.1.5) | `pdf.extract-text --unwrap` reconstructs logical paragraphs from PDF visual lines; `document.split` now avoids inserting hard-wrapped lines by default |
-| Local toolbox (unreleased) | 107 additional Operations, 277 total: QR codes, text/data conversion, calculations, image utilities, printed-text OCR, PDF workflows and Windows speech/recording; see [local tools and limits](docs/local-tools.md) |
+| Local toolbox (v0.1.6) | 107 additional Operations, 277 total: QR codes, text/data conversion, calculations, image utilities, printed-text OCR, PDF workflows and Windows speech/recording; see [local tools and limits](docs/local-tools.md) |
 | Extensibility | Install language-neutral local extensions that publish new Operations through protocol v1 |
 
 Core Operations run inside a single Go binary with no resident service. Large external runtimes are installed only when an Operation needs them, and `--json` provides stable machine-readable output for agents and automation.
@@ -59,7 +59,7 @@ The [table guide](docs/tables.md) includes all 27 new contracts and the repeatab
 
 ## Project status
 
-FinishBit is developing in the `v0.1.x` series. The current release is `v0.1.5`, followed by `v0.1.6`; additive capabilities and backward-compatible fixes continue patch increments. The core runtime, `fnsh` CLI, managed media/PDF/image/table/document/archive providers, local extension protocol v1, and Agent Skill are implemented. See the [compatibility policy](docs/compatibility.md) before depending on pre-1.0 contracts in production.
+FinishBit is developing in the `v0.1.x` series. The current release is `v0.1.6`, followed by `v0.1.7`; additive capabilities and backward-compatible fixes continue patch increments. The core runtime, `fnsh` CLI, managed media/PDF/image/table/document/archive providers, local extension protocol v1, and Agent Skill are implemented. See the [compatibility policy](docs/compatibility.md) before depending on pre-1.0 contracts in production.
 
 ## Why FinishBit
 
