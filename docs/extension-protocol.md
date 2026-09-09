@@ -38,6 +38,8 @@ Directory and ZIP installations are limited to 512 MiB total size. Absolute path
 
 The manifest `name` identifies the installed extension and `version` describes its release. Operation IDs must follow the same lowercase `<domain>.<action>` rule as core Operations and must not collide with another registered ID. The executable path is relative to the extension root; Windows may resolve the corresponding `.exe` file.
 
+On Windows, removal retries short-lived access/sharing/lock failures up to eight attempts, waiting at most 2.2 seconds between attempts in total. Unrelated errors return immediately; a persistent lock still returns the final filesystem error. Close the process holding the extension and retry removal in that case.
+
 Every manifest Operation sets `source` to the literal value `extension`. The host validates that marker and exposes the installed source as `extension:<manifest-name>` at runtime.
 
 ## Process exchange

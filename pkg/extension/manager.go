@@ -90,7 +90,7 @@ func (m *Manager) Remove(name string) error {
 	if !validName(name) {
 		return fmt.Errorf("invalid extension name %q", name)
 	}
-	return os.RemoveAll(filepath.Join(m.root, name))
+	return removeDirectory(filepath.Join(m.root, name))
 }
 
 func (m *Manager) List() []Manifest {
