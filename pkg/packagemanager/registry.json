@@ -254,6 +254,11 @@
       "artifacts": {
         "win32-x64": {
           "url": "https://github.com/dathere/qsv/releases/download/22.0.1/qsv-22.0.1-x86_64-pc-windows-msvc.zip",
+          "mirrors": [
+            "https://gh-proxy.com/https://github.com/dathere/qsv/releases/download/22.0.1/qsv-22.0.1-x86_64-pc-windows-msvc.zip",
+            "https://ghfast.top/https://github.com/dathere/qsv/releases/download/22.0.1/qsv-22.0.1-x86_64-pc-windows-msvc.zip",
+            "https://downloads.sourceforge.net/project/qsv.mirror/22.0.1/qsv-22.0.1-x86_64-pc-windows-msvc.zip"
+          ],
           "sha256": "9d95f7ae939b96124215ba9e34e18f067c5743f5961ce4caad32c164153290d7",
           "format": "zip",
           "executables": {

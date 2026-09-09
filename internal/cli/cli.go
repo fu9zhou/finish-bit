@@ -265,6 +265,9 @@ func (c *CLI) packages(ctx context.Context, arguments []string, jsonOutput bool)
 		if len(arguments) != 2 {
 			return invalid("pkg " + arguments[0] + " requires a package name")
 		}
+		if !jsonOutput {
+			ctx = app.WithPackageProgress(ctx, c.packageProgress)
+		}
 		var value any
 		var err error
 		if arguments[0] == "add" {

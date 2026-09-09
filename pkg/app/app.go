@@ -235,27 +235,12 @@ func (a *App) Doctor() []Check {
 	root := a.packages.Root()
 	err := os.MkdirAll(root, 0o755)
 	checks = append(checks, Check{Name: "data-directory", OK: err == nil, Message: root})
-	installedPackages := map[string]bool{}
-	for _, installed := range a.packages.List() {
-		installedPackages[installed.Name] = true
-	}
-	for _, definition := range a.registry.Definitions() {
-		for _, requirement := range definition.Requirements {
-			if !installedPackages[requirement.Package] {
-				checks = append(checks, Check{Name: "package:" + requirement.Package, OK: true, Message: "not installed (optional until an operation requires it)"})
-				continue
-			}
-			status, dependencyErr := a.packages.Status(requirement.Package)
-			if dependencyErr == nil && status.Installed != nil {
-				for logical := range status.Installed.Executables {
-					if _, err := a.packages.Executable(requirement.Package, logical); err != nil {
-						dependencyErr = err
-						break
-					}
-				}
-			}
-			checks = append(checks, Check{Name: "package:" + requirement.Package, OK: dependencyErr == nil, Message: statusMessage(dependencyErr)})
+	for _, health := range a.packages.Health() {
+		message := statusMessage(health.Err)
+		if !health.Installed && health.Err == nil {
+			message = "not installed (optional until an operation requires it)"
 		}
+		checks = append(checks, Check{Name: "package:" + health.Name, OK: health.Err == nil, Message: message})
 	}
 	unique := map[string]Check{}
 	for _, check := range checks {

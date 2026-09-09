@@ -6,7 +6,6 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -22,9 +21,10 @@ import (
 )
 
 type Manager struct {
-	root     string
-	registry Registry
-	client   *http.Client
+	root                string
+	registry            Registry
+	client              *http.Client
+	downloadIdleTimeout time.Duration
 }
 
 const maxPackageBytes int64 = 1 << 30
@@ -37,6 +37,7 @@ type Installed struct {
 	Platform    string            `json:"platform"`
 	Installed   time.Time         `json:"installed"`
 	Executables map[string]string `json:"executables"`
+	Files       map[string]string `json:"files,omitempty"`
 }
 
 type Status struct {
@@ -69,7 +70,9 @@ func New(root string, registry Registry) *Manager {
 		ResponseHeaderTimeout: 30 * time.Second,
 		IdleConnTimeout:       90 * time.Second,
 	}
-	return &Manager{root: root, registry: registry, client: &http.Client{Timeout: 30 * time.Minute, Transport: transport}}
+	// downloadOnce bounds stalls and honors the caller's deadline. A total
+	// client timeout would discard healthy large downloads on slow mirrors.
+	return &Manager{root: root, registry: registry, client: &http.Client{Transport: transport}}
 }
 
 func (m *Manager) Root() string { return m.root }
@@ -91,6 +94,7 @@ func (m *Manager) Install(ctx context.Context, name string) (Installed, error) {
 }
 
 func (m *Manager) install(ctx context.Context, name string, force bool) (Installed, error) {
+	ctx = context.WithValue(ctx, packageKey{}, name)
 	pkg, ok := m.registry.Find(name)
 	if !ok {
 		return Installed{}, &operation.Error{Code: operation.CodeInvalidInput, Message: fmt.Sprintf("unknown package %q", name)}
@@ -103,7 +107,8 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 	if err := validateArtifact(artifact); err != nil {
 		return Installed{}, err
 	}
-	if installed, err := m.Info(name); !force && err == nil && installed.Version == pkg.Version && installed.Platform == platform {
+	if installed, err := m.Info(name); !force && err == nil && m.checkInstalled(pkg, installed) == nil {
+		reportProgress(ctx, Progress{Stage: "already-ready"})
 		return installed, nil
 	}
 	if err := os.MkdirAll(filepath.Join(m.root, "packages", name), 0o755); err != nil {
@@ -118,6 +123,7 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 	cachePath := filepath.Join(m.root, "cache", strings.ToLower(artifact.SHA256))
 	var downloadErr error
 	if !force && verifyFile(cachePath, artifact.SHA256) == nil {
+		reportProgress(ctx, Progress{Stage: "cache-hit"})
 		downloadErr = copyFile(cachePath, archivePath)
 	} else {
 		downloadErr = m.download(ctx, artifact, archivePath)
@@ -125,6 +131,7 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 	if downloadErr != nil {
 		return Installed{}, downloadErr
 	}
+	reportProgress(ctx, Progress{Stage: "verifying"})
 	if err := verifyFile(archivePath, artifact.SHA256); err != nil {
 		return Installed{}, err
 	}
@@ -141,6 +148,7 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 		}
 	}
 	executables := map[string]string{}
+	reportProgress(ctx, Progress{Stage: "extracting"})
 	isArchive := artifact.Format == "zip" || artifact.Format == "tar.gz" || artifact.Format == "tar.xz" || artifact.Format == "7z" || artifact.Format == "nsis"
 	if artifact.Format == "nsis" {
 		if artifact.Extractor == name {
@@ -243,6 +251,10 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 		return Installed{}, err
 	}
 	installed := Installed{Name: name, Version: pkg.Version, License: pkg.License, Source: pkg.Source, Platform: platform, Installed: time.Now().UTC(), Executables: executables}
+	installed.Files, err = fileDigests(staging)
+	if err != nil {
+		return Installed{}, fmt.Errorf("record package integrity: %w", err)
+	}
 	metadata, err := json.MarshalIndent(installed, "", "  ")
 	if err != nil {
 		return Installed{}, err
@@ -254,6 +266,7 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 	if err := replaceDirectory(staging, final); err != nil {
 		return Installed{}, fmt.Errorf("activate package: %w", err)
 	}
+	reportProgress(ctx, Progress{Stage: "ready"})
 	return installed, nil
 }
 
@@ -365,53 +378,6 @@ func validateArtifact(artifact Artifact) error {
 		}
 	}
 	return nil
-}
-
-func (m *Manager) download(ctx context.Context, artifact Artifact, destination string) error {
-	var failures []error
-	sources := append([]string{artifact.URL}, artifact.Mirrors...)
-	for index, source := range sources {
-		_ = os.Remove(destination)
-		sourceContext := ctx
-		cancel := func() {}
-		if index < len(sources)-1 {
-			sourceContext, cancel = context.WithTimeout(ctx, 45*time.Second)
-		}
-		err := m.downloadOnce(sourceContext, source, destination)
-		cancel()
-		if err == nil {
-			return nil
-		} else {
-			failures = append(failures, err)
-		}
-	}
-	return fmt.Errorf("all package download sources failed: %w", errors.Join(failures...))
-}
-
-func (m *Manager) downloadOnce(ctx context.Context, source, destination string) error {
-	request, err := http.NewRequestWithContext(ctx, http.MethodGet, source, nil)
-	if err != nil {
-		return err
-	}
-	request.Header.Set("User-Agent", "FinishBit/0.1 (+https://github.com/fu9zhou/finish-bit)")
-	request.Header.Set("Accept", "application/octet-stream")
-	response, err := m.client.Do(request)
-	if err != nil {
-		return fmt.Errorf("download %s: %w", source, err)
-	}
-	defer response.Body.Close()
-	if response.StatusCode != http.StatusOK {
-		return fmt.Errorf("download %s: server returned %s", source, response.Status)
-	}
-	file, err := os.OpenFile(destination, os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0o600)
-	if err != nil {
-		return fmt.Errorf("create download: %w", err)
-	}
-	defer file.Close()
-	if err := copyBounded(file, response.Body, maxPackageBytes, "package download"); err != nil {
-		return err
-	}
-	return file.Close()
 }
 
 func verifyFile(path, expected string) error {
