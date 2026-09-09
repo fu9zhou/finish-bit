@@ -6,6 +6,24 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 
 ## [Unreleased]
 
+## [0.1.8] - 2026-09-09
+
+### Fixed
+
+- Detect damaged managed executables, runtime libraries and OCR models with installed-file SHA-256 manifests; include helper packages in `fnsh doctor` health checks. `fnsh pkg add <name>` restores damaged installs from verified cache or registered sources.
+- Allow large runtime downloads to continue while receiving bytes, with a 45-second idle timeout instead of fixed total-duration cutoffs. Verify each source before accepting it and try the next mirror on transfer or checksum failure; caller cancellation and size limits remain enforced.
+- Retry transient Windows extension removal failures caused by access denial, sharing or file locks, with bounded delays.
+
+### Added
+
+- Human-readable package download and installation progress on stderr; `--json` output remains unchanged.
+- Verified GH-Proxy, GHFast and SourceForge fallback URLs for the pinned qsv 22.0.1 Windows x64 archive. All three complete downloads matched the official SHA-256 and each installation passed 32 table acceptance tests.
+
+### Migration
+
+- Existing managed installations without file manifests are reported as unverifiable. After upgrading, run `fnsh pkg add <name>` for each affected package to rebuild its installation from verified bytes. `fnsh pkg repair <name>` continues to force a fresh download.
+- qsv version, dependency licenses and the 277-Operation catalog remain unchanged. Mirrors are third-party transport alternatives; availability and acceleration are not guaranteed.
+
 ## [0.1.7] - 2026-09-08
 
 ### Changed
@@ -120,7 +138,9 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 - Rejected invalid extension response envelopes and inconsistent manifest sources.
 - Added macOS-compatible installer checksum verification and hardened release validation.
 
-[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.6...HEAD
+[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.8...HEAD
+[0.1.8]: https://github.com/fu9zhou/finish-bit/compare/v0.1.7...v0.1.8
+[0.1.7]: https://github.com/fu9zhou/finish-bit/compare/v0.1.6...v0.1.7
 [0.1.6]: https://github.com/fu9zhou/finish-bit/compare/v0.1.5...v0.1.6
 [0.1.0]: https://github.com/fu9zhou/finish-bit/releases/tag/v0.1.0
 

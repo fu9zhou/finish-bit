@@ -59,7 +59,7 @@ The [table guide](docs/tables.md) includes all 27 new contracts and the repeatab
 
 ## Project status
 
-FinishBit is developing in the `v0.1.x` series. The current release is `v0.1.6`, followed by `v0.1.7`; additive capabilities and backward-compatible fixes continue patch increments. The core runtime, `fnsh` CLI, managed media/PDF/image/table/document/archive providers, local extension protocol v1, and Agent Skill are implemented. See the [compatibility policy](docs/compatibility.md) before depending on pre-1.0 contracts in production.
+FinishBit is developing in the `v0.1.x` series. The current release is `v0.1.8`, followed by `v0.1.9`; additive capabilities and backward-compatible fixes continue patch increments. The core runtime, `fnsh` CLI, managed media/PDF/image/table/document/archive providers, local extension protocol v1, and Agent Skill are implemented. See the [compatibility policy](docs/compatibility.md) before depending on pre-1.0 contracts in production.
 
 ## Why FinishBit
 

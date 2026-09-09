@@ -61,7 +61,7 @@ FinishBit 为 AI Agent 提供可复用的能力，覆盖 JSON 与文本转换、
 
 ## 项目状态
 
-FinishBit 当前沿 `v0.1.x` 系列迭代，当前版本为 `v0.1.6`，随后按 `v0.1.7` 等逐次递增。新增功能或依赖组不自动改变版本系列。核心运行时、`fnsh` CLI、托管音视频/PDF/图片/表格/文档/压缩包 Provider、本地扩展协议 v1 和 Agent Skill 已经可用。生产环境依赖首个稳定版本前的接口前，请阅读[兼容性政策](compatibility.md)。
+FinishBit 当前沿 `v0.1.x` 系列迭代，当前版本为 `v0.1.8`，随后按 `v0.1.9` 等逐次递增。新增功能或依赖组不自动改变版本系列。核心运行时、`fnsh` CLI、托管音视频/PDF/图片/表格/文档/压缩包 Provider、本地扩展协议 v1 和 Agent Skill 已经可用。生产环境依赖首个稳定版本前的接口前，请阅读[兼容性政策](compatibility.md)。
 
 ## 为什么选择 FinishBit
 
