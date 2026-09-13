@@ -42,7 +42,7 @@ jobs:
           mkdir _site
           cp website/index.html website/styles.css website/home.css website/home.js website/routes.js website/app.js website/catalog.js website/.nojekyll _site/
       - name: Upload site
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: _site
       - name: Deploy to GitHub Pages
