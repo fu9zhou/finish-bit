@@ -36,7 +36,7 @@ jobs:
           node scripts/test-website-routes.mjs
           node scripts/test-website-navigation.mjs
       - name: Configure Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Prepare static site
         run: |
           mkdir _site
