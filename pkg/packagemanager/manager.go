@@ -189,7 +189,7 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 		if err := os.MkdirAll(filepath.Dir(target), 0755); err != nil {
 			return Installed{}, err
 		}
-		if err := m.download(ctx, Artifact{URL: resource.URL, SHA256: resource.SHA256}, target); err != nil {
+		if err := m.download(ctx, Artifact{URL: resource.URL, Mirrors: resource.Mirrors, SHA256: resource.SHA256}, target); err != nil {
 			return Installed{}, err
 		}
 		if err := verifyFile(target, resource.SHA256); err != nil {
@@ -350,9 +350,11 @@ func validateArtifact(artifact Artifact) error {
 			return fmt.Errorf("duplicate supplementary resource")
 		}
 		seenResources[key] = true
-		u, err := url.Parse(resource.URL)
-		if err != nil || u.Scheme != "https" || u.Host == "" {
-			return fmt.Errorf("resource requires HTTPS")
+		for _, source := range append([]string{resource.URL}, resource.Mirrors...) {
+			u, err := url.Parse(source)
+			if err != nil || u.Scheme != "https" || u.Host == "" {
+				return fmt.Errorf("resource requires HTTPS")
+			}
 		}
 		if len(resource.SHA256) != 64 {
 			return fmt.Errorf("resource requires SHA-256")

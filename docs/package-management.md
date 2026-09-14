@@ -74,4 +74,20 @@ Network, unsupported-platform, checksum, decompression, and activation failures 
 
 Mirrors are transport alternatives for the same pinned bytes, not independent package sources. Adding or updating a registry artifact requires review of its upstream provenance, fixed digest, license, platform coverage, and download bounds.
 
+### Download sources and failover
+
+Each embedded registry artifact has a primary `url` and an ordered `mirrors` list. Supplementary resources in `downloads` (including OCR models and their license) support the same fields. Maintainers order addresses as GitHub upstream distribution first, other official distribution locations next, then verified third-party mirrors. A package without a GitHub artifact can use another official location as its primary. The downloader follows the declared order; it does not infer publisher identity from a hostname or discover arbitrary mirrors at installation time.
+
+Every alternative must serve the exact same bytes and pass the existing fixed SHA-256 before extraction or activation. Versions, formats and hashes never change during failover. `pkg add` still prefers a verified cache; `pkg repair` forces a fresh download. There is no user mirror configuration command in this phase.
+
+- HTTP 404 and other non-retryable statuses, connection errors, interrupted transfers, stalled downloads and checksum mismatches advance to the next source. Failed bytes are discarded; downloads restart from zero at the next source.
+- HTTP 429, 500, 502, 503 and 504 retry the current source at most once, normally after one second. A valid `Retry-After` is honored when it fits within a two-second wait; longer waits skip that source rather than retrying it too early. Waiting honors caller cancellation.
+- Local file failures, including output creation, writes and verification reads, stop the operation instead of trying more network sources. Caller cancellation or deadline expiry also stops immediately.
+- The response-header timeout is 30 seconds. Downloads with no byte progress for 45 seconds fail over; healthy slow transfers have no fixed total time limit.
+- Progress includes the source index/count, failure reason and next host. CLI and Web present the same backend events. Exhausting the list reports each source's failure and does not claim another attempt is underway. CLI JSON output remains free of human progress text.
+
+Source availability is not guaranteed: registration requires a complete download and matching digest, not just an HTTP HEAD or range probe. Keep provenance and verification evidence alongside registry updates.
+
+See the [2026-09-10 source verification record](package-source-verification-2026-09-10.md) for the added URLs, byte counts, hashes and verification limits.
+
 See [installation](installation.md) for the user-facing data directory and [security policy](../SECURITY.md) for the managed-runtime trust boundary.

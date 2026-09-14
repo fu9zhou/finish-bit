@@ -1,6 +1,7 @@
 package packagemanager
 
 import (
+	"archive/zip"
 	"bytes"
 	"compress/gzip"
 	"context"
@@ -13,6 +14,48 @@ import (
 	"strings"
 	"testing"
 )
+
+func TestInstallSupplementaryResourceMirror(t *testing.T) {
+	var archive bytes.Buffer
+	zw := zip.NewWriter(&archive)
+	f, err := zw.Create("tool")
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, _ = f.Write([]byte("tool"))
+	if err := zw.Close(); err != nil {
+		t.Fatal(err)
+	}
+	digest := sha256.Sum256(archive.Bytes())
+	model := []byte("model data")
+	modelDigest := sha256.Sum256(model)
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case "/archive":
+			_, _ = w.Write(archive.Bytes())
+		case "/mirror":
+			_, _ = w.Write(model)
+		default:
+			w.WriteHeader(404)
+		}
+	}))
+	defer server.Close()
+	a := Artifact{URL: server.URL + "/archive", SHA256: hex.EncodeToString(digest[:]), Format: "zip", Executables: map[string]string{"tool": "tool"}, Downloads: []ResourceDownload{{URL: server.URL + "/missing", Mirrors: []string{server.URL + "/mirror"}, SHA256: hex.EncodeToString(modelDigest[:]), Path: "data/model"}}}
+	registry := Registry{Schema: 1, Packages: []Package{{Name: "tool", Version: "1", Artifacts: map[string]Artifact{PlatformKey(): a}}}}
+	m := New(t.TempDir(), registry)
+	m.client = server.Client()
+	if _, err := m.Install(context.Background(), "tool"); err != nil {
+		t.Fatal(err)
+	}
+	data, err := os.ReadFile(filepath.Join(m.root, "packages", "tool", "1", "payload", "data", "model"))
+	if err != nil || !bytes.Equal(data, model) {
+		t.Fatalf("data=%q err=%v", data, err)
+	}
+	a.Downloads[0].Mirrors = []string{"http://insecure.example/model"}
+	if err := validateArtifact(a); err == nil {
+		t.Fatal("accepted insecure resource mirror")
+	}
+}
 
 func TestInstallVerifiesAndActivatesPackage(t *testing.T) {
 	var compressed bytes.Buffer

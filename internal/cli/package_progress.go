@@ -14,9 +14,16 @@ func (c *CLI) packageProgress(event app.PackageProgress) {
 			fmt.Fprintf(c.stderr, "%s: %.1f MiB from %s\n", event.Package, float64(event.Bytes)/(1<<20), event.Source)
 		}
 	case "connecting":
-		fmt.Fprintf(c.stderr, "%s: connecting to %s\n", event.Package, event.Source)
+		fmt.Fprintf(c.stderr, "%s: connecting to %s (source %d/%d)\n", event.Package, event.Source, event.SourceIndex, event.SourceCount)
+	case "source-retrying":
+		fmt.Fprintf(c.stderr, "%s: %s: %s; retrying once\n", event.Package, event.Source, event.Reason)
 	case "source-failed":
-		fmt.Fprintf(c.stderr, "%s: download from %s failed; trying remaining sources if available\n", event.Package, event.Source)
+		fmt.Fprintf(c.stderr, "%s: source %d/%d (%s) failed: %s\n", event.Package, event.SourceIndex, event.SourceCount, event.Source, event.Reason)
+		if event.NextSource != "" {
+			fmt.Fprintf(c.stderr, "%s: switching to source %d/%d: %s\n", event.Package, event.SourceIndex+1, event.SourceCount, event.NextSource)
+		} else {
+			fmt.Fprintf(c.stderr, "%s: no download sources remaining\n", event.Package)
+		}
 	case "cache-hit":
 		fmt.Fprintf(c.stderr, "%s: using SHA-256 verified download cache\n", event.Package)
 	case "already-ready":

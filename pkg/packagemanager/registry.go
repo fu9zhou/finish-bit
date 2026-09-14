@@ -39,9 +39,10 @@ type Artifact struct {
 
 // ResourceDownload is a pinned supplementary data file, never an executable installer.
 type ResourceDownload struct {
-	URL    string `json:"url"`
-	SHA256 string `json:"sha256"`
-	Path   string `json:"path"`
+	Mirrors []string `json:"mirrors,omitempty"`
+	URL     string   `json:"url"`
+	SHA256  string   `json:"sha256"`
+	Path    string   `json:"path"`
 }
 
 func BuiltinRegistry() (Registry, error) {

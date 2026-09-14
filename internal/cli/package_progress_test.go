@@ -14,6 +14,23 @@ import (
 	"github.com/fu9zhou/finish-bit/pkg/packagemanager"
 )
 
+func TestPackageSourceFailureExplainsNextStep(t *testing.T) {
+	for _, next := range []string{"mirror.example", ""} {
+		var stderr bytes.Buffer
+		c := &CLI{stderr: &stderr}
+		c.packageProgress(app.PackageProgress{Package: "tool", Stage: "source-failed", Source: "github.com", SourceIndex: 1, SourceCount: 2, Reason: "server returned 404", NextSource: next})
+		if !bytes.Contains(stderr.Bytes(), []byte("server returned 404")) {
+			t.Fatal("missing reason")
+		}
+		if next != "" && !bytes.Contains(stderr.Bytes(), []byte("switching to source 2/2: mirror.example")) {
+			t.Fatal("missing switch destination")
+		}
+		if next == "" && (!bytes.Contains(stderr.Bytes(), []byte("no download sources remaining")) || bytes.Contains(stderr.Bytes(), []byte("switching"))) {
+			t.Fatal("misleading exhausted-source message")
+		}
+	}
+}
+
 func TestPackageProgressPreservesJSONOutput(t *testing.T) {
 	registry, err := packagemanager.BuiltinRegistry()
 	if err != nil {

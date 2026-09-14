@@ -143,6 +143,9 @@
       "artifacts": {
         "win32-x64": {
           "url": "https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Windows_x86_64.zip",
+          "mirrors": [
+            "https://gh-proxy.com/https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Windows_x86_64.zip"
+          ],
           "executables": {
             "pdfcpu": "pdfcpu_0.15.0_Windows_x86_64/pdfcpu.exe"
           },
@@ -151,6 +154,9 @@
         },
         "linux-x64": {
           "url": "https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Linux_x86_64.tar.xz",
+          "mirrors": [
+            "https://gh-proxy.com/https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Linux_x86_64.tar.xz"
+          ],
           "executables": {
             "pdfcpu": "pdfcpu_0.15.0_Linux_x86_64/pdfcpu"
           },
@@ -159,6 +165,9 @@
         },
         "linux-arm64": {
           "url": "https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Linux_arm64.tar.xz",
+          "mirrors": [
+            "https://gh-proxy.com/https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Linux_arm64.tar.xz"
+          ],
           "executables": {
             "pdfcpu": "pdfcpu_0.15.0_Linux_arm64/pdfcpu"
           },
@@ -167,6 +176,9 @@
         },
         "darwin-x64": {
           "url": "https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Darwin_x86_64.tar.xz",
+          "mirrors": [
+            "https://gh-proxy.com/https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Darwin_x86_64.tar.xz"
+          ],
           "executables": {
             "pdfcpu": "pdfcpu_0.15.0_Darwin_x86_64/pdfcpu"
           },
@@ -175,6 +187,9 @@
         },
         "darwin-arm64": {
           "url": "https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Darwin_arm64.tar.xz",
+          "mirrors": [
+            "https://gh-proxy.com/https://github.com/pdfcpu/pdfcpu/releases/download/v0.15.0/pdfcpu_0.15.0_Darwin_arm64.tar.xz"
+          ],
           "executables": {
             "pdfcpu": "pdfcpu_0.15.0_Darwin_arm64/pdfcpu"
           },
@@ -200,7 +215,10 @@
             "pdfdetach": "poppler-26.07.0/Library/bin/pdfdetach.exe"
           },
           "sha256": "a711b0563b06edc488583d28198b6734c5a494afbbd1b9d87d3d2866062fb7e2",
-          "url": "https://github.com/oschwartz10612/poppler-windows/releases/download/v26.07.0-0/Release-26.07.0-0.zip"
+          "url": "https://github.com/oschwartz10612/poppler-windows/releases/download/v26.07.0-0/Release-26.07.0-0.zip",
+          "mirrors": [
+            "https://gh-proxy.com/https://github.com/oschwartz10612/poppler-windows/releases/download/v26.07.0-0/Release-26.07.0-0.zip"
+          ]
         }
       },
       "source": "https://github.com/oschwartz10612/poppler-windows/releases/tag/v26.07.0-0",
@@ -224,6 +242,10 @@
           },
           "format": "7z",
           "url": "https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-31/ImageMagick-7.1.2-31-portable-Q16-x64.7z",
+          "mirrors": [
+            "https://download.imagemagick.org/archive/binaries/ImageMagick-7.1.2-31-portable-Q16-x64.7z",
+            "https://gh-proxy.com/https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-31/ImageMagick-7.1.2-31-portable-Q16-x64.7z"
+          ],
           "sha256": "33d8b47bb404a6b30c672195795e64a8ce0c807f9bba084e359ff086d6c5d50d"
         },
         "win32-arm64": {
@@ -238,6 +260,10 @@
           },
           "format": "7z",
           "url": "https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-31/ImageMagick-7.1.2-31-portable-Q16-arm64.7z",
+          "mirrors": [
+            "https://download.imagemagick.org/archive/binaries/ImageMagick-7.1.2-31-portable-Q16-arm64.7z",
+            "https://gh-proxy.com/https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-31/ImageMagick-7.1.2-31-portable-Q16-arm64.7z"
+          ],
           "sha256": "15809a3406fc22efe59338a5554bc3f56ca46bdb45e7157900d96e9416ec1fcd"
         }
       },
@@ -282,6 +308,9 @@
       "artifacts": {
         "win32-x64": {
           "url": "https://github.com/jgm/pandoc/releases/download/3.11/pandoc-3.11-windows-x86_64.zip",
+          "mirrors": [
+            "https://gh-proxy.com/https://github.com/jgm/pandoc/releases/download/3.11/pandoc-3.11-windows-x86_64.zip"
+          ],
           "sha256": "2ab72baf2399450e148ddf7a2a8689806c42e1bba71862b57e220fd9b8456d3d",
           "format": "zip",
           "executables": {
@@ -299,12 +328,18 @@
       "artifacts": {
         "win32-x64": {
           "url": "https://github.com/ip7z/7zip/releases/download/26.03/7zr.exe",
+          "mirrors": [
+            "https://downloads.sourceforge.net/project/sevenzip/7-Zip/26.03/7zr.exe"
+          ],
           "sha256": "ad4c82fadcbdf93c03b4fc440f300509c7d60c5c2f4d183e35d9d70d6957037d",
           "format": "raw",
           "executables": { "7zip": "7zr.exe" }
         },
         "win32-arm64": {
           "url": "https://github.com/ip7z/7zip/releases/download/26.03/7zr.exe",
+          "mirrors": [
+            "https://downloads.sourceforge.net/project/sevenzip/7-Zip/26.03/7zr.exe"
+          ],
           "sha256": "ad4c82fadcbdf93c03b4fc440f300509c7d60c5c2f4d183e35d9d70d6957037d",
           "format": "raw",
           "executables": { "7zip": "7zr.exe" }
@@ -320,6 +355,9 @@
       "artifacts": {
         "win32-x64": {
           "url": "https://github.com/ip7z/7zip/releases/download/26.03/7z2603-x64.exe",
+          "mirrors": [
+            "https://gh-proxy.com/https://github.com/ip7z/7zip/releases/download/26.03/7z2603-x64.exe"
+          ],
           "sha256": "0859c524b8a63551848f0c246abddcb1d0b7b656b0fbfe879f8d85e61a9e6edd",
           "format": "7z",
           "executables": { "7zip": "7z.exe" },
@@ -336,14 +374,17 @@
       "artifacts": {
         "win32-x64": {
           "url": "https://github.com/tesseract-ocr/tesseract/releases/download/5.5.3/tesseract-ocr-w64-setup-5.5.3.20260724.exe",
+          "mirrors": [
+            "https://gh-proxy.com/https://github.com/tesseract-ocr/tesseract/releases/download/5.5.3/tesseract-ocr-w64-setup-5.5.3.20260724.exe"
+          ],
           "sha256": "bee9e3434bd94fd65387d9be28cd467a41f61b1275383b55b0f59a1331270ae4",
           "format": "nsis",
           "extractor": "7zip-full",
           "executables": { "tesseract": "tesseract.exe" },
           "downloads": [
-            { "path": "tessdata/chi_sim.traineddata", "url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/chi_sim.traineddata", "sha256": "a5fcb6f0db1e1d6d8522f39db4e848f05984669172e584e8d76b6b3141e1f730" },
-            { "path": "tessdata/eng.traineddata", "url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/eng.traineddata", "sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2" },
-            { "path": "tessdata/FINISHBIT-MODEL-LICENSE", "url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/LICENSE", "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30" }
+            { "path": "tessdata/chi_sim.traineddata", "url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/chi_sim.traineddata", "mirrors": ["https://cdn.jsdelivr.net/gh/tesseract-ocr/tessdata_fast@87416418657359cb625c412a48b6e1d6d41c29bd/chi_sim.traineddata"], "sha256": "a5fcb6f0db1e1d6d8522f39db4e848f05984669172e584e8d76b6b3141e1f730" },
+            { "path": "tessdata/eng.traineddata", "url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/eng.traineddata", "mirrors": ["https://cdn.jsdelivr.net/gh/tesseract-ocr/tessdata_fast@87416418657359cb625c412a48b6e1d6d41c29bd/eng.traineddata"], "sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2" },
+            { "path": "tessdata/FINISHBIT-MODEL-LICENSE", "url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/LICENSE", "mirrors": ["https://cdn.jsdelivr.net/gh/tesseract-ocr/tessdata_fast@87416418657359cb625c412a48b6e1d6d41c29bd/LICENSE"], "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30" }
           ]
         }
       }
@@ -357,6 +398,9 @@
       "artifacts": {
         "win32-x64": {
           "url": "https://github.com/ip7z/7zip/releases/download/26.03/7z2603-extra.7z",
+          "mirrors": [
+            "https://downloads.sourceforge.net/project/sevenzip/7-Zip/26.03/7z2603-extra.7z"
+          ],
           "sha256": "191894e6acb3647ffb69ce630479ff318523b2e2b9890aa7f05c1127c2e59b8f",
           "format": "7z",
           "executables": {
