@@ -6,6 +6,29 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 
 ## [Unreleased]
 
+## [0.1.9] - 2026-09-14
+
+### Added
+
+- Embedded bilingual local toolbox with category search, metadata-driven forms, local file selection, structured results, package and extension management, and environment checks. Run `fnsh ui` (alias `fnsh web`) to start it; `ui status` and `ui stop` manage the per-user background service.
+- Durable package installation and repair tasks shared by CLI and Web, with progress, heartbeat, package locks, interrupted-task detection, and on-demand inspection of installation/cache evidence.
+- Additive path and choice metadata in capability discovery; existing operation execution continues through the shared application layer and runners.
+
+### Fixed
+
+- Retry temporary HTTP failures once, respect bounded Retry-After delays, and report source positions and failure reasons. Add pinned fallback sources for runtime archives and OCR resources while preserving SHA-256 verification and caller cancellation.
+- Retry transient Windows task-snapshot replacement conflicts and report final persistence errors to synchronous callers. Refresh the Web package catalog even when an installation completes before the first progress poll.
+
+### Changed
+
+- Refresh project branding and include the local toolbox assets in the executable; no separate frontend installation or Node.js runtime is required.
+
+### Upgrade notes
+
+- The 277-Operation catalog, managed dependency versions, and licenses remain unchanged. Discovery JSON gains optional `kind` and `choices` fields; installed package metadata may include a task ID.
+- The UI binds only to loopback and requires its complete per-launch session URL. Restart any existing UI service after upgrading. Closing the browser does not cancel package tasks; stopping the owning process does. Interrupted downloads are not resumed.
+- CLI and Web must use the same FinishBit data directory and a version supporting task snapshots to share progress. Existing packages remain usable; historical task files are created for new installations and repairs.
+
 ## [0.1.8] - 2026-09-09
 
 ### Fixed
@@ -138,7 +161,8 @@ This file records user-visible changes, compatibility breaks, migrations, and se
 - Rejected invalid extension response envelopes and inconsistent manifest sources.
 - Added macOS-compatible installer checksum verification and hardened release validation.
 
-[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.8...HEAD
+[Unreleased]: https://github.com/fu9zhou/finish-bit/compare/v0.1.9...HEAD
+[0.1.9]: https://github.com/fu9zhou/finish-bit/compare/v0.1.8...v0.1.9
 [0.1.8]: https://github.com/fu9zhou/finish-bit/compare/v0.1.7...v0.1.8
 [0.1.7]: https://github.com/fu9zhou/finish-bit/compare/v0.1.6...v0.1.7
 [0.1.6]: https://github.com/fu9zhou/finish-bit/compare/v0.1.5...v0.1.6
