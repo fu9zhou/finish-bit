@@ -1,3 +1,5 @@
+<p><img src="assets/finishbit-logo.png" width="96" height="96" alt=""><img src="assets/finishbit-wordmark.png" width="288" height="96" alt="FinishBit"></p>
+
 # FinishBit
 
 [![CI](https://github.com/fu9zhou/finish-bit/actions/workflows/ci.yml/badge.svg)](https://github.com/fu9zhou/finish-bit/actions/workflows/ci.yml)

@@ -24,7 +24,7 @@ function homePage() {
   return `<main id="main" class="home" tabindex="-1">
     <section class="home-hero wrap">
       <div class="hero-message">
-        <p class="hero-label"><span class="mini-logo" aria-hidden="true">F.</span>${t('A practical partner for your AI','给你的 AI，一个靠谱的好助手')}</p>
+        <p class="hero-label"><img class="mini-logo" src="./finishbit-logo.png" width="32" height="32" alt="" aria-hidden="true">${t('A practical partner for your AI','给你的 AI，一个靠谱的好助手')}</p>
         <h1>${t('Fewer tokens.<br>Work, delivered.','省下 token，<br>把事情做稳。')}</h1>
         <p class="hero-description">${t('Let AI plan. Let proven tools execute. FinishBit turns everyday tasks into reusable calls, saving the code and retries.','AI 负责思考，成熟工具负责执行。<br>用一次能力调用，省去重复写代码、调试和返工。')}</p>
         <div class="hero-actions"><a class="button primary" href="#/docs/start">${t('Get started','开始使用 FinishBit')}<span aria-hidden="true">↗</span></a><a class="button" href="#/operations">${t('Explore capabilities','探索能力')}</a></div>
@@ -50,7 +50,7 @@ function homePage() {
       [t('Which platforms are supported?','哪些平台可以使用？'),t('The core CLI supports Windows, macOS and Linux. External tools have platform limits; inspect the operation contract and installation guide before use.','核心 CLI 支持 Windows、macOS 和 Linux。外部工具存在平台限制，使用前请查看能力契约和安装指南。')],
       [t('Where do my files go?','文件会被上传吗？'),t('FinishBit executes locally and does not need a resident service. How your AI handles task data depends on the agent and model you use.','FinishBit 在本地执行，不需要常驻服务。你的 AI 如何处理任务数据，取决于使用的 Agent 和模型。')],
     ].map(([question,answer])=>`<details><summary>${question}<span aria-hidden="true">+</span></summary><p>${answer}</p></details>`).join('')}</div></section>
-    <section class="start-section wrap"><div class="start-panel"><div class="start-heading"><span class="logo" aria-hidden="true">F.</span><h2>${t('Give your AI a head start.','让你的 AI，从已有能力开始。')}</h2><p>${t('Install fnsh. Connect your agent. Finish the task.','安装 fnsh，接入 Agent，把下一个任务做完。')}</p></div><div class="start-install">${agentInstallCard()}<div class="start-links"><a href="#/docs/start">${t('Quick start guide','查看快速开始')} ↗</a><a href="#/docs/install">${t('Install manually','手动安装')} ↗</a></div></div></div></section>
+    <section class="start-section wrap"><div class="start-panel"><div class="start-heading"><img class="logo" src="./finishbit-logo.png" width="44" height="44" alt="" aria-hidden="true"><h2>${t('Give your AI a head start.','让你的 AI，从已有能力开始。')}</h2><p>${t('Install fnsh. Connect your agent. Finish the task.','安装 fnsh，接入 Agent，把下一个任务做完。')}</p></div><div class="start-install">${agentInstallCard()}<div class="start-links"><a href="#/docs/start">${t('Quick start guide','查看快速开始')} ↗</a><a href="#/docs/install">${t('Install manually','手动安装')} ↗</a></div></div></div></section>
   </main>`;
 }
 
