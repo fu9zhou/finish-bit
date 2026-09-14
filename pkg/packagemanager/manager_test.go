@@ -93,11 +93,18 @@ func TestInstallVerifiesAndActivatesPackage(t *testing.T) {
 		t.Fatal("manager root is empty")
 	}
 	status, err := manager.Status("tool")
-	if err != nil || status.Installed == nil || !status.Supported {
+	if err != nil || status.Installed == nil || !status.Supported || status.NeedsRepair {
 		t.Fatalf("Status() = %#v, %v", status, err)
 	}
 	if values := manager.List(); len(values) != 1 || values[0].Name != "tool" {
 		t.Fatalf("List() = %#v", values)
+	}
+	if err := os.Remove(path); err != nil {
+		t.Fatal(err)
+	}
+	status, err = manager.Status("tool")
+	if err != nil || status.Installed == nil || !status.NeedsRepair {
+		t.Fatalf("missing executable Status() = %#v, %v", status, err)
 	}
 	if err := manager.Remove("tool"); err != nil {
 		t.Fatal(err)

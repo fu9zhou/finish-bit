@@ -35,6 +35,10 @@ For example, `video.trim` is the Operation the agent selects; `ffmpeg` is its pr
 
 Deterministic building blocks are the design goal: defined execution behavior replaces newly generated task logic. Each Operation’s contract defines its behavior; a UUID generator still produces fresh values, and file inspection reflects the current file.
 
+## Local visual toolbox
+
+Run `fnsh ui` (or `fnsh web`) to open the embedded local web UI. Search and run tools, install or repair dependency packages, manage local extensions, and inspect your environment. No separate frontend runtime is required. See the [local UI guide](docs/local-ui.md) for startup options and file handling.
+
 ## Core capabilities
 
 | Area | Included capabilities |

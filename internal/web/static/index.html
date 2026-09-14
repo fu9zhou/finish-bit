@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FinishBit</title>
+    <link rel="icon" type="image/png" href="/finishbit-logo.png" />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.mjs" type="module"></script>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a class="brand" href="#tools" aria-label="FinishBit"
+        ><img class="logo" src="/finishbit-logo.png" width="44" height="44" alt="" aria-hidden="true" /><img class="wordmark" src="/finishbit-wordmark.png" width="126" height="42" alt="" aria-hidden="true" /></a
+      >
+      <nav aria-label="Navigation">
+        <a href="#tools" data-page="tools" data-i18n="tools"></a
+        ><a href="#packages" data-page="packages" data-i18n="packages"></a
+        ><a href="#extensions" data-page="extensions" data-i18n="extensions"></a
+        ><a href="#health" data-page="health" data-i18n="health"></a>
+      </nav>
+      <div class="local-note">
+        <div class="local-status"><span><i></i><span data-i18n="localNote"></span></span><button id="refresh" class="secondary" data-i18n="refresh"></button></div>
+      </div>
+    </aside>
+    <div class="app-workspace">
+      <header class="app-header">
+        <div class="header-context">
+        <span id="breadcrumb"></span>
+        <div class="header-actions">
+          <span class="connection" id="connection"></span
+          ><select id="language" aria-label="Language">
+            <option value="zh">简体中文</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        </div>
+      </header>
+    <main>
+      <div class="page-container">
+      <div id="page-back" hidden></div>
+      <div id="overview">
+        <section class="intro">
+          <div>
+
+            <div class="page-title-row"><h1 id="title"></h1><span id="page-count" hidden></span></div>
+            <p id="subtitle"></p>
+          </div>
+        </section>
+
+      </div>
+      <section id="toolbar" class="toolbar">
+        <label class="search"
+          ><span data-i18n="search"></span
+          ><input id="search" type="search" autocomplete="off" /></label
+        >
+      </section>
+      <div id="notice" role="status"></div>
+      <section id="content" tabindex="-1"></section>
+      <section
+        id="global-result"
+        class="result-panel global-result"
+        hidden
+      ></section>
+      </div>
+    </main>
+      <footer class="app-footer"><span>FINISHBIT</span><span data-i18n="footer"></span></footer>
+    </div>
+  </body>
+</html>

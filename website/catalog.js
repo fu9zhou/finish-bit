@@ -17,20 +17,32 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local archive, or file/directory for creation",
-        "required": true
+        "required": true,
+        "kind": "path"
       }
     ],
     "options": [
       {
         "name": "files",
         "type": "strings",
-        "description": "Additional local files or directories"
+        "description": "Additional local files or directories",
+        "kind": "path"
       },
       {
         "name": "format",
         "type": "string",
         "description": "7z, zip, tar, gzip, bzip2, xz, tar.gz or tar.xz",
-        "default": "7z"
+        "default": "7z",
+        "choices": [
+          "7z",
+          "zip",
+          "tar",
+          "gzip",
+          "bzip2",
+          "xz",
+          "tar.gz",
+          "tar.xz"
+        ]
       },
       {
         "name": "level",
@@ -48,7 +60,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -81,7 +94,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local archive, or file/directory for creation",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -94,7 +108,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "New output directory",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       },
       {
         "name": "password-env",
@@ -106,7 +121,21 @@ const finishbitCatalog = [
         "name": "format",
         "type": "string",
         "description": "Input format; auto infers from extension",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "7z",
+          "zip",
+          "tar",
+          "gzip",
+          "bzip2",
+          "xz",
+          "tar.gz",
+          "tar.xz",
+          "cab",
+          "lzma",
+          "zstd"
+        ]
       }
     ],
     "requirements": [
@@ -152,7 +181,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local archive, or file/directory for creation",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -166,7 +196,21 @@ const finishbitCatalog = [
         "name": "format",
         "type": "string",
         "description": "Input format; auto infers from extension",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "7z",
+          "zip",
+          "tar",
+          "gzip",
+          "bzip2",
+          "xz",
+          "tar.gz",
+          "tar.xz",
+          "cab",
+          "lzma",
+          "zstd"
+        ]
       }
     ],
     "requirements": [
@@ -193,7 +237,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local archive, or file/directory for creation",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -213,13 +258,28 @@ const finishbitCatalog = [
         "name": "format",
         "type": "string",
         "description": "Input format; auto infers from extension",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "7z",
+          "zip",
+          "tar",
+          "gzip",
+          "bzip2",
+          "xz",
+          "tar.gz",
+          "tar.xz",
+          "cab",
+          "lzma",
+          "zstd"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -252,7 +312,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local archive, or file/directory for creation",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -278,13 +339,28 @@ const finishbitCatalog = [
         "name": "format",
         "type": "string",
         "description": "Input format; auto infers from extension",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "7z",
+          "zip",
+          "tar",
+          "gzip",
+          "bzip2",
+          "xz",
+          "tar.gz",
+          "tar.xz",
+          "cab",
+          "lzma",
+          "zstd"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -317,7 +393,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local archive, or file/directory for creation",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -325,7 +402,14 @@ const finishbitCatalog = [
         "name": "to",
         "type": "string",
         "description": "7z, zip, tar, tar.gz or tar.xz",
-        "default": "zip"
+        "default": "zip",
+        "choices": [
+          "7z",
+          "zip",
+          "tar",
+          "tar.gz",
+          "tar.xz"
+        ]
       },
       {
         "name": "level",
@@ -355,13 +439,28 @@ const finishbitCatalog = [
         "name": "format",
         "type": "string",
         "description": "Input format; auto infers from extension",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "7z",
+          "zip",
+          "tar",
+          "gzip",
+          "bzip2",
+          "xz",
+          "tar.gz",
+          "tar.xz",
+          "cab",
+          "lzma",
+          "zstd"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -394,7 +493,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local archive, or file/directory for creation",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -408,7 +508,21 @@ const finishbitCatalog = [
         "name": "format",
         "type": "string",
         "description": "Input format; auto infers from extension",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "7z",
+          "zip",
+          "tar",
+          "gzip",
+          "bzip2",
+          "xz",
+          "tar.gz",
+          "tar.xz",
+          "cab",
+          "lzma",
+          "zstd"
+        ]
       }
     ],
     "requirements": [
@@ -435,7 +549,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local archive, or file/directory for creation",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -443,7 +558,8 @@ const finishbitCatalog = [
         "name": "files",
         "type": "strings",
         "description": "Local files/directories; names match archive roots",
-        "required": true
+        "required": true,
+        "kind": "path"
       },
       {
         "name": "level",
@@ -461,13 +577,28 @@ const finishbitCatalog = [
         "name": "format",
         "type": "string",
         "description": "Input format; auto infers from extension",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "7z",
+          "zip",
+          "tar",
+          "gzip",
+          "bzip2",
+          "xz",
+          "tar.gz",
+          "tar.xz",
+          "cab",
+          "lzma",
+          "zstd"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -500,20 +631,26 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local archive, or file/directory for creation",
-        "required": true
+        "required": true,
+        "kind": "path"
       }
     ],
     "options": [
       {
         "name": "files",
         "type": "strings",
-        "description": "Additional local files or directories"
+        "description": "Additional local files or directories",
+        "kind": "path"
       },
       {
         "name": "format",
         "type": "string",
         "description": "7z, zip, tar, gzip, bzip2, xz, tar.gz or tar.xz",
-        "default": "7z"
+        "default": "7z",
+        "choices": [
+          "7z",
+          "zip"
+        ]
       },
       {
         "name": "level",
@@ -531,7 +668,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "New directory for archive.7z.001 or archive.zip.001 volumes",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       },
       {
         "name": "password-env",
@@ -563,20 +701,23 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
       {
         "name": "files",
         "type": "strings",
-        "description": "Additional local files in order (1 to 31)"
+        "description": "Additional local files in order (1 to 31)",
+        "kind": "file"
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -608,7 +749,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -616,13 +758,21 @@ const finishbitCatalog = [
         "name": "format",
         "type": "string",
         "description": "mp3, m4a, wav, flac or opus",
-        "default": "mp3"
+        "default": "mp3",
+        "choices": [
+          "mp3",
+          "m4a",
+          "wav",
+          "flac",
+          "opus"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -654,7 +804,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -668,7 +819,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -702,7 +854,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Input media file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -710,13 +863,20 @@ const finishbitCatalog = [
         "name": "format",
         "type": "string",
         "description": "mp3, m4a, wav, or flac",
-        "default": "mp3"
+        "default": "mp3",
+        "choices": [
+          "mp3",
+          "m4a",
+          "wav",
+          "flac"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Output audio file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       }
     ],
     "requirements": [
@@ -742,7 +902,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -750,7 +911,11 @@ const finishbitCatalog = [
         "name": "type",
         "type": "string",
         "description": "in or out",
-        "default": "in"
+        "default": "in",
+        "choices": [
+          "in",
+          "out"
+        ]
       },
       {
         "name": "start",
@@ -768,7 +933,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -800,13 +966,15 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "second",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -814,7 +982,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -846,7 +1015,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -860,7 +1030,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -892,7 +1063,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -932,7 +1104,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -952,7 +1125,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -984,7 +1158,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -1004,7 +1179,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1036,7 +1212,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -1050,7 +1227,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1082,7 +1260,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -1102,7 +1281,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1136,7 +1316,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Base64 text, file path, or - for stdin",
-        "required": true
+        "required": true,
+        "kind": "text-or-file"
       }
     ],
     "options": [
@@ -1150,7 +1331,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Write the result to this file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -1173,7 +1355,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Literal text, file path, or - for stdin",
-        "required": true
+        "required": true,
+        "kind": "text-or-file"
       }
     ],
     "options": [
@@ -1187,7 +1370,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Write the result to this file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -1222,13 +1406,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1263,13 +1453,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1322,13 +1518,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1363,13 +1565,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1404,13 +1612,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1445,13 +1659,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1486,13 +1706,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1551,13 +1777,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1598,13 +1830,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1645,13 +1883,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1678,13 +1922,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1712,7 +1962,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -1720,13 +1971,19 @@ const finishbitCatalog = [
         "name": "files",
         "type": "strings",
         "description": "Additional CSV files in order",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "mode",
         "type": "string",
         "description": "rows, rowskey or columns",
-        "default": "rows"
+        "default": "rows",
+        "choices": [
+          "rows",
+          "rowskey",
+          "columns"
+        ]
       },
       {
         "name": "pad",
@@ -1744,7 +2001,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1777,7 +2035,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -1790,7 +2049,11 @@ const finishbitCatalog = [
         "name": "keep",
         "type": "string",
         "description": "Keep first or last input occurrence",
-        "default": "first"
+        "default": "first",
+        "choices": [
+          "first",
+          "last"
+        ]
       },
       {
         "name": "ignore-case",
@@ -1808,7 +2071,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1841,13 +2105,15 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "second",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -1867,7 +2133,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1900,7 +2167,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -1926,7 +2194,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -1959,7 +2228,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -1973,7 +2243,12 @@ const finishbitCatalog = [
         "name": "mode",
         "type": "string",
         "description": "previous, first or value",
-        "default": "previous"
+        "default": "previous",
+        "choices": [
+          "previous",
+          "first",
+          "value"
+        ]
       },
       {
         "name": "value",
@@ -1997,7 +2272,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2030,7 +2306,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2049,7 +2326,12 @@ const finishbitCatalog = [
         "name": "mode",
         "type": "string",
         "description": "contains, exact or regex",
-        "default": "contains"
+        "default": "contains",
+        "choices": [
+          "contains",
+          "exact",
+          "regex"
+        ]
       },
       {
         "name": "invert",
@@ -2073,7 +2355,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2106,7 +2389,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2138,7 +2422,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2171,7 +2456,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2202,7 +2488,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2236,7 +2523,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "UTF-8 text, file path, or - for stdin",
-        "required": true
+        "required": true,
+        "kind": "text-or-file"
       }
     ],
     "options": [
@@ -2266,13 +2554,15 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "second",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2292,7 +2582,17 @@ const finishbitCatalog = [
         "name": "kind",
         "type": "string",
         "description": "inner, left, right, full, left-anti, left-semi, right-anti or right-semi",
-        "default": "inner"
+        "default": "inner",
+        "choices": [
+          "inner",
+          "left",
+          "right",
+          "full",
+          "left-anti",
+          "left-semi",
+          "right-anti",
+          "right-semi"
+        ]
       },
       {
         "name": "ignore-case",
@@ -2316,7 +2616,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2349,7 +2650,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2369,7 +2671,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2402,7 +2705,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2422,7 +2726,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "New output directory",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       }
     ],
     "requirements": [
@@ -2449,7 +2754,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2469,7 +2775,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2502,7 +2809,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2527,7 +2835,12 @@ const finishbitCatalog = [
         "name": "mode",
         "type": "string",
         "description": "literal, exact or regex",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "exact",
+          "regex"
+        ]
       },
       {
         "name": "ignore-case",
@@ -2545,7 +2858,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2578,7 +2892,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2592,7 +2907,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2625,7 +2941,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2651,7 +2968,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2684,7 +3002,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2704,7 +3023,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2737,7 +3057,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2757,7 +3078,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2790,7 +3112,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2810,7 +3133,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2843,7 +3167,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2869,7 +3194,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2902,7 +3228,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2915,7 +3242,12 @@ const finishbitCatalog = [
         "name": "mode",
         "type": "string",
         "description": "text, numeric or natural",
-        "default": "text"
+        "default": "text",
+        "choices": [
+          "text",
+          "numeric",
+          "natural"
+        ]
       },
       {
         "name": "reverse",
@@ -2939,7 +3271,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -2972,7 +3305,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -2992,7 +3326,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "New output directory",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       }
     ],
     "requirements": [
@@ -3019,7 +3354,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -3044,7 +3380,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3079,7 +3416,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "UTF-8 text, file path, or - for stdin",
-        "required": true
+        "required": true,
+        "kind": "text-or-file"
       }
     ],
     "options": [
@@ -3093,7 +3431,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Write result to a file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3121,7 +3460,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -3147,7 +3487,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3180,7 +3521,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -3194,7 +3536,18 @@ const finishbitCatalog = [
         "name": "action",
         "type": "string",
         "description": "trim, ltrim, rtrim, upper, lower, squeeze, titlecase, round or currencytonum",
-        "default": "trim"
+        "default": "trim",
+        "choices": [
+          "trim",
+          "ltrim",
+          "rtrim",
+          "upper",
+          "lower",
+          "squeeze",
+          "titlecase",
+          "round",
+          "currencytonum"
+        ]
       },
       {
         "name": "decimals",
@@ -3212,7 +3565,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3245,7 +3599,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -3259,7 +3614,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3292,7 +3648,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -3300,7 +3657,8 @@ const finishbitCatalog = [
         "name": "schema",
         "type": "string",
         "description": "Optional local JSON Schema; remote references are rejected",
-        "default": ""
+        "default": "",
+        "kind": "file"
       },
       {
         "name": "delimiter",
@@ -3364,13 +3722,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3417,13 +3781,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3482,13 +3852,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3535,13 +3911,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3600,13 +3982,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3647,13 +4035,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3681,7 +4075,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local document (maximum 32 MiB)",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -3689,19 +4084,32 @@ const finishbitCatalog = [
         "name": "to",
         "type": "string",
         "description": "bibtex, biblatex or csljson",
-        "default": "csljson"
+        "default": "csljson",
+        "choices": [
+          "bibtex",
+          "biblatex",
+          "csljson"
+        ]
       },
       {
         "name": "from",
         "type": "string",
         "description": "Input format; auto infers from extension",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "bibtex",
+          "biblatex",
+          "csljson",
+          "ris"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3734,13 +4142,15 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local source file",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "second",
         "type": "string",
         "description": "Second local document",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -3748,7 +4158,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3781,7 +4192,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local .docx/.pptx/.xlsx",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -3795,7 +4207,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3823,7 +4236,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local document (maximum 32 MiB)",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -3831,7 +4245,34 @@ const finishbitCatalog = [
         "name": "to",
         "type": "string",
         "description": "Output format; document.formats lists supported formats",
-        "default": "gfm"
+        "default": "gfm",
+        "choices": [
+          "markdown",
+          "gfm",
+          "commonmark",
+          "html",
+          "html5",
+          "docx",
+          "odt",
+          "epub",
+          "epub3",
+          "rst",
+          "latex",
+          "org",
+          "textile",
+          "docbook",
+          "jats",
+          "ipynb",
+          "typst",
+          "json",
+          "plain",
+          "rtf",
+          "pptx",
+          "asciidoc",
+          "man",
+          "revealjs",
+          "beamer"
+        ]
       },
       {
         "name": "standalone",
@@ -3867,7 +4308,12 @@ const finishbitCatalog = [
         "name": "wrap",
         "type": "string",
         "description": "auto, none or preserve",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "none",
+          "preserve"
+        ]
       },
       {
         "name": "columns",
@@ -3879,19 +4325,38 @@ const finishbitCatalog = [
         "name": "eol",
         "type": "string",
         "description": "lf or crlf",
-        "default": "lf"
+        "default": "lf",
+        "choices": [
+          "lf",
+          "crlf"
+        ]
       },
       {
         "name": "track-changes",
         "type": "string",
         "description": "DOCX revisions: accept, reject or all",
-        "default": "accept"
+        "default": "accept",
+        "choices": [
+          "accept",
+          "reject",
+          "all"
+        ]
       },
       {
         "name": "highlight-style",
         "type": "string",
         "description": "pygments, tango, espresso, zenburn, kate, monochrome, breezedark or haddock",
-        "default": "pygments"
+        "default": "pygments",
+        "choices": [
+          "pygments",
+          "tango",
+          "espresso",
+          "zenburn",
+          "kate",
+          "monochrome",
+          "breezedark",
+          "haddock"
+        ]
       },
       {
         "name": "title",
@@ -3921,31 +4386,54 @@ const finishbitCatalog = [
         "name": "reference",
         "type": "string",
         "description": "Local reference DOCX, ODT or PPTX matching output format",
-        "default": ""
+        "default": "",
+        "kind": "file"
       },
       {
         "name": "bibliography",
         "type": "string",
         "description": "Local BibTeX, BibLaTeX, CSL JSON or RIS file; enables citeproc",
-        "default": ""
+        "default": "",
+        "kind": "file"
       },
       {
         "name": "csl",
         "type": "string",
         "description": "Local citation style (requires bibliography)",
-        "default": ""
+        "default": "",
+        "kind": "file"
       },
       {
         "name": "from",
         "type": "string",
         "description": "Input format; auto infers from extension",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "markdown",
+          "gfm",
+          "commonmark",
+          "html",
+          "docx",
+          "odt",
+          "epub",
+          "rst",
+          "latex",
+          "org",
+          "textile",
+          "docbook",
+          "jats",
+          "ipynb",
+          "typst",
+          "json"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -3997,7 +4485,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local document (maximum 32 MiB)",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -4005,7 +4494,26 @@ const finishbitCatalog = [
         "name": "from",
         "type": "string",
         "description": "Input format; auto infers from extension",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "markdown",
+          "gfm",
+          "commonmark",
+          "html",
+          "docx",
+          "odt",
+          "epub",
+          "rst",
+          "latex",
+          "org",
+          "textile",
+          "docbook",
+          "jats",
+          "ipynb",
+          "typst",
+          "json"
+        ]
       }
     ],
     "requirements": [
@@ -4032,7 +4540,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local document (maximum 32 MiB)",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -4040,13 +4549,33 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "New directory for embedded resources",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       },
       {
         "name": "from",
         "type": "string",
         "description": "Input format; auto infers from extension",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "markdown",
+          "gfm",
+          "commonmark",
+          "html",
+          "docx",
+          "odt",
+          "epub",
+          "rst",
+          "latex",
+          "org",
+          "textile",
+          "docbook",
+          "jats",
+          "ipynb",
+          "typst",
+          "json"
+        ]
       }
     ],
     "requirements": [
@@ -4073,7 +4602,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local document (maximum 32 MiB)",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -4081,7 +4611,34 @@ const finishbitCatalog = [
         "name": "to",
         "type": "string",
         "description": "Output format; document.formats lists supported formats",
-        "default": "gfm"
+        "default": "gfm",
+        "choices": [
+          "markdown",
+          "gfm",
+          "commonmark",
+          "html",
+          "html5",
+          "docx",
+          "odt",
+          "epub",
+          "epub3",
+          "rst",
+          "latex",
+          "org",
+          "textile",
+          "docbook",
+          "jats",
+          "ipynb",
+          "typst",
+          "json",
+          "plain",
+          "rtf",
+          "pptx",
+          "asciidoc",
+          "man",
+          "revealjs",
+          "beamer"
+        ]
       },
       {
         "name": "standalone",
@@ -4117,7 +4674,12 @@ const finishbitCatalog = [
         "name": "wrap",
         "type": "string",
         "description": "auto, none or preserve",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "none",
+          "preserve"
+        ]
       },
       {
         "name": "columns",
@@ -4129,19 +4691,38 @@ const finishbitCatalog = [
         "name": "eol",
         "type": "string",
         "description": "lf or crlf",
-        "default": "lf"
+        "default": "lf",
+        "choices": [
+          "lf",
+          "crlf"
+        ]
       },
       {
         "name": "track-changes",
         "type": "string",
         "description": "DOCX revisions: accept, reject or all",
-        "default": "accept"
+        "default": "accept",
+        "choices": [
+          "accept",
+          "reject",
+          "all"
+        ]
       },
       {
         "name": "highlight-style",
         "type": "string",
         "description": "pygments, tango, espresso, zenburn, kate, monochrome, breezedark or haddock",
-        "default": "pygments"
+        "default": "pygments",
+        "choices": [
+          "pygments",
+          "tango",
+          "espresso",
+          "zenburn",
+          "kate",
+          "monochrome",
+          "breezedark",
+          "haddock"
+        ]
       },
       {
         "name": "title",
@@ -4171,37 +4752,61 @@ const finishbitCatalog = [
         "name": "reference",
         "type": "string",
         "description": "Local reference DOCX, ODT or PPTX matching output format",
-        "default": ""
+        "default": "",
+        "kind": "file"
       },
       {
         "name": "bibliography",
         "type": "string",
         "description": "Local BibTeX, BibLaTeX, CSL JSON or RIS file; enables citeproc",
-        "default": ""
+        "default": "",
+        "kind": "file"
       },
       {
         "name": "csl",
         "type": "string",
         "description": "Local citation style (requires bibliography)",
-        "default": ""
+        "default": "",
+        "kind": "file"
       },
       {
         "name": "files",
         "type": "strings",
         "description": "Additional local documents in order (up to 15)",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "from",
         "type": "string",
         "description": "Input format; auto infers from extension",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "markdown",
+          "gfm",
+          "commonmark",
+          "html",
+          "docx",
+          "odt",
+          "epub",
+          "rst",
+          "latex",
+          "org",
+          "textile",
+          "docbook",
+          "jats",
+          "ipynb",
+          "typst",
+          "json"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -4234,13 +4839,19 @@ const finishbitCatalog = [
         "name": "to",
         "type": "string",
         "description": "docx, odt or pptx",
-        "default": "docx"
+        "default": "docx",
+        "choices": [
+          "docx",
+          "odt",
+          "pptx"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -4273,7 +4884,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local source file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -4281,13 +4893,19 @@ const finishbitCatalog = [
         "name": "language",
         "type": "string",
         "description": "eng, chi_sim or chi_sim+eng",
-        "default": "chi_sim+eng"
+        "default": "chi_sim+eng",
+        "choices": [
+          "eng",
+          "chi_sim",
+          "chi_sim+eng"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -4323,7 +4941,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local document (maximum 32 MiB)",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -4337,13 +4956,26 @@ const finishbitCatalog = [
         "name": "to",
         "type": "string",
         "description": "gfm, markdown, html, plain, rst or latex",
-        "default": "gfm"
+        "default": "gfm",
+        "choices": [
+          "gfm",
+          "markdown",
+          "html",
+          "plain",
+          "rst",
+          "latex"
+        ]
       },
       {
         "name": "wrap",
         "type": "string",
         "description": "auto, none or preserve",
-        "default": "none"
+        "default": "none",
+        "choices": [
+          "auto",
+          "none",
+          "preserve"
+        ]
       },
       {
         "name": "columns",
@@ -4355,13 +4987,33 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "New directory for numbered sections",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       },
       {
         "name": "from",
         "type": "string",
         "description": "Input format; auto infers from extension",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "markdown",
+          "gfm",
+          "commonmark",
+          "html",
+          "docx",
+          "odt",
+          "epub",
+          "rst",
+          "latex",
+          "org",
+          "textile",
+          "docbook",
+          "jats",
+          "ipynb",
+          "typst",
+          "json"
+        ]
       }
     ],
     "requirements": [
@@ -4388,13 +5040,24 @@ const finishbitCatalog = [
         "name": "to",
         "type": "string",
         "description": "html, latex, revealjs, beamer, rst, man, typst or rtf",
-        "default": "html"
+        "default": "html",
+        "choices": [
+          "html",
+          "latex",
+          "revealjs",
+          "beamer",
+          "rst",
+          "man",
+          "typst",
+          "rtf"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -4427,7 +5090,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local document (maximum 32 MiB)",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -4435,7 +5099,12 @@ const finishbitCatalog = [
         "name": "wrap",
         "type": "string",
         "description": "auto, none or preserve",
-        "default": "none"
+        "default": "none",
+        "choices": [
+          "auto",
+          "none",
+          "preserve"
+        ]
       },
       {
         "name": "columns",
@@ -4447,13 +5116,33 @@ const finishbitCatalog = [
         "name": "from",
         "type": "string",
         "description": "Input format; auto infers from extension",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "markdown",
+          "gfm",
+          "commonmark",
+          "html",
+          "docx",
+          "odt",
+          "epub",
+          "rst",
+          "latex",
+          "org",
+          "textile",
+          "docbook",
+          "jats",
+          "ipynb",
+          "typst",
+          "json"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -4487,7 +5176,8 @@ const finishbitCatalog = [
         "name": "path",
         "type": "string",
         "description": "File or directory path",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "source": "core"
@@ -4509,7 +5199,8 @@ const finishbitCatalog = [
         "name": "path",
         "type": "string",
         "description": "File or directory path",
-        "required": true
+        "required": true,
+        "kind": "path"
       }
     ],
     "source": "core"
@@ -4562,13 +5253,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -4621,13 +5318,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -4674,19 +5377,29 @@ const finishbitCatalog = [
         "name": "method",
         "type": "string",
         "description": "annuity or equal-principal",
-        "default": "annuity"
+        "default": "annuity",
+        "choices": [
+          "annuity",
+          "equal-principal"
+        ]
       },
       {
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -4716,7 +5429,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Literal text, file path, or - for stdin",
-        "required": true
+        "required": true,
+        "kind": "text-or-file"
       }
     ],
     "options": [
@@ -4724,7 +5438,12 @@ const finishbitCatalog = [
         "name": "algorithm",
         "type": "string",
         "description": "sha256, sha1, or md5",
-        "default": "sha256"
+        "default": "sha256",
+        "choices": [
+          "sha256",
+          "sha1",
+          "md5"
+        ]
       }
     ],
     "source": "core"
@@ -4759,13 +5478,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -4800,13 +5525,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -4841,13 +5572,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -4882,13 +5619,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -4923,13 +5666,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -4956,7 +5705,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -4982,7 +5732,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -5014,7 +5765,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5028,7 +5780,8 @@ const finishbitCatalog = [
         "name": "font",
         "type": "string",
         "description": "Local TTF or OTF font",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "size",
@@ -5058,7 +5811,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -5090,7 +5844,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF image file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5122,7 +5877,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Optional JSON/text output file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -5143,7 +5899,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5157,7 +5914,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -5189,7 +5947,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5215,7 +5974,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -5247,7 +6007,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF image file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5273,7 +6034,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Optional JSON/text output file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -5294,7 +6056,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5308,7 +6071,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -5340,14 +6104,16 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
       {
         "name": "files",
         "type": "strings",
-        "description": "Additional local images in order"
+        "description": "Additional local images in order",
+        "kind": "file"
       },
       {
         "name": "columns",
@@ -5377,7 +6143,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -5410,7 +6177,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "PNG or JPEG file path",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5418,7 +6186,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination PNG or JPEG file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "format",
@@ -5442,7 +6211,11 @@ const finishbitCatalog = [
         "name": "engine",
         "type": "string",
         "description": "core (PNG/JPEG) or imagemagick (requires fnsh pkg add imagemagick; more raster formats)",
-        "default": "core"
+        "default": "core",
+        "choices": [
+          "core",
+          "imagemagick"
+        ]
       }
     ],
     "source": "core"
@@ -5463,7 +6236,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5495,7 +6269,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -5527,13 +6302,15 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "second",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5541,7 +6318,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -5573,7 +6351,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5581,7 +6360,16 @@ const finishbitCatalog = [
         "name": "preset",
         "type": "string",
         "description": "oil, sketch, sepia, charcoal, negate, auto-level or auto-gamma",
-        "default": "oil"
+        "default": "oil",
+        "choices": [
+          "oil",
+          "sketch",
+          "sepia",
+          "charcoal",
+          "negate",
+          "auto-level",
+          "auto-gamma"
+        ]
       },
       {
         "name": "radius",
@@ -5593,7 +6381,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -5625,7 +6414,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5639,7 +6429,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -5671,7 +6462,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5679,13 +6471,18 @@ const finishbitCatalog = [
         "name": "axis",
         "type": "string",
         "description": "horizontal or vertical",
-        "default": "horizontal"
+        "default": "horizontal",
+        "choices": [
+          "horizontal",
+          "vertical"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -5735,14 +6532,16 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
       {
         "name": "files",
         "type": "strings",
-        "description": "Additional local images in order"
+        "description": "Additional local images in order",
+        "kind": "file"
       },
       {
         "name": "delay",
@@ -5760,7 +6559,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -5792,7 +6592,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5800,7 +6601,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "New output directory",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       }
     ],
     "requirements": [
@@ -5826,7 +6628,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5834,7 +6637,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -5866,7 +6670,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF image file",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "message",
@@ -5886,7 +6691,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination PNG file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -5907,7 +6713,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5915,7 +6722,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -5947,7 +6755,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF image file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -5955,7 +6764,13 @@ const finishbitCatalog = [
         "name": "preset",
         "type": "string",
         "description": "one-inch, two-inch, passport or custom",
-        "default": "one-inch"
+        "default": "one-inch",
+        "choices": [
+          "one-inch",
+          "two-inch",
+          "passport",
+          "custom"
+        ]
       },
       {
         "name": "width",
@@ -5985,7 +6800,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination PNG file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -6007,7 +6823,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "PNG or JPEG file path",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -6015,7 +6832,11 @@ const finishbitCatalog = [
         "name": "engine",
         "type": "string",
         "description": "core (PNG/JPEG) or imagemagick (requires fnsh pkg add imagemagick; more raster formats)",
-        "default": "core"
+        "default": "core",
+        "choices": [
+          "core",
+          "imagemagick"
+        ]
       }
     ],
     "source": "core"
@@ -6036,26 +6857,33 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
       {
         "name": "files",
         "type": "strings",
-        "description": "Additional local images in order"
+        "description": "Additional local images in order",
+        "kind": "file"
       },
       {
         "name": "axis",
         "type": "string",
         "description": "horizontal or vertical",
-        "default": "horizontal"
+        "default": "horizontal",
+        "choices": [
+          "horizontal",
+          "vertical"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -6087,7 +6915,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF image file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -6107,7 +6936,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination PNG file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -6128,7 +6958,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -6136,7 +6967,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -6168,7 +7000,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF image file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -6188,7 +7021,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Optional JSON/text output file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -6209,7 +7043,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF image file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -6253,7 +7088,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination PNG file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -6276,7 +7112,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "PNG or JPEG file path",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -6302,7 +7139,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination PNG or JPEG file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "format",
@@ -6326,7 +7164,11 @@ const finishbitCatalog = [
         "name": "engine",
         "type": "string",
         "description": "core (PNG/JPEG) or imagemagick (requires fnsh pkg add imagemagick; more raster formats)",
-        "default": "core"
+        "default": "core",
+        "choices": [
+          "core",
+          "imagemagick"
+        ]
       }
     ],
     "source": "core"
@@ -6347,7 +7189,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF image file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -6361,7 +7204,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Optional JSON/text output file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -6382,7 +7226,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -6396,7 +7241,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -6428,7 +7274,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -6442,7 +7289,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -6498,7 +7346,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination PNG file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -6519,7 +7368,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF image file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -6545,7 +7395,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "New destination directory for PNG tiles",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       }
     ],
     "source": "core"
@@ -6566,7 +7417,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -6574,7 +7426,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -6606,7 +7459,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF image file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -6638,7 +7492,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination JPEG file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -6659,7 +7514,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -6679,7 +7535,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -6711,13 +7568,15 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "second",
         "type": "string",
         "description": "Local raster image",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -6737,7 +7596,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -6777,13 +7637,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -6824,13 +7690,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -6858,7 +7730,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "JSON text, file path, or - for stdin",
-        "required": true
+        "required": true,
+        "kind": "text-or-file"
       }
     ],
     "options": [
@@ -6872,7 +7745,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Write the result to this file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -6894,7 +7768,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "JSON text, file path, or - for stdin",
-        "required": true
+        "required": true,
+        "kind": "text-or-file"
       }
     ],
     "options": [
@@ -6902,7 +7777,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Write the result to this file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -6924,7 +7800,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "JSON text, file path, or - for stdin",
-        "required": true
+        "required": true,
+        "kind": "text-or-file"
       },
       {
         "name": "path",
@@ -6938,7 +7815,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Write the result to this file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -6962,7 +7840,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "UTF-8 text, file path, or - for stdin",
-        "required": true
+        "required": true,
+        "kind": "text-or-file"
       }
     ],
     "options": [
@@ -6981,7 +7860,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Write result to a file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7016,13 +7896,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7057,13 +7943,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7091,7 +7983,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "JSON text, file path, or - for stdin",
-        "required": true
+        "required": true,
+        "kind": "text-or-file"
       }
     ],
     "source": "core"
@@ -7113,7 +8006,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local data file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -7127,7 +8021,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7167,13 +8062,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7208,13 +8109,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7261,13 +8168,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7302,13 +8215,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7343,13 +8262,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7376,7 +8301,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "requirements": [
@@ -7428,13 +8354,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7481,13 +8413,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7528,13 +8466,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7562,7 +8506,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF up to 32 MiB and 25 million pixels",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -7570,7 +8515,12 @@ const finishbitCatalog = [
         "name": "language",
         "type": "string",
         "description": "eng, chi_sim or chi_sim+eng",
-        "default": "chi_sim+eng"
+        "default": "chi_sim+eng",
+        "choices": [
+          "eng",
+          "chi_sim",
+          "chi_sim+eng"
+        ]
       },
       {
         "name": "layout",
@@ -7593,7 +8543,8 @@ const finishbitCatalog = [
       {
         "name": "output",
         "type": "string",
-        "description": "Output file; optional for text/words"
+        "description": "Output file; optional for text/words",
+        "kind": "output-file"
       }
     ],
     "requirements": [
@@ -7620,7 +8571,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF up to 32 MiB and 25 million pixels",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -7628,7 +8580,12 @@ const finishbitCatalog = [
         "name": "language",
         "type": "string",
         "description": "eng, chi_sim or chi_sim+eng",
-        "default": "chi_sim+eng"
+        "default": "chi_sim+eng",
+        "choices": [
+          "eng",
+          "chi_sim",
+          "chi_sim+eng"
+        ]
       },
       {
         "name": "layout",
@@ -7652,7 +8609,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Output file; optional for text/words",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       }
     ],
     "requirements": [
@@ -7679,7 +8637,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF up to 32 MiB and 25 million pixels",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -7687,7 +8646,12 @@ const finishbitCatalog = [
         "name": "language",
         "type": "string",
         "description": "eng, chi_sim or chi_sim+eng",
-        "default": "chi_sim+eng"
+        "default": "chi_sim+eng",
+        "choices": [
+          "eng",
+          "chi_sim",
+          "chi_sim+eng"
+        ]
       },
       {
         "name": "layout",
@@ -7711,7 +8675,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Output file; optional for text/words",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       }
     ],
     "requirements": [
@@ -7738,7 +8703,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF up to 32 MiB and 25 million pixels",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -7746,7 +8712,12 @@ const finishbitCatalog = [
         "name": "language",
         "type": "string",
         "description": "eng, chi_sim or chi_sim+eng",
-        "default": "chi_sim+eng"
+        "default": "chi_sim+eng",
+        "choices": [
+          "eng",
+          "chi_sim",
+          "chi_sim+eng"
+        ]
       },
       {
         "name": "layout",
@@ -7769,7 +8740,8 @@ const finishbitCatalog = [
       {
         "name": "output",
         "type": "string",
-        "description": "Output file; optional for text/words"
+        "description": "Output file; optional for text/words",
+        "kind": "output-file"
       }
     ],
     "requirements": [
@@ -7813,13 +8785,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7854,13 +8832,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7887,20 +8871,23 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
       {
         "name": "files",
         "type": "strings",
-        "description": "Local files to attach"
+        "description": "Local files to attach",
+        "kind": "file"
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7932,7 +8919,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "requirements": [
@@ -7958,7 +8946,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -7966,7 +8955,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -7998,13 +8988,15 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "data",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8012,7 +9004,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8044,7 +9037,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8052,7 +9046,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8085,7 +9080,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local source file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8117,7 +9113,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8155,7 +9152,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8199,7 +9197,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8231,7 +9230,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8245,7 +9245,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8277,7 +9278,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8297,13 +9299,19 @@ const finishbitCatalog = [
         "name": "permissions",
         "type": "string",
         "description": "none, print or all",
-        "default": "none"
+        "default": "none",
+        "choices": [
+          "none",
+          "print",
+          "all"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8335,7 +9343,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8343,7 +9352,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "New output directory",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       }
     ],
     "requirements": [
@@ -8369,7 +9379,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PDF file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8389,7 +9400,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "New output directory",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       }
     ],
     "requirements": [
@@ -8415,7 +9427,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PDF file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8447,7 +9460,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 destination file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8479,7 +9493,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PDF file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "requirements": [
@@ -8505,7 +9520,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8513,7 +9529,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8545,7 +9562,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "requirements": [
@@ -8571,13 +9589,15 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "data",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8585,7 +9605,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8617,7 +9638,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8630,7 +9652,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8662,13 +9685,15 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "data",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8676,7 +9701,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "New output directory",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       }
     ],
     "requirements": [
@@ -8702,7 +9728,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8715,7 +9742,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8747,7 +9775,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8760,7 +9789,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8792,14 +9822,16 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
       {
         "name": "files",
         "type": "strings",
-        "description": "Additional image files in order"
+        "description": "Additional image files in order",
+        "kind": "file"
       },
       {
         "name": "dpi",
@@ -8811,7 +9843,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8843,7 +9876,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "requirements": [
@@ -8869,7 +9903,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8883,13 +9918,18 @@ const finishbitCatalog = [
         "name": "position",
         "type": "string",
         "description": "before or after",
-        "default": "before"
+        "default": "before",
+        "choices": [
+          "before",
+          "after"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8921,7 +9961,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "requirements": [
@@ -8947,7 +9988,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -8960,7 +10002,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -8992,7 +10035,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9005,7 +10049,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9037,20 +10082,23 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
       {
         "name": "files",
         "type": "strings",
-        "description": "Additional PDF files in order"
+        "description": "Additional PDF files in order",
+        "kind": "file"
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9082,7 +10130,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9114,7 +10163,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9146,7 +10196,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9160,7 +10211,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9193,7 +10245,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local source file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9219,13 +10272,19 @@ const finishbitCatalog = [
         "name": "language",
         "type": "string",
         "description": "eng, chi_sim or chi_sim+eng",
-        "default": "chi_sim+eng"
+        "default": "chi_sim+eng",
+        "choices": [
+          "eng",
+          "chi_sim",
+          "chi_sim+eng"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9264,7 +10323,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local source file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9290,13 +10350,19 @@ const finishbitCatalog = [
         "name": "language",
         "type": "string",
         "description": "eng, chi_sim or chi_sim+eng",
-        "default": "chi_sim+eng"
+        "default": "chi_sim+eng",
+        "choices": [
+          "eng",
+          "chi_sim",
+          "chi_sim+eng"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9331,7 +10397,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9339,7 +10406,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9371,7 +10439,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9397,13 +10466,25 @@ const finishbitCatalog = [
         "name": "position",
         "type": "string",
         "description": "tl, tc, tr, l, c, r, bl, bc or br",
-        "default": "bc"
+        "default": "bc",
+        "choices": [
+          "tl",
+          "tc",
+          "tr",
+          "l",
+          "c",
+          "r",
+          "bl",
+          "bc",
+          "br"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9436,7 +10517,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local source file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9462,7 +10544,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9497,7 +10580,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9510,7 +10594,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9542,7 +10627,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9556,7 +10642,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9588,7 +10675,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9602,7 +10690,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9634,7 +10723,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9648,7 +10738,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9680,7 +10771,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PDF file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9706,13 +10798,18 @@ const finishbitCatalog = [
         "name": "format",
         "type": "string",
         "description": "png or jpeg",
-        "default": "png"
+        "default": "png",
+        "choices": [
+          "png",
+          "jpeg"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "New output directory",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       }
     ],
     "requirements": [
@@ -9738,7 +10835,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9752,13 +10850,31 @@ const finishbitCatalog = [
         "name": "paper",
         "type": "string",
         "description": "A3, A4, A5, Letter or Legal; optional P/L orientation suffix",
-        "default": "A4"
+        "default": "A4",
+        "choices": [
+          "A3",
+          "A4",
+          "A5",
+          "Letter",
+          "Legal",
+          "A3P",
+          "A4P",
+          "A5P",
+          "LetterP",
+          "LegalP",
+          "A3L",
+          "A4L",
+          "A5L",
+          "LetterL",
+          "LegalL"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9790,7 +10906,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9804,13 +10921,19 @@ const finishbitCatalog = [
         "name": "angle",
         "type": "string",
         "description": "90, 180 or 270",
-        "default": "90"
+        "default": "90",
+        "choices": [
+          "90",
+          "180",
+          "270"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9842,7 +10965,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9856,7 +10980,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9888,7 +11013,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9902,7 +11028,8 @@ const finishbitCatalog = [
         "name": "signature",
         "type": "string",
         "description": "Local signature PNG/JPEG",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "scale-percent",
@@ -9926,13 +11053,25 @@ const finishbitCatalog = [
         "name": "position",
         "type": "string",
         "description": "tl, tc, tr, l, c, r, bl, bc or br",
-        "default": "br"
+        "default": "br",
+        "choices": [
+          "tl",
+          "tc",
+          "tr",
+          "l",
+          "c",
+          "r",
+          "bl",
+          "bc",
+          "br"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -9964,7 +11103,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -9978,7 +11118,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "New output directory",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       }
     ],
     "requirements": [
@@ -10004,7 +11145,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -10018,7 +11160,12 @@ const finishbitCatalog = [
         "name": "mode",
         "type": "string",
         "description": "text, image or pdf",
-        "default": "text"
+        "default": "text",
+        "choices": [
+          "text",
+          "image",
+          "pdf"
+        ]
       },
       {
         "name": "text",
@@ -10030,7 +11177,8 @@ const finishbitCatalog = [
         "name": "asset",
         "type": "string",
         "description": "Local image/PDF for image/pdf mode",
-        "default": ""
+        "default": "",
+        "kind": "file"
       },
       {
         "name": "size",
@@ -10048,13 +11196,25 @@ const finishbitCatalog = [
         "name": "position",
         "type": "string",
         "description": "tl, tc, tr, l, c, r, bl, bc or br",
-        "default": "c"
+        "default": "c",
+        "choices": [
+          "tl",
+          "tc",
+          "tr",
+          "l",
+          "c",
+          "r",
+          "bl",
+          "bc",
+          "br"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -10086,7 +11246,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PDF file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -10127,7 +11288,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local source file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -10153,7 +11315,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -10188,7 +11351,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PDF file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -10208,7 +11372,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "New output directory",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       }
     ],
     "requirements": [
@@ -10235,7 +11400,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local source file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -10261,7 +11427,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -10297,7 +11464,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local source file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -10323,7 +11491,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -10358,7 +11527,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PDF file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -10378,7 +11548,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -10410,7 +11581,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -10418,7 +11590,11 @@ const finishbitCatalog = [
         "name": "mode",
         "type": "string",
         "description": "strict or relaxed",
-        "default": "relaxed"
+        "default": "relaxed",
+        "choices": [
+          "strict",
+          "relaxed"
+        ]
       }
     ],
     "requirements": [
@@ -10444,7 +11620,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -10458,7 +11635,12 @@ const finishbitCatalog = [
         "name": "mode",
         "type": "string",
         "description": "text, image or pdf",
-        "default": "text"
+        "default": "text",
+        "choices": [
+          "text",
+          "image",
+          "pdf"
+        ]
       },
       {
         "name": "text",
@@ -10470,7 +11652,8 @@ const finishbitCatalog = [
         "name": "asset",
         "type": "string",
         "description": "Local image/PDF for image/pdf mode",
-        "default": ""
+        "default": "",
+        "kind": "file"
       },
       {
         "name": "size",
@@ -10488,13 +11671,25 @@ const finishbitCatalog = [
         "name": "position",
         "type": "string",
         "description": "tl, tc, tr, l, c, r, bl, bc or br",
-        "default": "c"
+        "default": "c",
+        "choices": [
+          "tl",
+          "tc",
+          "tr",
+          "l",
+          "c",
+          "r",
+          "bl",
+          "bc",
+          "br"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -10570,7 +11765,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination PNG file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -10591,7 +11787,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local PNG/JPEG/GIF image file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -10605,7 +11802,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Optional JSON/text output file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -10640,7 +11838,13 @@ const finishbitCatalog = [
         "name": "level",
         "type": "string",
         "description": "L, M, Q or H error correction",
-        "default": "M"
+        "default": "M",
+        "choices": [
+          "L",
+          "M",
+          "Q",
+          "H"
+        ]
       },
       {
         "name": "foreground",
@@ -10664,7 +11868,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination PNG file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -10705,13 +11910,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -10764,13 +11975,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -10817,13 +12034,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -10876,13 +12099,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -10917,13 +12146,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -10993,7 +12228,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11051,7 +12287,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11091,13 +12328,15 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "second",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -11105,7 +12344,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11137,13 +12377,15 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "second",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -11151,7 +12393,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11183,7 +12426,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -11197,7 +12441,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11255,13 +12500,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11296,19 +12547,30 @@ const finishbitCatalog = [
         "name": "mode",
         "type": "string",
         "description": "upper, lower, title",
-        "default": "lower"
+        "default": "lower",
+        "choices": [
+          "upper",
+          "lower",
+          "title"
+        ]
       },
       {
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11343,19 +12605,29 @@ const finishbitCatalog = [
         "name": "direction",
         "type": "string",
         "description": "s2t or t2s",
-        "default": "s2t"
+        "default": "s2t",
+        "choices": [
+          "s2t",
+          "t2s"
+        ]
       },
       {
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11383,7 +12655,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Text, file path, or - for stdin",
-        "required": true
+        "required": true,
+        "kind": "text-or-file"
       }
     ],
     "source": "core"
@@ -11418,13 +12691,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11451,13 +12730,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11498,13 +12783,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11557,13 +12848,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11604,13 +12901,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11645,19 +12948,32 @@ const finishbitCatalog = [
         "name": "mode",
         "type": "string",
         "description": "space, lines, trim, fullwidth, halfwidth",
-        "default": "space"
+        "default": "space",
+        "choices": [
+          "space",
+          "lines",
+          "trim",
+          "fullwidth",
+          "halfwidth"
+        ]
       },
       {
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11692,7 +13008,13 @@ const finishbitCatalog = [
         "name": "style",
         "type": "string",
         "description": "plain, tone, number or initials",
-        "default": "plain"
+        "default": "plain",
+        "choices": [
+          "plain",
+          "tone",
+          "number",
+          "initials"
+        ]
       },
       {
         "name": "heteronym",
@@ -11710,13 +13032,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11744,7 +13072,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Text, file path, or - for stdin",
-        "required": true
+        "required": true,
+        "kind": "text-or-file"
       },
       {
         "name": "old",
@@ -11770,7 +13099,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Write the result to this file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -11799,13 +13129,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11840,13 +13176,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -11875,7 +13217,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Text, file path, or - for stdin",
-        "required": true
+        "required": true,
+        "kind": "text-or-file"
       }
     ],
     "options": [
@@ -11889,7 +13232,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Write the result to this file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -11912,7 +13256,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Text, file path, or - for stdin",
-        "required": true
+        "required": true,
+        "kind": "text-or-file"
       }
     ],
     "options": [
@@ -11920,7 +13265,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Write the result to this file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       }
     ],
     "source": "core"
@@ -11950,7 +13296,13 @@ const finishbitCatalog = [
         "name": "unit",
         "type": "string",
         "description": "auto, seconds, milliseconds, or rfc3339",
-        "default": "auto"
+        "default": "auto",
+        "choices": [
+          "auto",
+          "seconds",
+          "milliseconds",
+          "rfc3339"
+        ]
       },
       {
         "name": "timezone",
@@ -12002,13 +13354,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12043,13 +13401,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12084,13 +13448,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12125,13 +13495,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12166,13 +13542,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12207,13 +13589,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12266,13 +13654,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12351,13 +13745,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12392,13 +13792,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12448,13 +13854,15 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "second",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -12468,7 +13876,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12503,7 +13912,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Input video file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -12523,7 +13933,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Output MP4 file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       }
     ],
     "requirements": [
@@ -12549,14 +13960,16 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
       {
         "name": "files",
         "type": "strings",
-        "description": "Additional local files in order (1 to 31)"
+        "description": "Additional local files in order (1 to 31)",
+        "kind": "file"
       },
       {
         "name": "audio",
@@ -12580,7 +13993,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12612,7 +14026,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -12644,13 +14059,15 @@ const finishbitCatalog = [
         "name": "font",
         "type": "string",
         "description": "Optional local font for timestamps",
-        "default": ""
+        "default": "",
+        "kind": "file"
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12682,7 +14099,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -12690,7 +14108,12 @@ const finishbitCatalog = [
         "name": "format",
         "type": "string",
         "description": "mp4, mkv or webm",
-        "default": "mp4"
+        "default": "mp4",
+        "choices": [
+          "mp4",
+          "mkv",
+          "webm"
+        ]
       },
       {
         "name": "crf",
@@ -12702,7 +14125,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12734,7 +14158,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -12766,7 +14191,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12798,7 +14224,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -12806,13 +14233,18 @@ const finishbitCatalog = [
         "name": "axis",
         "type": "string",
         "description": "horizontal or vertical",
-        "default": "horizontal"
+        "default": "horizontal",
+        "choices": [
+          "horizontal",
+          "vertical"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12844,7 +14276,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -12858,7 +14291,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -12890,7 +14324,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -12916,7 +14351,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "New output directory",
-        "required": true
+        "required": true,
+        "kind": "output-directory"
       }
     ],
     "requirements": [
@@ -12942,14 +14378,16 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
       {
         "name": "files",
         "type": "strings",
-        "description": "Additional local files in order (1 to 31)"
+        "description": "Additional local files in order (1 to 31)",
+        "kind": "file"
       },
       {
         "name": "seconds",
@@ -12973,7 +14411,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13005,7 +14444,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -13031,7 +14471,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13063,7 +14504,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -13071,7 +14513,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13103,7 +14546,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -13111,13 +14555,19 @@ const finishbitCatalog = [
         "name": "format",
         "type": "string",
         "description": "mp4, mkv or mov; streams must be compatible",
-        "default": "mkv"
+        "default": "mkv",
+        "choices": [
+          "mp4",
+          "mkv",
+          "mov"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13149,13 +14599,15 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "second",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -13163,7 +14615,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13195,7 +14648,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -13215,7 +14669,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13247,7 +14702,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -13255,13 +14711,19 @@ const finishbitCatalog = [
         "name": "angle",
         "type": "string",
         "description": "90, 180 or 270 clockwise degrees",
-        "default": "90"
+        "default": "90",
+        "choices": [
+          "90",
+          "180",
+          "270"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13293,7 +14755,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -13313,7 +14776,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13345,7 +14809,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -13365,7 +14830,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13401,7 +14867,8 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Input media file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -13421,7 +14888,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Output file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       }
     ],
     "requirements": [
@@ -13447,13 +14915,15 @@ const finishbitCatalog = [
         "name": "input",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       },
       {
         "name": "second",
         "type": "string",
         "description": "Local input file",
-        "required": true
+        "required": true,
+        "kind": "file"
       }
     ],
     "options": [
@@ -13473,7 +14943,8 @@ const finishbitCatalog = [
         "name": "output",
         "type": "string",
         "description": "Destination file",
-        "required": true
+        "required": true,
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13525,7 +14996,12 @@ const finishbitCatalog = [
         "name": "grid",
         "type": "string",
         "description": "square, cross or rice",
-        "default": "rice"
+        "default": "rice",
+        "choices": [
+          "square",
+          "cross",
+          "rice"
+        ]
       },
       {
         "name": "title",
@@ -13537,13 +15013,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13578,13 +15060,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13619,13 +15107,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13660,13 +15154,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13701,13 +15201,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",
@@ -13742,13 +15248,19 @@ const finishbitCatalog = [
         "name": "input-mode",
         "type": "string",
         "description": "literal, file (all inputs), or stdin (first input only)",
-        "default": "literal"
+        "default": "literal",
+        "choices": [
+          "literal",
+          "file",
+          "stdin"
+        ]
       },
       {
         "name": "output",
         "type": "string",
         "description": "Optional UTF-8 text or JSON result file",
-        "default": ""
+        "default": "",
+        "kind": "output-file"
       },
       {
         "name": "overwrite",

@@ -1,0 +1,3322 @@
+{
+  "archive.create": {
+    "input": {
+      "kind": "path"
+    },
+    "files": {
+      "kind": "path"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "format": {
+      "choices": [
+        "7z",
+        "zip",
+        "tar",
+        "gzip",
+        "bzip2",
+        "xz",
+        "tar.gz",
+        "tar.xz"
+      ]
+    }
+  },
+  "archive.extract": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-directory"
+    },
+    "format": {
+      "choices": [
+        "auto",
+        "7z",
+        "zip",
+        "tar",
+        "gzip",
+        "bzip2",
+        "xz",
+        "tar.gz",
+        "tar.xz",
+        "cab",
+        "lzma",
+        "zstd"
+      ]
+    }
+  },
+  "archive.list": {
+    "input": {
+      "kind": "file"
+    },
+    "format": {
+      "choices": [
+        "auto",
+        "7z",
+        "zip",
+        "tar",
+        "gzip",
+        "bzip2",
+        "xz",
+        "tar.gz",
+        "tar.xz",
+        "cab",
+        "lzma",
+        "zstd"
+      ]
+    }
+  },
+  "archive.remove": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "format": {
+      "choices": [
+        "auto",
+        "7z",
+        "zip",
+        "tar",
+        "gzip",
+        "bzip2",
+        "xz",
+        "tar.gz",
+        "tar.xz",
+        "cab",
+        "lzma",
+        "zstd"
+      ]
+    }
+  },
+  "archive.rename": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "format": {
+      "choices": [
+        "auto",
+        "7z",
+        "zip",
+        "tar",
+        "gzip",
+        "bzip2",
+        "xz",
+        "tar.gz",
+        "tar.xz",
+        "cab",
+        "lzma",
+        "zstd"
+      ]
+    }
+  },
+  "archive.repack": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "to": {
+      "choices": [
+        "7z",
+        "zip",
+        "tar",
+        "tar.gz",
+        "tar.xz"
+      ]
+    },
+    "format": {
+      "choices": [
+        "auto",
+        "7z",
+        "zip",
+        "tar",
+        "gzip",
+        "bzip2",
+        "xz",
+        "tar.gz",
+        "tar.xz",
+        "cab",
+        "lzma",
+        "zstd"
+      ]
+    }
+  },
+  "archive.test": {
+    "input": {
+      "kind": "file"
+    },
+    "format": {
+      "choices": [
+        "auto",
+        "7z",
+        "zip",
+        "tar",
+        "gzip",
+        "bzip2",
+        "xz",
+        "tar.gz",
+        "tar.xz",
+        "cab",
+        "lzma",
+        "zstd"
+      ]
+    }
+  },
+  "archive.update": {
+    "input": {
+      "kind": "file"
+    },
+    "files": {
+      "kind": "path"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "format": {
+      "choices": [
+        "auto",
+        "7z",
+        "zip",
+        "tar",
+        "gzip",
+        "bzip2",
+        "xz",
+        "tar.gz",
+        "tar.xz",
+        "cab",
+        "lzma",
+        "zstd"
+      ]
+    }
+  },
+  "archive.volumes": {
+    "input": {
+      "kind": "path"
+    },
+    "files": {
+      "kind": "path"
+    },
+    "output": {
+      "kind": "output-directory"
+    },
+    "format": {
+      "choices": [
+        "7z",
+        "zip"
+      ]
+    }
+  },
+  "audio.concat": {
+    "input": {
+      "kind": "file"
+    },
+    "files": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "audio.convert": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "format": {
+      "choices": [
+        "mp3",
+        "m4a",
+        "wav",
+        "flac",
+        "opus"
+      ]
+    }
+  },
+  "audio.denoise": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "audio.extract": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "format": {
+      "choices": [
+        "mp3",
+        "m4a",
+        "wav",
+        "flac"
+      ]
+    }
+  },
+  "audio.fade": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "type": {
+      "choices": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "audio.mix": {
+    "input": {
+      "kind": "file"
+    },
+    "second": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "audio.normalize": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "audio.silence-detect": {
+    "input": {
+      "kind": "file"
+    }
+  },
+  "audio.silence-remove": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "audio.trim": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "audio.volume": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "audio.waveform": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "base64.decode": {
+    "input": {
+      "kind": "text-or-file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "base64.encode": {
+    "input": {
+      "kind": "text-or-file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "biology.blood-types": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "calendar.lunar": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "calendar.solar": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "cidr.inspect": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "code.hello": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "color.convert": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "contact.extract": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "cron.next": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "crypto.decrypt": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "crypto.encrypt": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "crypto.key": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.concat": {
+    "input": {
+      "kind": "file"
+    },
+    "files": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "mode": {
+      "choices": [
+        "rows",
+        "rowskey",
+        "columns"
+      ]
+    }
+  },
+  "csv.deduplicate": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "keep": {
+      "choices": [
+        "first",
+        "last"
+      ]
+    }
+  },
+  "csv.diff": {
+    "input": {
+      "kind": "file"
+    },
+    "second": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.explode": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.fill": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "mode": {
+      "choices": [
+        "previous",
+        "first",
+        "value"
+      ]
+    }
+  },
+  "csv.filter": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "mode": {
+      "choices": [
+        "contains",
+        "exact",
+        "regex"
+      ]
+    }
+  },
+  "csv.format": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.frequency": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.info": {
+    "input": {
+      "kind": "text-or-file"
+    }
+  },
+  "csv.join": {
+    "input": {
+      "kind": "file"
+    },
+    "second": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "kind": {
+      "choices": [
+        "inner",
+        "left",
+        "right",
+        "full",
+        "left-anti",
+        "left-semi",
+        "right-anti",
+        "right-semi"
+      ]
+    }
+  },
+  "csv.melt": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.partition": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-directory"
+    }
+  },
+  "csv.rename": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.replace": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "mode": {
+      "choices": [
+        "literal",
+        "exact",
+        "regex"
+      ]
+    }
+  },
+  "csv.reverse": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.sample": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.schema": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.select": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.shuffle": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.slice": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.sort": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "mode": {
+      "choices": [
+        "text",
+        "numeric",
+        "natural"
+      ]
+    }
+  },
+  "csv.split": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-directory"
+    }
+  },
+  "csv.stats": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.to-json": {
+    "input": {
+      "kind": "text-or-file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.to-jsonl": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.transform": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "action": {
+      "choices": [
+        "trim",
+        "ltrim",
+        "rtrim",
+        "upper",
+        "lower",
+        "squeeze",
+        "titlecase",
+        "round",
+        "currencytonum"
+      ]
+    }
+  },
+  "csv.transpose": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "csv.validate": {
+    "input": {
+      "kind": "file"
+    },
+    "schema": {
+      "kind": "file"
+    }
+  },
+  "date.add": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "date.age": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "date.business-days": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "date.diff": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "date.expiry": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "disk.capacity": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "document.bibliography": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "to": {
+      "choices": [
+        "bibtex",
+        "biblatex",
+        "csljson"
+      ]
+    },
+    "from": {
+      "choices": [
+        "auto",
+        "bibtex",
+        "biblatex",
+        "csljson",
+        "ris"
+      ]
+    }
+  },
+  "document.compare": {
+    "input": {
+      "kind": "file"
+    },
+    "second": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "document.compress": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "document.convert": {
+    "input": {
+      "kind": "file"
+    },
+    "reference": {
+      "kind": "file"
+    },
+    "bibliography": {
+      "kind": "file"
+    },
+    "csl": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "from": {
+      "choices": [
+        "auto",
+        "markdown",
+        "gfm",
+        "commonmark",
+        "html",
+        "docx",
+        "odt",
+        "epub",
+        "rst",
+        "latex",
+        "org",
+        "textile",
+        "docbook",
+        "jats",
+        "ipynb",
+        "typst",
+        "json"
+      ]
+    },
+    "wrap": {
+      "choices": [
+        "auto",
+        "none",
+        "preserve"
+      ]
+    },
+    "to": {
+      "choices": [
+        "markdown",
+        "gfm",
+        "commonmark",
+        "html",
+        "html5",
+        "docx",
+        "odt",
+        "epub",
+        "epub3",
+        "rst",
+        "latex",
+        "org",
+        "textile",
+        "docbook",
+        "jats",
+        "ipynb",
+        "typst",
+        "json",
+        "plain",
+        "rtf",
+        "pptx",
+        "asciidoc",
+        "man",
+        "revealjs",
+        "beamer"
+      ]
+    },
+    "eol": {
+      "choices": [
+        "lf",
+        "crlf"
+      ]
+    },
+    "track-changes": {
+      "choices": [
+        "accept",
+        "reject",
+        "all"
+      ]
+    },
+    "highlight-style": {
+      "choices": [
+        "pygments",
+        "tango",
+        "espresso",
+        "zenburn",
+        "kate",
+        "monochrome",
+        "breezedark",
+        "haddock"
+      ]
+    }
+  },
+  "document.inspect": {
+    "input": {
+      "kind": "file"
+    },
+    "from": {
+      "choices": [
+        "auto",
+        "markdown",
+        "gfm",
+        "commonmark",
+        "html",
+        "docx",
+        "odt",
+        "epub",
+        "rst",
+        "latex",
+        "org",
+        "textile",
+        "docbook",
+        "jats",
+        "ipynb",
+        "typst",
+        "json"
+      ]
+    }
+  },
+  "document.media": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-directory"
+    },
+    "from": {
+      "choices": [
+        "auto",
+        "markdown",
+        "gfm",
+        "commonmark",
+        "html",
+        "docx",
+        "odt",
+        "epub",
+        "rst",
+        "latex",
+        "org",
+        "textile",
+        "docbook",
+        "jats",
+        "ipynb",
+        "typst",
+        "json"
+      ]
+    }
+  },
+  "document.merge": {
+    "input": {
+      "kind": "file"
+    },
+    "reference": {
+      "kind": "file"
+    },
+    "bibliography": {
+      "kind": "file"
+    },
+    "csl": {
+      "kind": "file"
+    },
+    "files": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "from": {
+      "choices": [
+        "auto",
+        "markdown",
+        "gfm",
+        "commonmark",
+        "html",
+        "docx",
+        "odt",
+        "epub",
+        "rst",
+        "latex",
+        "org",
+        "textile",
+        "docbook",
+        "jats",
+        "ipynb",
+        "typst",
+        "json"
+      ]
+    },
+    "wrap": {
+      "choices": [
+        "auto",
+        "none",
+        "preserve"
+      ]
+    },
+    "to": {
+      "choices": [
+        "markdown",
+        "gfm",
+        "commonmark",
+        "html",
+        "html5",
+        "docx",
+        "odt",
+        "epub",
+        "epub3",
+        "rst",
+        "latex",
+        "org",
+        "textile",
+        "docbook",
+        "jats",
+        "ipynb",
+        "typst",
+        "json",
+        "plain",
+        "rtf",
+        "pptx",
+        "asciidoc",
+        "man",
+        "revealjs",
+        "beamer"
+      ]
+    },
+    "eol": {
+      "choices": [
+        "lf",
+        "crlf"
+      ]
+    },
+    "track-changes": {
+      "choices": [
+        "accept",
+        "reject",
+        "all"
+      ]
+    },
+    "highlight-style": {
+      "choices": [
+        "pygments",
+        "tango",
+        "espresso",
+        "zenburn",
+        "kate",
+        "monochrome",
+        "breezedark",
+        "haddock"
+      ]
+    }
+  },
+  "document.reference": {
+    "output": {
+      "kind": "output-file"
+    },
+    "to": {
+      "choices": [
+        "docx",
+        "odt",
+        "pptx"
+      ]
+    }
+  },
+  "document.scan": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "language": {
+      "choices": [
+        "eng",
+        "chi_sim",
+        "chi_sim+eng"
+      ]
+    }
+  },
+  "document.split": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-directory"
+    },
+    "to": {
+      "choices": [
+        "gfm",
+        "markdown",
+        "html",
+        "plain",
+        "rst",
+        "latex"
+      ]
+    },
+    "from": {
+      "choices": [
+        "auto",
+        "markdown",
+        "gfm",
+        "commonmark",
+        "html",
+        "docx",
+        "odt",
+        "epub",
+        "rst",
+        "latex",
+        "org",
+        "textile",
+        "docbook",
+        "jats",
+        "ipynb",
+        "typst",
+        "json"
+      ]
+    },
+    "wrap": {
+      "choices": [
+        "auto",
+        "none",
+        "preserve"
+      ]
+    }
+  },
+  "document.template": {
+    "output": {
+      "kind": "output-file"
+    },
+    "to": {
+      "choices": [
+        "html",
+        "latex",
+        "revealjs",
+        "beamer",
+        "rst",
+        "man",
+        "typst",
+        "rtf"
+      ]
+    }
+  },
+  "document.text": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "from": {
+      "choices": [
+        "auto",
+        "markdown",
+        "gfm",
+        "commonmark",
+        "html",
+        "docx",
+        "odt",
+        "epub",
+        "rst",
+        "latex",
+        "org",
+        "textile",
+        "docbook",
+        "jats",
+        "ipynb",
+        "typst",
+        "json"
+      ]
+    },
+    "wrap": {
+      "choices": [
+        "auto",
+        "none",
+        "preserve"
+      ]
+    }
+  },
+  "finance.compound": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "finance.contributions": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "finance.mortgage": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "method": {
+      "choices": [
+        "annuity",
+        "equal-principal"
+      ]
+    }
+  },
+  "hash.calculate": {
+    "input": {
+      "kind": "text-or-file"
+    },
+    "algorithm": {
+      "choices": [
+        "sha256",
+        "sha1",
+        "md5"
+      ]
+    }
+  },
+  "health.bmi": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "hex.decode": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "hex.encode": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "html.decode": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "html.encode": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.adjust": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.annotate": {
+    "input": {
+      "kind": "file"
+    },
+    "font": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.ascii": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.blur": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.canvas": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.color-at": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.compress": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.contact-sheet": {
+    "input": {
+      "kind": "file"
+    },
+    "files": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.convert": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "engine": {
+      "choices": [
+        "core",
+        "imagemagick"
+      ]
+    }
+  },
+  "image.crop": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.difference": {
+    "input": {
+      "kind": "file"
+    },
+    "second": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.filter": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "preset": {
+      "choices": [
+        "oil",
+        "sketch",
+        "sepia",
+        "charcoal",
+        "negate",
+        "auto-level",
+        "auto-gamma"
+      ]
+    }
+  },
+  "image.flatten": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.flip": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "axis": {
+      "choices": [
+        "horizontal",
+        "vertical"
+      ]
+    }
+  },
+  "image.gif-create": {
+    "input": {
+      "kind": "file"
+    },
+    "files": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.gif-split": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-directory"
+    }
+  },
+  "image.grayscale": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.hide": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.icon": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.id-photo": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "preset": {
+      "choices": [
+        "one-inch",
+        "two-inch",
+        "passport",
+        "custom"
+      ]
+    }
+  },
+  "image.info": {
+    "input": {
+      "kind": "file"
+    },
+    "engine": {
+      "choices": [
+        "core",
+        "imagemagick"
+      ]
+    }
+  },
+  "image.join": {
+    "input": {
+      "kind": "file"
+    },
+    "files": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "axis": {
+      "choices": [
+        "horizontal",
+        "vertical"
+      ]
+    }
+  },
+  "image.minimum-bytes": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.orient": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.palette": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.pixelate": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.resize": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "engine": {
+      "choices": [
+        "core",
+        "imagemagick"
+      ]
+    }
+  },
+  "image.reveal": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.rotate": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.sharpen": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.solid": {
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.split-grid": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-directory"
+    }
+  },
+  "image.strip-metadata": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.target-size": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.transparent": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "image.watermark": {
+    "input": {
+      "kind": "file"
+    },
+    "second": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "ip.inspect": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "json.diff": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "json.format": {
+    "input": {
+      "kind": "text-or-file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "json.minify": {
+    "input": {
+      "kind": "text-or-file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "json.query": {
+    "input": {
+      "kind": "text-or-file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "json.to-csv": {
+    "input": {
+      "kind": "text-or-file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "json.to-toml": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "json.to-yaml": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "json.validate": {
+    "input": {
+      "kind": "text-or-file"
+    }
+  },
+  "jsonl.to-csv": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "jwt.decode": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "markdown.mindmap": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "markdown.to-html": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "math.evaluate": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "math.statistics": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "media.info": {
+    "input": {
+      "kind": "file"
+    }
+  },
+  "name.generate": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "number.base": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "number.chinese": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "ocr.text": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "language": {
+      "choices": [
+        "eng",
+        "chi_sim",
+        "chi_sim+eng"
+      ]
+    }
+  },
+  "ocr.to-html": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "language": {
+      "choices": [
+        "eng",
+        "chi_sim",
+        "chi_sim+eng"
+      ]
+    }
+  },
+  "ocr.to-pdf": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "language": {
+      "choices": [
+        "eng",
+        "chi_sim",
+        "chi_sim+eng"
+      ]
+    }
+  },
+  "ocr.words": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "language": {
+      "choices": [
+        "eng",
+        "chi_sim",
+        "chi_sim+eng"
+      ]
+    }
+  },
+  "password.generate": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "password.inspect": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.attach": {
+    "input": {
+      "kind": "file"
+    },
+    "files": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.attachments": {
+    "input": {
+      "kind": "file"
+    }
+  },
+  "pdf.bookmarks-export": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.bookmarks-import": {
+    "input": {
+      "kind": "file"
+    },
+    "data": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.bookmarks-remove": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.compress-images": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.crop": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.decrypt": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.encrypt": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "permissions": {
+      "choices": [
+        "none",
+        "print",
+        "all"
+      ]
+    }
+  },
+  "pdf.extract-attachments": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-directory"
+    }
+  },
+  "pdf.extract-images": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-directory"
+    }
+  },
+  "pdf.extract-text": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.fonts": {
+    "input": {
+      "kind": "file"
+    }
+  },
+  "pdf.form-export": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.form-fields": {
+    "input": {
+      "kind": "file"
+    }
+  },
+  "pdf.form-fill": {
+    "input": {
+      "kind": "file"
+    },
+    "data": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.form-lock": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.form-multifill": {
+    "input": {
+      "kind": "file"
+    },
+    "data": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-directory"
+    }
+  },
+  "pdf.form-reset": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.form-unlock": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.from-images": {
+    "input": {
+      "kind": "file"
+    },
+    "files": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.info": {
+    "input": {
+      "kind": "file"
+    }
+  },
+  "pdf.insert-pages": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "position": {
+      "choices": [
+        "before",
+        "after"
+      ]
+    }
+  },
+  "pdf.keywords": {
+    "input": {
+      "kind": "file"
+    }
+  },
+  "pdf.keywords-add": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.keywords-remove": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.merge": {
+    "input": {
+      "kind": "file"
+    },
+    "files": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.metadata-set": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.nup": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.ocr": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "language": {
+      "choices": [
+        "eng",
+        "chi_sim",
+        "chi_sim+eng"
+      ]
+    }
+  },
+  "pdf.ocr-text": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "language": {
+      "choices": [
+        "eng",
+        "chi_sim",
+        "chi_sim+eng"
+      ]
+    }
+  },
+  "pdf.optimize": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.page-numbers": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "position": {
+      "choices": [
+        "tl",
+        "tc",
+        "tr",
+        "l",
+        "c",
+        "r",
+        "bl",
+        "bc",
+        "br"
+      ]
+    }
+  },
+  "pdf.rasterize": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.remove-attachments": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.remove-pages": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.remove-stamp": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.remove-watermark": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.render": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-directory"
+    },
+    "format": {
+      "choices": [
+        "png",
+        "jpeg"
+      ]
+    }
+  },
+  "pdf.resize-pages": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "paper": {
+      "choices": [
+        "A3",
+        "A4",
+        "A5",
+        "Letter",
+        "Legal",
+        "A3P",
+        "A4P",
+        "A5P",
+        "LetterP",
+        "LegalP",
+        "A3L",
+        "A4L",
+        "A5L",
+        "LetterL",
+        "LegalL"
+      ]
+    }
+  },
+  "pdf.rotate": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "angle": {
+      "choices": [
+        "90",
+        "180",
+        "270"
+      ]
+    }
+  },
+  "pdf.select-pages": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.sign-image": {
+    "input": {
+      "kind": "file"
+    },
+    "signature": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "position": {
+      "choices": [
+        "tl",
+        "tc",
+        "tr",
+        "l",
+        "c",
+        "r",
+        "bl",
+        "bc",
+        "br"
+      ]
+    }
+  },
+  "pdf.split": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-directory"
+    }
+  },
+  "pdf.stamp": {
+    "input": {
+      "kind": "file"
+    },
+    "asset": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "mode": {
+      "choices": [
+        "text",
+        "image",
+        "pdf"
+      ]
+    },
+    "position": {
+      "choices": [
+        "tl",
+        "tc",
+        "tr",
+        "l",
+        "c",
+        "r",
+        "bl",
+        "bc",
+        "br"
+      ]
+    }
+  },
+  "pdf.text-boxes": {
+    "input": {
+      "kind": "file"
+    }
+  },
+  "pdf.to-docx": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.to-html": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-directory"
+    }
+  },
+  "pdf.to-long-image": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.to-pptx": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.to-ps": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "pdf.validate": {
+    "input": {
+      "kind": "file"
+    },
+    "mode": {
+      "choices": [
+        "strict",
+        "relaxed"
+      ]
+    }
+  },
+  "pdf.watermark": {
+    "input": {
+      "kind": "file"
+    },
+    "asset": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "mode": {
+      "choices": [
+        "text",
+        "image",
+        "pdf"
+      ]
+    },
+    "position": {
+      "choices": [
+        "tl",
+        "tc",
+        "tr",
+        "l",
+        "c",
+        "r",
+        "bl",
+        "bc",
+        "br"
+      ]
+    }
+  },
+  "qrcode.contact": {
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "qrcode.decode": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "qrcode.generate": {
+    "output": {
+      "kind": "output-file"
+    },
+    "level": {
+      "choices": [
+        "L",
+        "M",
+        "Q",
+        "H"
+      ]
+    }
+  },
+  "random.choose": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "random.integer": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "regex.match": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "regex.replace": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "regex.validate": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "screen.record": {
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "speech.synthesize": {
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "subtitle.add": {
+    "input": {
+      "kind": "file"
+    },
+    "second": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "subtitle.burn": {
+    "input": {
+      "kind": "file"
+    },
+    "second": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "subtitle.extract": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "temperature.convert": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "text.case": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "mode": {
+      "choices": [
+        "upper",
+        "lower",
+        "title"
+      ]
+    }
+  },
+  "text.chinese": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "direction": {
+      "choices": [
+        "s2t",
+        "t2s"
+      ]
+    }
+  },
+  "text.count": {
+    "input": {
+      "kind": "text-or-file"
+    }
+  },
+  "text.diff": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "text.emoticons": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "text.hide": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "text.led": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "text.map": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "text.normalize": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "mode": {
+      "choices": [
+        "space",
+        "lines",
+        "trim",
+        "fullwidth",
+        "halfwidth"
+      ]
+    }
+  },
+  "text.pinyin": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "style": {
+      "choices": [
+        "plain",
+        "tone",
+        "number",
+        "initials"
+      ]
+    }
+  },
+  "text.replace": {
+    "input": {
+      "kind": "text-or-file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "text.reveal": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "text.reverse": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "text.sort": {
+    "input": {
+      "kind": "text-or-file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "text.unique": {
+    "input": {
+      "kind": "text-or-file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "time.world": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "toml.format": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "toml.to-json": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "toml.validate": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "unicode.decode": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "unicode.encode": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "unit.convert": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "url.parse": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "useragent.parse": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.add-music": {
+    "input": {
+      "kind": "file"
+    },
+    "second": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.compress": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.concat": {
+    "input": {
+      "kind": "file"
+    },
+    "files": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.contact-sheet": {
+    "input": {
+      "kind": "file"
+    },
+    "font": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.convert": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "format": {
+      "choices": [
+        "mp4",
+        "mkv",
+        "webm"
+      ]
+    }
+  },
+  "video.crop": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.flip": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "axis": {
+      "choices": [
+        "horizontal",
+        "vertical"
+      ]
+    }
+  },
+  "video.framerate": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.frames": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-directory"
+    }
+  },
+  "video.from-images": {
+    "input": {
+      "kind": "file"
+    },
+    "files": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.gif": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.mute": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.remux": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "format": {
+      "choices": [
+        "mp4",
+        "mkv",
+        "mov"
+      ]
+    }
+  },
+  "video.replace-audio": {
+    "input": {
+      "kind": "file"
+    },
+    "second": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.resize": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.rotate": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "angle": {
+      "choices": [
+        "90",
+        "180",
+        "270"
+      ]
+    }
+  },
+  "video.speed": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.thumbnail": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.trim": {
+    "input": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "video.watermark": {
+    "input": {
+      "kind": "file"
+    },
+    "second": {
+      "kind": "file"
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "worksheet.handwriting": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    },
+    "grid": {
+      "choices": [
+        "square",
+        "cross",
+        "rice"
+      ]
+    }
+  },
+  "xml.format": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "xml.validate": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "yaml.format": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "yaml.to-json": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "yaml.validate": {
+    "input-mode": {
+      "choices": [
+        "literal",
+        "file",
+        "stdin"
+      ]
+    },
+    "output": {
+      "kind": "output-file"
+    }
+  },
+  "file.info": {
+    "path": {
+      "kind": "path"
+    }
+  },
+  "file.checksum": {
+    "path": {
+      "kind": "file"
+    }
+  },
+  "time.convert": {
+    "unit": {
+      "choices": [
+        "auto",
+        "seconds",
+        "milliseconds",
+        "rfc3339"
+      ]
+    }
+  }
+}

@@ -39,6 +39,8 @@ func (c *CLI) Run(ctx context.Context, arguments []string) int {
 
 func (c *CLI) dispatch(ctx context.Context, arguments []string, jsonOutput bool) error {
 	switch arguments[0] {
+	case "ui", "web":
+		return c.ui(ctx, arguments[1:])
 	case "version", "--version", "-v":
 		return c.print(map[string]any{"version": c.version}, jsonOutput, func() { fmt.Fprintf(c.stdout, "fnsh %s\n", c.version) })
 	case "search":
@@ -503,6 +505,7 @@ Usage:
   fnsh pkg <add|remove|ls|info|repair> [name] [--json]
   fnsh ext <add|remove|ls|info> [name-or-path] [--json]
   fnsh doctor [--json]
+  fnsh ui [start|stop|status] [--port 8080] [--no-open]  (alias: web; default: start)
   fnsh version [--json]
 
 Examples:

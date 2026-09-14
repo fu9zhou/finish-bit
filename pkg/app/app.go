@@ -145,10 +145,16 @@ func (a *App) Describe(id string) (operation.Definition, error) {
 	if !ok {
 		return operation.Definition{}, &operation.Error{Code: operation.CodeNotFound, Message: fmt.Sprintf("operation %q was not found", id), Suggestion: fmt.Sprintf("fnsh search %q", id)}
 	}
-	return capability.Definition, nil
+	return describeMetadata(capability.Definition), nil
 }
 
-func (a *App) Capabilities() []operation.Definition { return a.snapshot().Definitions() }
+func (a *App) Capabilities() []operation.Definition {
+	definitions := a.snapshot().Definitions()
+	for i := range definitions {
+		definitions[i] = describeMetadata(definitions[i])
+	}
+	return definitions
+}
 
 func (a *App) Execute(ctx context.Context, id string, request operation.Request) (operation.Result, error) {
 	capability, ok := a.snapshot().Get(id)

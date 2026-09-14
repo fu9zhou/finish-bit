@@ -34,7 +34,9 @@
         "type": { "enum": ["string", "integer", "boolean", "strings"] },
         "description": { "type": "string" },
         "required": { "type": "boolean" },
-        "default": {}
+        "default": {},
+        "kind": { "enum": ["file", "directory", "path", "text-or-file", "output-file", "output-directory"] },
+        "choices": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
       }
     }
   }

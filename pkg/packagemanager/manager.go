@@ -30,6 +30,7 @@ type Manager struct {
 const maxPackageBytes int64 = 1 << 30
 
 type Installed struct {
+	TaskID      string            `json:"task_id,omitempty"`
 	Name        string            `json:"name"`
 	Version     string            `json:"version"`
 	License     string            `json:"license"`
@@ -49,6 +50,7 @@ type Status struct {
 	Platform    string     `json:"platform"`
 	Supported   bool       `json:"supported"`
 	Installed   *Installed `json:"installed,omitempty"`
+	NeedsRepair bool       `json:"needs_repair,omitempty"`
 }
 
 func DefaultRoot() (string, error) {
@@ -90,7 +92,7 @@ func PlatformKey() string {
 }
 
 func (m *Manager) Install(ctx context.Context, name string) (Installed, error) {
-	return m.install(ctx, name, false)
+	return m.trackedInstall(ctx, name, false)
 }
 
 func (m *Manager) install(ctx context.Context, name string, force bool) (Installed, error) {
@@ -114,7 +116,8 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 	if err := os.MkdirAll(filepath.Join(m.root, "packages", name), 0o755); err != nil {
 		return Installed{}, fmt.Errorf("create package directory: %w", err)
 	}
-	staging, err := os.MkdirTemp(filepath.Join(m.root, "packages", name), ".install-")
+	taskID, _ := ctx.Value(taskIDKey{}).(string)
+	staging, err := os.MkdirTemp(filepath.Join(m.root, "packages", name), ".install-"+taskID+"-")
 	if err != nil {
 		return Installed{}, fmt.Errorf("create package staging directory: %w", err)
 	}
@@ -251,6 +254,7 @@ func (m *Manager) install(ctx context.Context, name string, force bool) (Install
 		return Installed{}, err
 	}
 	installed := Installed{Name: name, Version: pkg.Version, License: pkg.License, Source: pkg.Source, Platform: platform, Installed: time.Now().UTC(), Executables: executables}
+	installed.TaskID = taskID
 	installed.Files, err = fileDigests(staging)
 	if err != nil {
 		return Installed{}, fmt.Errorf("record package integrity: %w", err)
@@ -472,6 +476,18 @@ func (m *Manager) Status(name string) (Status, error) {
 	status := Status{Name: pkg.Name, Version: pkg.Version, Description: pkg.Description, License: pkg.License, Source: pkg.Source, Platform: PlatformKey(), Supported: supported}
 	if installed, err := m.Info(name); err == nil {
 		status.Installed = &installed
+		for logical := range pkg.Artifacts[PlatformKey()].Executables {
+			path, err := m.Executable(name, logical)
+			if err != nil {
+				status.NeedsRepair = true
+				break
+			}
+			info, err := os.Stat(path)
+			if err != nil || !info.Mode().IsRegular() {
+				status.NeedsRepair = true
+				break
+			}
+		}
 	}
 	return status, nil
 }
@@ -507,9 +523,14 @@ func (m *Manager) Remove(name string) error {
 	if _, ok := m.registry.Find(name); !ok {
 		return &operation.Error{Code: operation.CodeInvalidInput, Message: fmt.Sprintf("unknown package %q", name)}
 	}
+	unlock, err := m.lockPackage(name)
+	if err != nil {
+		return err
+	}
+	defer unlock()
 	return os.RemoveAll(filepath.Join(m.root, "packages", name))
 }
 
 func (m *Manager) Repair(ctx context.Context, name string) (Installed, error) {
-	return m.install(ctx, name, true)
+	return m.trackedInstall(ctx, name, true)
 }

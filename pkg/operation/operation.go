@@ -26,6 +26,10 @@ type Parameter struct {
 	Description string    `json:"description"`
 	Required    bool      `json:"required,omitempty"`
 	Default     any       `json:"default,omitempty"`
+	// Kind describes path semantics; Choices lists selectable values for adapters.
+	// They are additive discovery metadata. Runners retain authoritative validation.
+	Kind    string   `json:"kind,omitempty"`
+	Choices []string `json:"choices,omitempty"`
 }
 
 type Requirement struct {
@@ -154,6 +158,28 @@ func ValidateDefinition(def Definition) error {
 			return fmt.Errorf("operation %q parameter %q has unsupported type %q", def.ID, parameter.Name, parameter.Type)
 		}
 		seen[parameter.Name] = true
+		if parameter.Kind != "" {
+			switch parameter.Kind {
+			case "file", "directory", "path", "text-or-file", "output-file", "output-directory":
+			default:
+				return fmt.Errorf("operation %q parameter %q has unsupported path kind %q", def.ID, parameter.Name, parameter.Kind)
+			}
+			if parameter.Type != TypeString && parameter.Type != TypeStrings {
+				return fmt.Errorf("path parameter %q must contain strings", parameter.Name)
+			}
+		}
+		if len(parameter.Choices) > 0 {
+			if parameter.Type != TypeString && parameter.Type != TypeInteger {
+				return fmt.Errorf("choices for parameter %q require a string or integer", parameter.Name)
+			}
+			seenChoices := map[string]bool{}
+			for _, choice := range parameter.Choices {
+				if seenChoices[choice] {
+					return fmt.Errorf("parameter %q has duplicate choice %q", parameter.Name, choice)
+				}
+				seenChoices[choice] = true
+			}
+		}
 	}
 	return nil
 }
